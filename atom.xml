@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://perror.dev</id>
+    <title>perror</title>
+    <updated>2023-02-17T12:20:09.757Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://perror.dev"/>
+    <link rel="self" href="https://perror.dev/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://perror.dev/images/avatar.png</logo>
+    <icon>https://perror.dev/favicon.ico</icon>
+    <rights>All rights reserved 2023, perror</rights>
+    <entry>
+        <title type="html"><![CDATA[install fluxcd in k8s 1.25.5]]></title>
+        <id>https://perror.dev/post/install-fluxcd-in-k8s-1255/</id>
+        <link href="https://perror.dev/post/install-fluxcd-in-k8s-1255/">
+        </link>
+        <updated>2023-02-17T12:09:22.000Z</updated>
+        <content type="html"><![CDATA[<ol>
+<li>install the flux cli: <code>brew install fluxcd/tap/flux</code></li>
+<li>show the flux cli version: <code>flux version</code></li>
+</ol>
+<pre><code>   ➜  ~ flux version
+flux: v0.39.0
+helm-controller: v0.26.0
+image-automation-controller: v0.26.1
+image-reflector-controller: v0.22.1
+kustomize-controller: v0.30.0
+notification-controller: v0.28.0
+source-controller: v0.31.0
+</code></pre>
+<ol start="3">
+<li>create git repo on github</li>
+<li>set GITHUB_TOKEN env</li>
+<li>install the flux cd to k8s: <code>flux bootstrap github --owner=&lt;you-github-name&gt; --repository=&lt;you-repo&gt; --path=./ --components-extra=image-reflector-controller,image-automation-controller  --read-write-key --branch=main</code>, <em>Don't forget <code>--components-extra=image-reflector-controller,image-automation-controller</code></em>, Only when this parameter is used can image-related pods be created.</li>
+<li>wait flux cd pod up.</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[mysql error: rec.cc:391 thread ]]></title>
+        <id>https://perror.dev/post/mysql-error-reccc391-thread/</id>
+        <link href="https://perror.dev/post/mysql-error-reccc391-thread/">
+        </link>
+        <updated>2023-02-17T12:03:02.000Z</updated>
+        <content type="html"><![CDATA[<p>This error only in the mysql 8.0.30 version.see https://bugs.mysql.com/bug.php?id=107941 bug report. Upgrade mysql version to 8.0.31 to resolve this error</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[如何清理 Kubernetes namespace 中的 finalizers 并成功删除 argocd namespace]]></title>
+        <id>https://perror.dev/post/shan-chu-argocd-namespace-fa-sheng-cuo-wu-some-content-in-the-namespace-has-finalizers-remaining-resources-finalizerargocdargoprojio-in-10-resource-instances/</id>
+        <link href="https://perror.dev/post/shan-chu-argocd-namespace-fa-sheng-cuo-wu-some-content-in-the-namespace-has-finalizers-remaining-resources-finalizerargocdargoprojio-in-10-resource-instances/">
+        </link>
+        <updated>2023-02-14T02:25:51.000Z</updated>
+        <content type="html"><![CDATA[<p>在删除 Kubernetes 集群中的资源时，我遵循以下步骤：</p>
+<ol>
+<li>删除所有 <code>deploy</code>。</li>
+<li>删除所有 <code>configmap</code>。</li>
+<li>删除所有 <code>namespace</code>。</li>
+</ol>
+<p>  然而，我发现在删除 <code>namespace</code> 时出现了问题。尝试了官方提供的命令<br>
+<code>kubectl delete -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml</code><br>
+但是 <code>namespace</code> 删除仍然被卡住了。我注意到该 <code>namespace</code> 下存在多个 <code>argoproj.io/v1alpha1/applications</code> 资源，并且所有资源都包含一个 <code>finalizers</code> 字段。通过搜索引擎，我了解到只有删除所有资源 YAML 文件中的 <code>finalizers</code> 字段才能解决 <code>namespace</code> 删除被卡住的问题。因此，我直接删除了 <code>finalizers</code> 字段并更新了所有资源，直到所有资源都被修改好为止。最终，<code>namespace</code> 能够被成功删除。<br>
+  在 Kubernetes 中，删除某些资源时，这些资源可能具有关联的其他资源，这些关联资源需要被清理，以便能够顺利删除要删除的资源。当某个 <code>namespace</code> 中存在关联资源时，删除该 <code>namespace</code> 可能会失败。在这种情况下，Kubernetes 会在 <code>namespace</code> 对应的 <code>finalizers</code> 列表中添加一些条目，以确保所有关联资源被清理，然后再删除 <code>namespace</code>。在删除 <code>namespace</code> 时，Kubernetes 会检查 <code>finalizers</code> 列表中的所有条目，确保这些条目对应的所有资源已被清理，然后才会继续删除 <code>namespace</code>。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[helm 报错：another operation (install/upgrade/rollback) is in progress处理方法]]></title>
+        <id>https://perror.dev/post/helm-bao-cuo-another-operation-installupgraderollback-is-in-progress-chu-li-fang-fa/</id>
+        <link href="https://perror.dev/post/helm-bao-cuo-another-operation-installupgraderollback-is-in-progress-chu-li-fang-fa/">
+        </link>
+        <updated>2023-02-01T07:46:36.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="背景">背景</h3>
+<p>使用flux cd来管理helmreleases</p>
+<h3 id="错误信息">错误信息</h3>
+<p>单个helmrelease报错：another operation (install/upgrade/rollback) is in progress。</p>
+<h3 id="处理方式">处理方式</h3>
+<ol>
+<li>运行 <code>helm history &lt;name&gt; --namespace &lt;ns&gt;</code><br>
+<img src="https://perror.dev/post-images/1675238086770.jpeg" alt="" loading="lazy"></li>
+<li>运行： <code>lux suspend hr &lt;name&gt; -n &lt;ns&gt;</code></li>
+<li>选择status=pending-upgrade的版本，运行： <code>helm uninstall &lt;name&gt; --namespace &lt;ns&gt; &lt;REVISION&gt;</code></li>
+<li>运行： <code>flux resume helmrelease &lt;name&gt; -n &lt;ns&gt;</code></li>
+</ol>
+<p>搞定😊</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[k8s PVC自动扩容实践 ]]></title>
+        <id>https://perror.dev/post/k8s-pvc-zi-dong-kuo-rong-shi-jian/</id>
+        <link href="https://perror.dev/post/k8s-pvc-zi-dong-kuo-rong-shi-jian/">
+        </link>
+        <updated>2022-10-27T09:07:29.000Z</updated>
+        <summary type="html"><![CDATA[<p>依赖:</p>
+<ol>
+<li>k8s &gt;= 1.24</li>
+<li><a href="https://github.com/topolvm/pvc-autoresizer">pvc-autoresizer</a> &gt;= 0.5.0</li>
+</ol>
+<p>一、安装 pvc-autoresizer</p>
+<ul>
+<li>build  and push docker 镜像 <code>git clone https://github.com/topolvm/pvc-autoresizer &amp;&amp; git checkout v0.5.0 &amp;&amp; cd pvc-autoresizer &amp;&amp; docker build -t pvc-autoresizer:0.5.0 . &amp;&amp; docker push pvc-autoresizer:0.5.0</code></li>
+<li>添加 helm repo: <code>helm repo add pvc-autoresizer https://topolvm.github.io/pvc-autoresizer/</code></li>
+</ul>
+]]></summary>
+        <content type="html"><![CDATA[<p>依赖:</p>
+<ol>
+<li>k8s &gt;= 1.24</li>
+<li><a href="https://github.com/topolvm/pvc-autoresizer">pvc-autoresizer</a> &gt;= 0.5.0</li>
+</ol>
+<p>一、安装 pvc-autoresizer</p>
+<ul>
+<li>build  and push docker 镜像 <code>git clone https://github.com/topolvm/pvc-autoresizer &amp;&amp; git checkout v0.5.0 &amp;&amp; cd pvc-autoresizer &amp;&amp; docker build -t pvc-autoresizer:0.5.0 . &amp;&amp; docker push pvc-autoresizer:0.5.0</code></li>
+<li>添加 helm repo: <code>helm repo add pvc-autoresizer https://topolvm.github.io/pvc-autoresizer/</code></li>
+</ul>
+  <!-- more -->
+<ul>
+<li>values.yaml</li>
+</ul>
+<pre><code># config from https://github.com/topolvm/pvc-autoresizer/blob/main/charts/pvc-autoresizer/values.yaml
+image:
+  # image.repository -- pvc-autoresizer image repository to use.
+  repository: perrorone/pvc-autoresizer
+
+  # image.tag -- pvc-autoresizer image tag to use.
+  # @default -- `{{ .Chart.AppVersion }}`
+  tag:  v0.5.0
+
+controller:
+  # controller.replicas -- Specify the number of replicas of the controller Pod.
+  replicas: 1
+
+  args:
+    # controller.args.prometheusURL -- Specify Prometheus URL to query volume stats.
+    # Used as &quot;--prometheus-url&quot; option
+    prometheusURL: &lt;you_prometheus_url&gt;
+</code></pre>
+<ul>
+<li>安装 pvc-autoresizer: <code>helm install --create-namespace --namespace pvc-autoresizer pvc-autoresizer pvc-autoresizer/pvc-autoresizer --values ./values.yaml&quot;</code></li>
+<li>检查是否成功 <code>kubectl get pod -n pvc-autoresizer | grep pvc-autoresizer</code></li>
+</ul>
+<p>二、 创建StatefulSet以及存储类</p>
+<ul>
+<li>编写stateful-set.yaml:</li>
+</ul>
+<pre><code>apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: test-pvc-autoresizer
+  namespace: staging
+  annotations:
+    resize.topolvm.io/enabled: &quot;true&quot; # 必须存在, 才能自动扩容
+parameters:
+  type: pd-ssd
+provisioner: pd.csi.storage.gke.io
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: test-pvc-autoresizer
+  namespace: staging
+spec:
+  selector:
+    matchLabels:
+      app: test-pvc-autoresizer
+  serviceName: &quot;test-pvc-autoresizer&quot;
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: test-pvc-autoresizer
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: test-pvc-autoresizer
+          image: perrorone/go-file:v1.0.0
+          ports:
+            - containerPort: 80
+              name: http
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+          volumeMounts:
+            - name: test-pvc-data
+              mountPath: /data
+          resources:
+            requests:
+              cpu: 200m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+  volumeClaimTemplates:
+    - metadata:
+        name: test-pvc-data
+        annotations:  # 必须存在, 使得自动创建的 PVC携带以下设置想才能自动扩容
+            resize.topolvm.io/storage_limit: 8Gi # 最大扩容大小
+            resize.topolvm.io/threshold: 20%
+      spec:
+        accessModes: [ &quot;ReadWriteOnce&quot; ]
+        storageClassName: &quot;test-pvc-autoresizer&quot;
+        resources:
+          requests:
+            storage: 1Gi
+</code></pre>
+<ul>
+<li>部署: <code>kubectl apply -f ./stateful-set.yaml</code></li>
+</ul>
+<p>三、测试</p>
+<ul>
+<li>
+<p>进入pod中检查挂载目录大小, <code>df -h</code> 输出可以看到<code>/data</code>目录只使用了1%空间</p>
+</li>
+<li>
+<p>写入文件测试自动扩容: <code>dd if=/dev/zero of=1G.file bs=50M count=20</code></p>
+</li>
+<li>
+<p>检查pvc-autoresizer pod 日志<br>
+<img src="https://perror.dev/post-images/1666863168702.jpg" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>再次检查pod挂载目录大小, 可以看见挂载目录已经使用了100%: <code>/dev/sdf                975.9M    959.9M         0 100% /data</code></p>
+</li>
+<li>
+<p>等待一会,再次查看挂载目录大小, 可以看见已经扩容成功: <code>/dev/sdf                  1.9G    960.4M   1007.4M  49% /data</code> 😋😋😋😋😋😋<br>
+<img src="https://perror.dev/post-images/1666863439959.jpg" alt="" loading="lazy"></p>
+</li>
+</ul>
+]]></content>
+    </entry>
+</feed>

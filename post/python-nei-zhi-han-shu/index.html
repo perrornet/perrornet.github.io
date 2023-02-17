@@ -1,0 +1,2065 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="abs(x): 接受一个整数或浮点数作为参数，返回该参数的绝对值，如果该参数是一个复数，则返回复数的模。
+&gt;&gt;&gt; abs(-1)
+1
+&gt;&gt;&gt; abs(4 - 8j)
+8.94427190999916 
+
+..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://perror.dev/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://perror.dev/styles/main.css">
+    <!-- 代码渲染风格css -->
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/vs2015.min.css">
+    
+    <!-- 代码高亮插件 -->
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <!-- 代码复制插件 -->
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <!-- live2d插件 -->
+    <link rel="stylesheet" href="https://perror.dev/media/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <!-- 数学公式 -->
+    
+    <title>python内置函数</title>
+
+    <!-- 大纲索引css调整 -->
+    
+    <style>
+        .markdownIt-TOC {
+            margin-left: 28%;
+            padding-left: 2px;
+            width: 80%;
+        }
+
+        .markdownIt-TOC li {
+            padding-left: 8%;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div id="landlord">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="240" height="250" class="live2d"></canvas>
+    </div>
+    <div id="domainname" style="display:none">https://perror.dev</div>
+    <div id="content">
+        <div>
+            <!----------- 移动端导航栏👇 ----------------->
+            <div id="bar">
+                <style>
+  .navmobile {
+    z-index: 15;
+    max-height: 40vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .navbar {
+      max-width: 100vw;
+    }
+  }
+
+  @media screen and (max-width:1200px) and (min-width: 768px) {
+    @media (min-width: 768px) {
+      .navbar-nav {
+        float: right;
+        margin: 0;
+      }
+    }
+  }
+
+  @media screen and (max-width:768px) {
+    .mbapspan {
+      padding: 0;
+    }
+  }
+</style>
+<div class="pjaxloading"  onclick="pjaxloadingClose()">
+  <div class="loadingbackground"></div>
+  <div id="loading">
+    <div class="loading">
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-inverse navbar-fixed-top navmobile">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barmenu"
+        aria-expanded="false" id="barbutton">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a data-pjax class="navbar-brand" style="color:white" href="https://perror.dev">perror&nbsp;&nbsp;|</a>
+      <span class="navbar-brand mbapspan"><i id="mbaplayer" class="fa fa-play-circle-o" aria-hidden="true"
+          style="font-size: 28px;top: 12px;position: absolute;" onclick="aplayerPlay();"></i></span>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="barmenu">
+      <ul class="nav navbar-nav">
+        
+        
+        <li>
+          <a data-pjax href="/" style="color:white">
+            首页
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/archives" style="color:white">
+            归档
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/tags" style="color:white">
+            标签
+          </a>
+        </li>
+        
+        
+        
+        
+          
+        <li><a data-pjax href="https://perror.dev/friends" style="color:white">友链</a></li>
+
+        
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+
+  <!-- 引入jQuery核心js文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+  <script>
+    let btstate = false;
+    var bt = $("#barbutton");
+    var bm = $("#barmenu");
+    bt.click(function () {
+      dropdown();
+    })
+    function dropdown() {
+      console.log(btstate);
+      //下拉
+      if (btstate == false) {
+        bt.removeClass("collapsed");
+        bt.attr("aria-expanded", "true");
+        bm.attr("aria-expanded", "true")
+        bm.fadeIn(700);
+        btstate = true;
+      }
+      else {
+        bt.addClass("collapsed");
+        bt.attr("aria-expanded", "false");
+        bm.removeClass("in");
+        bm.hide();
+        bm.attr("aria-expanded", "false");
+        btstate = false;
+      }
+    }
+  </script> 
+            </div>
+            <!----------- 移动端导航栏👆 ----------------->
+
+            <!--------------- pc端菜单栏👇 ---------------->
+            <div class="side"><head>
+    <link rel="stylesheet" href="https://perror.dev/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://perror.dev/styles/main.css">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/vs2015.min.css">
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <link rel="stylesheet" href="https://perror.dev/media/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- fancybox -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+    <!--------- 数学公式👇---- -->
+    
+    <!--------- 数学公式👆----------------- -->
+    <!--------- daovocie功能👇 ------------------->
+    
+    <!--------- daovocie功能👆 ------------------->
+    <!-- -----------------twikoo评论系统引入👇 --------->
+    <script src="https://cdn.jsdelivr.net/npm/twikoo@1.3.1/dist/twikoo.all.min.js"></script>
+    <!-- -----------------twikoo评论系统引入👆 --------->
+    <!---------------- leancloud api 功能依赖引入👇 -------->
+    <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script>
+    <!---------------- leancloud api 功能依赖引入👆 -------->
+    <!------------------ valine评论系统引入👇 ------------------>
+    <script src="https://perror.dev/media/js/valine.min.js"></script>
+    <!------------------ valine评论系统引入👆 ------------------>
+    <!---------------- 今日诗词api功能依赖👇 ----------------------->
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <!---------------- 今日诗词api功能依赖👆 ----------------------->
+    <!---------------- 今日诗词api功能依赖👇 ----------------------->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ispeak-bber/ispeak-bber.min.js" charset="utf-8"></script>
+    <!---------------- 哔哔功能依赖👆 ----------------------->
+
+
+</head>
+
+<style>
+    body {
+        overflow-x: hidden;
+        height: 100vh;
+        overflow-y: scroll;
+        cursor: url("https://perror.dev/media/images/mouse_cursor.png"), auto
+    }
+</style>
+
+<body>
+    <!--=------ 页面加载动态画面👇 --------------->
+    <div class="pjaxloading" onclick="pjaxloadingClose()">
+        <div class="loadingbackground"></div>
+        <div id="loading-aname">
+            <div class="loading-aname">
+            </div>
+        </div>
+    </div>
+    <!--=------ 页面加载动态画面👆 --------------->
+
+    <!--------------- 左侧菜单栏👇 ------------------------>
+    
+    <div id=side>
+        <div class="r_m_div">
+            <a onclick="showAaplayer()"><i style="font-size: 20px;"><img
+                        src='https://perror.dev/media/images/music.png' alt="音乐播放器" class="musicbtn"></i></a>
+        </div>
+        <div class="avatar-border">
+            <img src="https://perror.dev/images/avatar.png?v=1676636407396" class="avatar">
+        </div>
+        <div class="sitename">perror</div>
+        <span class="description" data-text='["温故而知新"]'>&nbsp;</span>
+        <div class="siteinfocontainer">
+            <span class="siteinfo">文章</span>
+            <span class="siteinfo">标签</span>
+        </div>
+        <div class="siteinfocontainer">
+            <span class="siteinfo" id="siteinfo-postsnum"></span>
+            <span class="siteinfo">6</span>
+        </div>
+        
+        <div class="search">
+            <!-- <input type="text" class="search-input" placeholder="标题搜索(●'◡'●)" /> -->
+            <input type="text" class="search-input" placeholder="标题搜索 ⚆_⚆ つ♡">
+            <div class="search-results"></div>
+        </div>
+        
+    <div class="share-button">
+        <span></span>
+        
+        <a href="https://github.com/perrornet" target="_blank"><i style="font-size: 20px;"><img class="icon"
+                    src="https://perror.dev/media/images/github.png" alt=""></i></a>
+        
+        
+        
+        
+        
+        
+        
+        
+    </div>
+    <div id="qq" style="display:none"></div>
+    <!------------ 加载菜单按钮👇 ------------------------->
+    <div class="menucontainer">
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="首页"></i>&nbsp;<span
+                    data-text="首页">首页</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/archives" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="归档"></i>&nbsp;<span
+                    data-text="归档">归档</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/tags" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="标签"></i>&nbsp;<span
+                    data-text="标签">标签</span>
+            </a>
+        </div>
+        
+        
+
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="https://perror.dev/friends" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="友人帐"></i>&nbsp;<span data-text="友人帐">友人帐</span>
+            </a>
+        </div>
+        
+        <!--  -->
+    </div>
+    <!------------ 加载菜单按钮👆 ------------------------->
+    <hr>
+    <style>
+    .copyright {
+        font-size: 15px;
+        color: #d9d9d9;
+    }
+
+
+    @media screen and (min-width: 1200px) {
+        .foot {
+            width: 100%;
+            height: 130px;
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        .foot {
+            display: none;
+        }
+    }
+</style>
+
+<body>
+    <div class="foot">
+        <div id="footinfo"> | Theme: <a
+                href="https://github.com/850552586/gridea-theme-fog">Fog</a>
+            <div>
+                
+                <div id="sitegotimeDate">载入天数...</div>
+                <div id="sitegotimes">载入时分秒...</div>
+                <div id="cussitetime" style="display:none">02/22/2020</div>
+                
+            </div>
+            <div>
+                
+            </div>
+            <div class="copyright" style="color:white;text-align: center;">
+            </div>
+        </div>
+
+
+
+    </div>
+</body>
+
+<script>
+    //----------------------站点运行时间
+    var now = new Date();
+
+    function createtime() {
+        var sitegotime = document.getElementById("cussitetime").innerHTML + " 00:00:00";
+        var grt = new Date(sitegotime); //此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime() + 250);
+        days = (now - grt) / 1000 / 60 / 60 / 24;
+        dnum = Math.floor(days);
+        hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+        hnum = Math.floor(hours);
+        if (String(hnum).length == 1) {
+            hnum = "0" + hnum;
+        }
+        minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes);
+        if (String(mnum).length == 1) {
+            mnum = "0" + mnum;
+        }
+        seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds);
+        if (String(snum).length == 1) {
+            snum = "0" + snum;
+        }
+        document.getElementById("sitegotimeDate").innerHTML = "本站已安全运行 " + dnum + " 天 ";
+        document.getElementById("sitegotimes").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+
+    let intervalId = setInterval("createtime()", 250);
+</script>
+
+    </div>
+
+    <img class="moon" src="https://perror.dev/media/images/moon.png" onclick="moonlight()">
+    <script src="https://perror.dev/media/js/wordshow.js"></script>
+    
+    <!--------------- 左侧菜单栏👆 ------------------------>
+
+    <!----------------- 顶部菜单栏👇 ------------------------>
+    
+    <!----------------- 顶部菜单栏👆 ------------------------>
+
+<!--核心功能加载-->
+<script src="https://perror.dev/media/js/mainfunc.js"></script>
+
+<!------------- Fog1.0版本彩蛋👇 -------------->
+    <!-- <section id="terrestrial" class="popup">
+        <a href="#" class="back">&lt; back</a>
+    </section>
+
+    <div class="flycontainer">
+        <div class="flyword">御风飞行中...</div>
+    </div>
+
+    <script>
+        $("#fog_go").click(function(){fog_go()});
+        async function fog_go(){
+            $(".bars").hide()
+            $("#live2d").hide()
+            await sleep(3000);
+            $(".flycontainer").css("display","flex");
+            $(".popup").fadeOut(500)
+            await sleep(2000);
+            var sitename = "perror";
+            getFogUser(sitename);
+        }
+
+        function fog_goregis(){
+            var sitename = "perror";
+            var siteurl = "https://perror.dev";
+            regisFogUser(sitename,siteurl);
+        }
+        fog_goregis();
+    </script> -->
+<!------------- Fog1.0版本彩蛋👆 -------------->
+<script>
+    function change_topmenu(){
+        tmcolor = "antiquewhite"
+        tsnamecolor = "antiquewhite"
+        $(".navbar-inverse .navbar-nav>li>a").css("color",tmcolor)
+        $(".navbar-inverse .navbar-brand").css("color",tsnamecolor)
+        $(".navbar-fixed-top").css("border-radius","0 0 10px 10px")
+    }
+</script>
+
+<!------ 根据自定义配置声明变量👇 --------------------->
+    
+    <script>
+        var postnumChoice = false
+    </script>
+    
+    
+    <script>
+        var shareChoice = false
+    </script>
+    
+    
+    <script>
+        var donateChoice = false
+    </script>
+    
+    
+    <script>
+        var searchChoice = true
+    </script>
+    
+    <script>let postsnum = 0;</script>
+    <div id="side-posttitle" style="display: none;">
+    
+    
+    install fluxcd in k8s 1.25.5
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    mysql error: rec.cc:391 thread 
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    如何清理 Kubernetes namespace 中的 finalizers 并成功删除 argocd namespace
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    helm 报错：another operation (install/upgrade/rollback) is in progress处理方法
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    k8s PVC自动扩容实践 
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    redis的一些小知识
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    cast类型转换库—go库推荐
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    redis sds详解
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    go的channel详解
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    python IO多路复用实践
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    python dict
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    python深拷贝浅拷贝
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    python内置函数
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    </div>
+    
+        <script>
+            var menupos = 'left';
+            $("#siteinfo-postsnum").html(postsnum);
+        </script>
+    
+    <script>
+        let commentsHide = false
+    </script>
+    <!------ 根据自定义配置声明变量👆 --------------------->
+
+
+    <!----------根据自定义配置设置图标信息👇---------->
+    <script>
+        var icondict = new Array();
+    </script>
+    
+        
+    
+    <!----------根据自定义配置设置图标信息👆---------->
+</body>
+
+<script src="https://perror.dev/media/share/dist/Share.js"></script>
+<!-- 页面pjax测试 -->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.js"></script>
+<!--确保jQuery已经在此之前加载-->
+<!-- <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script> -->
+<script src="https://perror.dev/media/js/all-pjax.js"></script>
+<script>
+    //-------------------------------说说功能👇--------------------------------------
+    let talksall = [];
+    let talks = [];
+    let talkindex = 0;
+    get();
+
+    function get() {
+        var t = JSON.parse('[]');
+        talkindex = t.length - 1;
+        for (var i = 0; i <= t.length - 1; i++) {
+            var d = {};
+            d["time"] = t[i].time;
+            d["author"] = t[i].author;
+            d["text"] = t[i].text;
+            d["img"] = t[i].img;
+            talksall.push(d);
+        }
+    }
+
+    function add() {
+        for (var i = talkindex; i >= 0 && i > talkindex - 3; i--) {
+            talks.push(talksall[i]);
+        }
+        talkindex = (talkindex - 3) >= 0 ? (talkindex - 3) : -1;
+        if (talkindex < 0) $("#getmorebt").hide();
+        show();
+    }
+
+    function show() {
+        var talkT = document.getElementById("talkContainer");
+        talkT.innerHTML = "";
+        for (var i = 0; i < talks.length; i++) {
+            if (talks[i].img != '') {
+                talkT.innerHTML += '\
+            <div class="talk" v-for="t in talks"> \
+                <span data-fancybox="images" href="' + talks[i].img + '"><img src="' + talks[i].img + '" class="talkimg"></span> \
+                <div class="ainfo">\
+                    <div class="ainfo-intro">\
+                        <div class="author">' + talks[i].author + '</div>·\
+                        <div class="time">' + talks[i].time + '</div>\
+                    </div>\
+                </div>\
+                <div class="talkcontent">' + talks[i].text + '\
+                </div\>\
+            ';
+            } else {
+                talkT.innerHTML += '\
+            <div class="talk" v-for="t in talks"> \
+                <div class="ainfo">\
+                    <div class="ainfo-intro">\
+                        <div class="author">' + talks[i].author + '</div>·\
+                        <div class="time">' + talks[i].time + '</div>\
+                    </div>\
+                </div>\
+                <div class="talkcontent">' + talks[i].text + '\
+                </div\>\
+            ';
+            }
+        }
+    }
+    //-------------------------------说说功能👆--------------------------------------
+</script>
+
+<!---->
+<script>
+    function replaceAvatar() {
+        twikoo_avatar = $(".tk-avatar-img");
+        for (var i = 0; i < twikoo_avatar.length; i++) {
+            var asrc = twikoo_avatar.eq(i).attr('src');
+            if (asrc.search('cn.gravatar.com') != -1) {
+                twikoo_avatar.eq(i).attr('src', 'https://perror.dev/media/images/comavatar.png');
+            }
+        }
+    }
+
+    function showWechat() {
+        var wechat = '';
+        alert("博主微信号：" + wechat);
+        return false;
+    }
+</script>
+
+<script>
+    /**
+     * https://github.com/tangkaichuan/gridea-search
+     */
+    // 检查缓存是否最新
+    function checkCache() {
+        var caches_postsnum = localStorage.getItem("postsnum");
+        var pt = document.getElementById("side-posttitle").innerHTML;
+        pt = pt.replace(/\s+/g, '').replace(/<script>.*?<\/script>/gi, "")
+        var ptlen = pt.length;
+        var ptlen_storage = localStorage.getItem("poststitlelen");
+        if (caches_postsnum != postsnum || ptlen != ptlen_storage) {
+            console.log("更新缓存");
+            return false
+        }
+        return true;
+    }
+
+    (function () {
+        var CACHES = checkCache()
+        if (!CACHES) {
+            var NOW = Date.now()
+            var API_CONTENT = '../api-content/index.html' + '?_=' + NOW
+            preload(API_CONTENT);
+            getContents(show_getContentresult);
+        }
+
+        function show_getContentresult(data) {
+            console.log("获取成功");
+            var postslen = data["posts"].length;
+            localStorage.setItem('postsnum', postslen);
+            var poststitlelen = 0;
+            var pt = document.getElementById("side-posttitle").innerHTML;
+            pt = pt.replace(/\s+/g, '').replace(/<script>.*?<\/script>/gi, "");
+            localStorage.setItem('poststitlelen', pt.length);
+        }
+
+
+
+        // preload
+        function preload(url) {
+            var preloadLink = document.createElement('link')
+            preloadLink.href = url
+            preloadLink.rel = 'preload'
+            preloadLink.as = 'fetch'
+            preloadLink.crossOrigin = 'anonymous'
+            document.head.appendChild(preloadLink)
+        }
+
+        // 异步 GET 请求
+        function get(obj) {
+            var xhr = new XMLHttpRequest()
+            xhr.open('get', obj.url, true)
+            xhr.send(null)
+            xhr.onreadystatechange = function () {
+                // 异步请求：响应状态为4，数据加载完毕
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        obj.success(xhr.responseText)
+                    } else {
+                        obj.error(xhr.status)
+                    }
+                }
+            }
+        }
+
+        // 获取博客全文 api
+        function getContents(callback) {
+            if (CACHES) {
+                callback(CACHES.contents)
+            } else {
+                get({
+                    url: API_CONTENT,
+                    success: function (data) {
+                        callback(JSON.parse(data));
+                        localStorage.setItem('ContentsCache', data);
+                        getStorageContent();
+                    }
+                })
+            }
+        }
+    })()
+    //------------------------核心功能--pjax全局渲染👇-------------------
+    let talkinit = false;
+    $(document).pjax('a[data-pjax]', '#main', {
+        fragment: '#main',
+        timeout: 8000
+    }).on('pjax:complete', function () {
+        //代码块高亮渲染
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+        //文章热度
+        if(postnumChoice){
+            getHotnum();
+        }
+        //文章索引
+        toginit();
+        //清空搜索栏
+        if (searchChoice) {
+            searchInit();
+            searchInput.value = "";
+        }
+        var pl = window.location.pathname;
+        //说说更新
+        if (pl.search("talk") != -1 && !talkinit) {
+            add();
+            talkinit = true;
+        } else if (pl.search("talk") != -1) {
+            show();
+        }
+        if (pl.search("post") != -1) {
+            if (shareChoice)
+                shareInit();
+            if (donateChoice)
+                donateInit();
+            if ("default" == "default"&&!commentsHide) {
+                $("#comment").hide()
+                commentsHide = true
+            }
+            lazyload();
+            codeinit();
+            if ("default" == "twikoo") {
+                //twikoo头像更换
+                setTimeout(replaceAvatar, 3000);
+                setTimeout(replaceAvatar, 8000); //部分博主站点速度加载过慢，再添加一个延迟
+            }
+        }
+        if (btstate == true)
+            dropdown();
+    }).on('pjax:start', function () {
+        $(".pjaxloading").fadeIn(50);
+    }).on('pjax:end', function () {
+        $(".pjaxloading").fadeOut(50);
+    });
+    //------------------------核心功能--pjax全局渲染👆-------------------
+
+    //-------------------------------------------------搜索
+    // 获取搜索框、搜索按钮、清空搜索、结果输出对应的元素
+    if (searchChoice) {
+        var searchInput = document.querySelector('.search-input');
+        var searchResults = document.querySelector('.search-results');
+    }
+    // 申明保存文章的标题、链接、内容的数组变量
+    var searchValue = '',
+        arrItems = [],
+        arrLinks = [],
+        arrTitles = [],
+        arrContents = [],
+        arrResults = [],
+        indexItem = [],
+        itemLength = 0;
+    var tmpDiv = document.createElement('div');
+    tmpDiv.className = 'result-item';
+
+
+    function getStorageContent() {
+        var data = localStorage.getItem('ContentsCache');
+        data = JSON.parse(data);
+        posts = data["posts"];
+        for (var i = 0; i < posts.length; i++) {
+            arrLinks[i] = posts[i].link;
+            arrTitles[i] = posts[i].title;
+            arrContents[i] = posts[i].content;
+            itemLength++;
+        }
+    }
+    if (checkCache())
+        getStorageContent();
+    // 输入框内容变化后就开始匹配，可以不用点按钮
+    // 经测试，onkeydown, onchange 等方法效果不太理想，
+    // 存在输入延迟等问题，最后发现触发 input 事件最理想，
+    // 并且可以处理中文输入法拼写的变化
+    searchInput.oninput = function () {
+        setTimeout(searchConfirm, 0);
+    }
+    searchInput.onfocus = function () {
+        searchResults.style.display = 'block';
+    }
+
+    function searchConfirm() {
+        if (searchInput.value == '') {
+            searchResults.style.display = 'none';
+        } else if (searchInput.value.search(/^\s+$/) >= 0) {
+            // 检测输入值全是空白的情况
+            searchInit();
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '请输入有效内容...';
+            searchResults.appendChild(itemDiv);
+        } else {
+            // 合法输入值的情况
+            searchInit();
+            searchValue = searchInput.value;
+            // 在标题、内容中查找
+            searchMatching(arrTitles, arrContents, searchValue);
+        }
+    }
+
+    // 每次搜索完成后的初始化
+    function searchInit() {
+        arrResults = [];
+        indexItem = [];
+        searchResults.innerHTML = '';
+        searchResults.style.display = 'block';
+    }
+
+    function searchMatching(arr1, arr2, input) {
+        // 忽略输入大小写
+        input = new RegExp(input, 'i');
+        var step = 10;
+        // 在所有文章标题、内容中匹配查询值
+        for (i = 0; i < itemLength; i++) {
+            var indexContent = arr2[i].search(input);
+            //标题匹配
+            if (arr1[i].search(input) != -1) {
+                indexItem.push(i); // 保存匹配值的索引
+                if (indexContent != -1) {
+                    startindex = (indexContent - step) >= 0 ? (indexContent - step) : 0;
+                    var searchcontent = arr2[i].slice(indexContent - step, indexContent + 5)
+                    arrResults.push("....." + searchcontent + ".....");
+                } else
+                    arrResults.push("");
+            }
+            //内容匹配
+            else if (indexContent != -1) {
+                indexItem.push(i); // 保存匹配值的索引
+
+                startindex = (indexContent - step) >= 0 ? (indexContent - step) : 0;
+                var searchcontent = arr2[i].slice(indexContent - step, indexContent + 5)
+                arrResults.push("....." + searchcontent + ".....");
+            }
+        }
+
+        // 输出总共匹配到的数目
+        var totalDiv = tmpDiv.cloneNode(true);
+        totalDiv.innerHTML = '<b>总匹配：' + indexItem.length + ' 项<hr></b>';
+        searchResults.appendChild(totalDiv);
+
+        // 未匹配到内容的情况
+        if (indexItem.length == 0) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '未匹配到内容...';
+            searchResults.appendChild(itemDiv);
+        }
+
+        // 将所有匹配内容进行组合
+        for (i = 0; i < arrResults.length; i++) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerHTML = '<a data-pjax class="searchresults" href="' + arrLinks[indexItem[i]] + '"><b>[' +
+                arrTitles[indexItem[i]] +
+                ']</b><p>' + arrResults[i] + '</p></a><hr />';
+            searchResults.appendChild(itemDiv);
+        }
+    }
+</script>
+
+
+
+<!--------------------- 菜单栏图标加载功能👇 ----------------------->
+<script>
+var menulist = $(".menuicon");
+var menulength = menulist.length;
+for (var i = 0; i < menulength; i++) {
+    var altname = menulist.eq(i).attr("alt");
+    var iconurl = icondict[altname];
+    if (iconurl == undefined || iconurl == '')
+        continue;
+    if (iconurl == 'Home') {
+        menulist.eq(i).attr("src", "https://perror.dev/media/images/Home.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Archive') {
+menulist.eq(i).attr("src", "https://perror.dev/media/images/Archive.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Tag') {
+menulist.eq(i).attr("src", "https://perror.dev/media/images/Tag.png");
+menulist.eq(i).show();
+} else if (iconurl == 'About') {
+menulist.eq(i).attr("src", "https://perror.dev/media/images/About.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Talk') {
+menulist.eq(i).attr("src", "https://perror.dev/media/images/Talk.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Friends') {
+menulist.eq(i).attr("src", "https://perror.dev/media/images/Friends.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Fly') {
+menulist.eq(i).attr("src", "https://perror.dev/media/images/wind.png");
+menulist.eq(i).show();
+} else {
+menulist.eq(i).attr("src", iconurl);
+menulist.eq(i).show();
+}
+}
+</script>
+<!--------------------- 菜单栏图标加载功能👆 ----------------------->
+
+<script>
+    //--------------------bber-onetalk加载👇--------------------------------
+    function bberonetalkLoad(){
+        bberjsonurl = '';
+        if ( $("#bber-talk").length > 0 ) {
+        jsonUrl = bberjsonurl
+        $.getJSON(jsonUrl+"?t="+Date.parse( new Date()),function(res){
+        var bberHtml = ''
+        $.each(res.data, function(i, item){
+            d = new Date(item.date)
+            date = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate() +' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds()
+            dataTime = '<span class="datatime">'+date+'</span>'
+            bberHtml += '<li class="item item-'+(i+1)+'">'+dataTime+'： <a data-pjax href="https://perror.dev/bber">'+item.content+'</a></li>'
+        });
+        $('#bber-talk').append('<span class="index-talk-icon"><svg viewBox="0 0 1024 1024" width="21" height="21"><path d="M184.32 891.667692c-12.603077 0-25.206154-2.363077-37.809231-7.876923-37.021538-14.966154-59.864615-49.624615-59.864615-89.009231v-275.692307c0-212.676923 173.292308-385.969231 385.969231-385.969231h78.76923c212.676923 0 385.969231 173.292308 385.969231 385.969231 0 169.353846-137.846154 307.2-307.2 307.2H289.083077l-37.021539 37.021538c-18.904615 18.116923-43.323077 28.356923-67.741538 28.356923zM472.615385 195.347692c-178.018462 0-322.953846 144.935385-322.953847 322.953846v275.692308c0 21.267692 15.753846 29.144615 20.48 31.507692 4.726154 2.363077 22.055385 7.876923 37.021539-7.08923l46.473846-46.473846c6.301538-6.301538 14.178462-9.452308 22.055385-9.452308h354.461538c134.695385 0 244.184615-109.489231 244.184616-244.184616 0-178.018462-144.935385-322.953846-322.953847-322.953846H472.615385z"></path><path d="M321.378462 512m-59.076924 0a59.076923 59.076923 0 1 0 118.153847 0 59.076923 59.076923 0 1 0-118.153847 0Z"></path><path d="M518.301538 512m-59.076923 0a59.076923 59.076923 0 1 0 118.153847 0 59.076923 59.076923 0 1 0-118.153847 0Z"></path><path d="M715.224615 512m-59.076923 0a59.076923 59.076923 0 1 0 118.153846 0 59.076923 59.076923 0 1 0-118.153846 0Z"></path></svg></span><ul class="talk-list">'+bberHtml+'</ul>')
+        //Lately({ 'target': '#bber-talk .datatime' });
+        });
+        function Roll (){
+        var list_li = $('.talk-list li'),cur_li = list_li.first(),last_li = list_li.last();
+        last_li.after(cur_li);
+        };
+        setInterval(Roll,3000);
+    }
+    }
+  //--------------------bber-onetalk加载👆--------------------------------
+</script>
+
+<script>
+    var ClicksideState = 1
+    var cur_readingmode = false
+    function readingmode(){
+        if (!cur_readingmode){
+            if(menupos == 'left'){
+                if(ClicksideState==1)
+                menu_openclose1()
+            }
+            $("#tab1").fadeOut(50)
+            $("#bg").fadeOut(50)
+            $(".navbar").fadeOut(50)
+            $(".markdownIt-TOC li a").css("color","black")
+            cur_readingmode = true
+        }else{
+            if(menupos == 'left'){
+                if(ClicksideState==0)
+                    menu_openclose1()
+            }
+            $("#tab1").fadeIn(50)
+            $("#bg").fadeIn(50)
+            $(".navbar").fadeIn(50)
+            $(".markdownIt-TOC li a").css("color","antiquewhite")
+            cur_readingmode = false  
+        }
+    }
+</script>
+
+
+<!----夜间模式👇-->
+<script>
+    var moonlightState = false
+    function moonlight(){
+        if(!moonlightState){
+            $("#bg").fadeOut(200)
+            $('body').css("background","rgba(0,0,0,0.8)")
+            $(".markdownIt-TOC li a").css("color","white")
+            $(".text p, .text ul").css("color","white")
+            $("#articlecontent").css("color","white")
+            $(".post-copyright").css("background","rgba(10,10,10,0.5)")
+            $('blockquote').css("background","rgba(10,10,10,0.6)")
+            $("#articlecontent").css("background","rgba(10,10,10,0.5)")
+            moonlightState = true
+            $(".moon").attr("src","https://perror.dev/media/images/sun.png")
+        }else{
+            $("#bg").show()
+            $(".markdownIt-TOC li a").css("color","antiquewhite")
+            $(".text p, .text ul").css("color","rgba(0, 0, 0, 0.7)")
+            $("#articlecontent").css("color","black")
+            $(".post-copyright").css("background","#f9f9f9")
+            $('blockquote').css("background","#eff8f0")
+            $("#articlecontent").css("background","white")
+            $(".moon").attr("src","https://perror.dev/media/images/moon.png")
+            $('body').css("background","white")
+            moonlightState = false
+        }
+    }
+</script>
+<!----夜间模式👆--></div>
+            <!--------------- pc端菜单栏👆 ---------------->
+
+            <!-- ----------------左侧菜单栏html 👇-------------------------------------->
+            
+            <div>
+                <div id="tab1" class="tab">
+                    <div class="bars">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="close"></div>
+                </div>
+                <div class="col-md-1 col-lg-3"></div>
+                <!-- main标签，pjax渲染时加载以下内容👇 -->
+                <div id="main" class="col-xs-12 col-sm-12 col-md-12 col-lg-7" style="padding:0;">
+                    <div class="readingmode" onclick="readingmode()">阅</div>
+                    <link rel="stylesheet" href="https://perror.dev/media/css/font-awesome.css">
+
+<body>
+    <div class="allcontent" id="postdetail">
+        <div class="postshow postpadding" style="padding-bottom: 0;">
+            
+            <div class="postdetailimg">
+                <img src="https://perror.dev/post-images/python-nei-zhi-han-shu.jpg" class="postimage" style="cursor:auto">
+            </div>
+            <div class="postinfo-detail">
+                <div class="postdate"><i class="fa fa-calendar"></i>2017-12-15</div>
+                <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 28 min read</div>
+                <div class="posttag">
+                    
+                </div>
+            </div>
+            
+        <div id="articlecontent">
+            <div id="texttitle" style="text-align: center">
+                <h2 id="ptitle">python内置函数</h2>
+                <!-- id 将作为查询条件 -->
+                <div id="pl" style="display:none">https://perror.dev/post/python-nei-zhi-han-shu/</div>
+                <div id="rootaddr" style="display:none">https://perror.dev</div>
+                
+            </div>
+            <div class="text ">
+                <p>abs(x): 接受一个整数或浮点数作为参数，返回该参数的绝对值，如果该参数是一个复数，则返回复数的模。</p>
+<pre><code>&gt;&gt;&gt; abs(-1)
+1
+&gt;&gt;&gt; abs(4 - 8j)
+8.94427190999916 
+</code></pre>
+<p>all(iter): 接受一个可迭代类型，如果该参数内所有元素为真返回True，否则返回False。</p>
+<!-- more -->
+<pre><code>&gt;&gt;&gt; all([1,2,3,4,5])
+True
+&gt;&gt;&gt; all([1,2,3,4,0])
+False 
+</code></pre>
+<p>any(iter):接受一个可迭代类型为参数,如果该参数内任何元素为真,则返回True,否则返回False.</p>
+<pre><code>&gt;&gt;&gt; any([0, 0,1])
+True
+&gt;&gt;&gt; any([0, 0,0])
+False
+</code></pre>
+<p>asicc(object):接受一个对象, 将调用该对象的__repr__方法, 返回的字符串会将\x,\u,\U进行转移输出.</p>
+<pre><code>In [4]: class a:
+   ...:     def __repr__(self):
+   ...:         return &quot;repr&quot;
+In [5]: ascii(a())
+Out[5]: 'repr'
+In [9]: ascii(&quot;\n\rfdsafdsa&quot;)
+Out[9]: &quot;'\\n\\rfdsafdsa'&quot; 
+</code></pre>
+<p>bin(x):接受一个整数作为参数, 并将该参数转换成以&quot;0b&quot;前缀的二进制字符串,如果x不是一个整数,那么将会调用对象的__index__方法的整数并转换成二进制.</p>
+<pre><code>In [15]: class a:
+    ...:     def __index__(self):
+    ...:         return 1
+In [14]: bin(1)
+Out[14]: '0b1'
+In [16]: bin(a())
+Out[16]: '0b1' 
+</code></pre>
+<p>bool([x]):如果不传参数,则默认返回Fase,如果X是一个不是整数或浮点数则首先调用对象的__bool__方法, 如果对象的__bool__方法未定义,其次调用__len__方法,如果返回0则bool()返回False,否则返回True,如果对象__len__、__bool__方法都未定义则默认返回True</p>
+<pre><code>In [39]: bool(1)
+Out[39]: True
+In [40]: bool(0.0)
+Out[40]: False
+In [41]: bool(0 - 0j)
+Out[41]: False
+In [43]: class a:
+    ...:     def __bool__(self): return True
+    ...:     def __len__(self): return 0
+In [45]: bool(a())
+Out[45]: True
+In [44]: bool(a)
+Out[44]: True 
+</code></pre>
+<p>bytearray([source[, encoding[, errors]]]):接受一个大于等于0小于256的整数或者一个可迭代类型、如果参数一个字符串,那么必须指定encoding. 返回一个新的字节数组.如果传入一个对象首先调用该对象__index__, 如果未定义__index__则调用对象__iter__方法.</p>
+<pre><code>In [64]: class a:
+    ...:     def __iter__(self):
+    ...:         for i in range(0, 256):
+    ...:             yield i
+    ...:     def __index__(self): return 1
+    ...:
+In [65]: bytearray(a())
+Out[65]: bytearray(b'\x00')
+In [48]: bytearray()
+Out[48]: bytearray(b'')
+In [49]: bytearray([1,2,3,4,5,6,7])
+Out[49]: bytearray(b'\x01\x02\x03\x04\x05\x06\x07')
+In [77]: bytearray(1)
+Out[77]: bytearray(b'\x00') 
+</code></pre>
+<p>bytes([source[, encoding[, errors]]]): 如同bytearray使用方法, 不过该函数返回的一个不可变类型.</p>
+<pre><code>In [72]: class a:
+    ...:     def __iter__(self):
+    ...:         for i in range(0, 256):
+    ...:             yield i
+    ...:     def __index__(self): return 1
+    ...:
+In [73]: bytes(a())
+Out[73]: b'\x00'
+In [79]: bytes(1)
+Out[79]: b'\x00'
+In [80]: bytes()
+Out[80]: b''
+In [81]: bytes([1,2,3,4,5,6,7])
+Out[81]: b'\x01\x02\x03\x04\x05\x06\x07' 
+</code></pre>
+<p>callable(object):接受一个对象作为参数, 如果该参数是可以调用的则返回True, 否则返回False</p>
+<pre><code>In [83]: class a:pass
+In [85]: callable(a)
+Out[85]: True
+In [86]: callable(a())
+Out[86]: False
+In [88]: class a:
+    ...:     def __call__(self):
+    ...:         return 1
+
+In [89]: callable(a())
+Out[89]: True 
+</code></pre>
+<p>chr(i): 接受一个整数, 返回该整数对应的Unicode代码点的字符串,该整数必须大于等于0,小于等于1114112.</p>
+<pre><code>In [105]: chr(0)
+Out[105]: '\x00'
+In [99]: chr(1114111)
+Out[99]: '\U0010ffff'
+In [100]: chr(1114112) # 超出范围
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+&lt;ipython-input-100-4857faf08086&gt; in &lt;module&gt;
+----&gt; 1 chr(1114112)
+
+ValueError: chr() arg not in range(0x110000)== 
+</code></pre>
+<p>@classmethod:装饰器, 作用于类方法上, 被装饰的方法将转换成类方法,类方法的一个参数将是类本身.</p>
+<pre><code>In [110]: class a:
+     ...:     def a1(self):
+     ...:         print(self)
+     ...:     @classmethod
+     ...:     def a2(self): # 按照约定应该将self修改成cls来从字面量上区分类方法和实例方法.
+     ...:         print(self)
+     ...:
+
+In [111]: a().a1() # 实例方法
+&lt;__main__.a object at 0x00000245CBE815C0&gt;
+In [112]: a.a2() # 类方法
+&lt;class '__main__.a'&gt;
+In [113]: a().a2() # 实例可以调用类方法
+&lt;class '__main__.a'&gt;
+In [115]: a.a1() # 类在未实例化之前不能调用实例化方法, 当然有捷径可以走,这里只是做了一个区分, 不展示捷径
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+&lt;ipython-input-115-2656506098d9&gt; in &lt;module&gt;
+----&gt; 1 a.a1()
+
+TypeError: a1() missing 1 required positional argument: 'self' 
+compile(source, filename, mode, flags=0, dont_inherit=False, optimize=-1):将一个字符串编译成字节代码:
+
+source: 字符串或者AST对象,
+filename: 代码文件名称，如果不是从文件读取代码则传递一些可辨认的值, 如’’.
+mode: 指定编译代码的种类。可以指定为 exec, eval, single
+flags: 变量作用域，局部命名空间，如果被提供，可以是任何映射对象。
+flags和dont_inherit是用来控制编译源码时的标志
+In [121]: d = compile(&quot;print(1)&quot;, &quot;&quot;, &quot;exec&quot;)
+In [122]: d
+Out[122]: &lt;code object &lt;module&gt; at 0x00000245CBF448A0, file &quot;&quot;, line 1&gt;
+In [123]: exec(d)
+1 
+</code></pre>
+<p>complex([real[, imag]]): 创建一个值为 real + imag * j 的复数或者转化一个字符串或数为复数。如果第一个参数为字符串，则不需要指定第二个参数。</p>
+<pre><code>In [125]: complex(1, 2)
+Out[125]: (1+2j)
+In [127]: complex(&quot;1&quot;)
+Out[127]: (1+0j)
+In [128]: complex(&quot;1+2j&quot;) # 此处不能有空格, 否则会报错
+Out[128]: (1+2j) 
+</code></pre>
+<p>delattr(object, name): 接受一个对象以及一个字符串,删除该对象的name属性,也可以使用del object.name来实现.</p>
+<pre><code>In [144]: class a:
+     ...:     x = 1
+     ...:     y = 2
+     ...:
+In [145]: delattr(a, &quot;x&quot;)
+In [147]: a.x
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+&lt;ipython-input-147-e27186f28a17&gt; in &lt;module&gt;
+----&gt; 1 a.x
+AttributeError: type object 'a' has no attribute 'x'
+
+In [148]: a.y
+Out[148]: 2 
+dict([object]):用于创建一个字典.如果不传参数,则返回一个空的字典.
+
+In [150]: dict()
+Out[150]: {}
+In [151]: dict(a=1, b=2)
+Out[151]: {'a': 1, 'b': 2}
+In [152]: dict({&quot;a&quot;:1})
+Out[152]: {'a': 1} 
+</code></pre>
+<p>dir([object]):不传参数时, 返回当前范围内变量、方法和定义的类型列表,传入参数时返回该参数的所有的属性、方法, 如果该参数定义了__dir__方法, 则使用__dir__返回值, 否则该函数将尽可能的最大限度的收集该对象的方法以及属性.</p>
+<pre><code>In [157]: dir(&quot;&quot;)
+Out[157]:
+['__add__',
+ '__class__',
+ '__contains__',
+ ...]
+ In [155]: class a:
+     ...:     def __dir__(self):
+     ...:         return [&quot;a&quot;, &quot;b&quot;]
+     ...:
+In [156]: dir(a())
+Out[156]: ['a', 'b']
+In [158]: class a:
+     ...:     x = 1
+     ...:     y = 2
+     ...:
+In [159]: dir(a)
+ [...,
+ 'x',
+ 'y'] 
+divmod(x, y): 接受两个非复数的数字作为参数, 返回X,Y的商和余.
+
+In [160]: divmod(1, 2)
+Out[160]: (0, 1)
+In [161]: divmod(1.5, 2)
+Out[161]: (0.0, 1.5) 
+</code></pre>
+<p>enumerate(iterable, start=0):接受一个可迭代类型以及一个可选int类型的参数, 返回一个枚举对象.如果指定了start则该可迭代对象的下边从start开始.</p>
+<pre><code>In [163]: enumerate([1,2,3,4])
+Out[163]: &lt;enumerate at 0x245cbf50438&gt;
+In [164]: list(enumerate([1,2,3,4]))
+Out[164]: [(0, 1), (1, 2), (2, 3), (3, 4)] 
+</code></pre>
+<p>eval(expression, globals=None, locals=None):接受一个字符串类型的表达式, 并执行该表达式,返回其值.</p>
+<pre><code>expression: 字符串类型的表达式.
+globals: 字典类型, 变量作用域，全局命名空间.
+locals: 任何的映射对象, 变量作用域，局部命名空间.
+In [166]: eval(&quot;1 + 2&quot;)
+Out[166]: 3 
+exec(object[, globals[, locals]]):该函数提供动态执行python代码的功能,object可以是字符串也可以是一个代码对象. globals必须是一个字典,locals则可以是任何的映射对象,
+
+In [168]: x = 1
+In [169]: exec(&quot;x + 2&quot;)
+In [172]: x
+Out[172]: 3
+filter(function,iterable):接受一个函数对象以及一个可迭代对象作为参数, 将可迭代对象中的每一个元素传入第一个参数中,如果该函数返回True则保留当前元素,否则删除当前元素.filter函数返回一个可迭代对象.
+
+In [3]: list(filter(lambda x: False, [1,2,3,4]))
+Out[3]: []
+In [4]: list(filter(lambda x: True, [1,2,3,4]))
+Out[4]: [1, 2, 3, 4]
+</code></pre>
+<p>float([x]): 接受一个可选整型、浮点型、对象或者字符串类型参数, 返回该参数的浮点类型数据,如果X是一个自定义对象那么将调用对象的__float__方法(仅提供用方法, 完整方法见:float).</p>
+<pre><code>In [6]: float(&quot;+1&quot;)
+Out[6]: 1.0
+
+In [7]: float(&quot;-1&quot;)
+Out[7]: -1.0
+
+In [8]: float(&quot;Inf&quot;)
+Out[8]: inf
+In [11]: float(1)
+Out[11]: 1.0
+In [12]: float(1.2)
+Out[12]: 1.2
+# 自定义对象
+In [14]: class a:
+    ...:     def __float__(self): return 1.0
+    ...:
+In [15]: float(a())
+Out[15]: 1.0
+</code></pre>
+<p>format(value[,format_spec]):格式化字符串函数, 接受不限个参数，位置可以不按顺序, 其数字格式化符号见菜鸟教程, 对于自定义对象, 则调用对象的__format__方法, 如果对象没有定义__format__则使用对象__str__方法.</p>
+<pre><code>In [20]: &quot;{}|{}&quot;.format(1, &quot;dsa&quot;)
+Out[20]: '1|dsa'
+
+In [21]: &quot;{1}|{0}&quot;.format(1, &quot;dsa&quot;)
+Out[21]: 'dsa|1'
+
+In [22]: &quot;{0}|{1}&quot;.format(1, &quot;dsa&quot;)
+Out[22]: '1|dsa'
+
+In [23]: &quot;{:.2f}&quot;.format(1.235646)
+Out[23]: '1.24'
+
+In [33]: class a:
+    ...:     def __format__(self, *args):
+    ...:         return &quot;format&quot;
+    ...:
+In [34]: &quot;{}&quot;.format(a())
+Out[34]: 'format'
+
+In [36]: class a:
+    ...:     def __str__(self):
+    ...:         return &quot;str&quot;
+    ...:
+In [37]: &quot;{}&quot;.format(a())
+Out[37]: 'str'
+</code></pre>
+<p>frozenset([iterable]): 接受一个可选的可迭代类型的参数, 返回一个frozenset对象, 该对象与set对象基本相似, 但是该对象是不可变的.</p>
+<pre><code>In [39]: frozenset()
+Out[39]: frozenset()
+
+In [40]: frozenset([1,2,1,1])
+Out[40]: frozenset({1, 2})
+</code></pre>
+<p>getattr(object,name[,default]): 接受两个必选参数和一个可选参数, 该函数返回了object.name的值, 如果不存在name属性,并且没有传入default参数时则触发异常, 如果传入了default参数则没有找到name属性时返回default.</p>
+<pre><code>In [45]: class a:
+    ...:     def b(self):
+    ...:         return &quot;2&quot;
+
+In [47]: getattr(a(), &quot;b&quot;)()
+Out[47]: '2'
+
+getattr(a(), &quot;b1&quot;, lambda : print(&quot;b1&quot;))()
+b1
+globals(): 返回当前所有全局变量的字典.
+
+In [49]: globals()
+
+Out[49]:
+{'__name__': '__main__',
+ '__doc__': 'Automatically created module for IPython interactive environment',
+ '__package__': None,
+...
+}
+</code></pre>
+<p>hasattr(object, name): 接受两个必选参数, 检测object中是否有那么属性.如果有name属性返回True,否则返回False.</p>
+<pre><code>In [50]: class a:
+    ...:     b = 1
+    ...:
+
+In [51]: hasattr(a, &quot;b&quot;)
+Out[51]: True
+
+In [52]: hasattr(a, &quot;b1&quot;)
+Out[52]: False
+</code></pre>
+<p>hash(object): 接受一个必选参数, 返回该对象的整型哈希值, 如果时自定义对象则调用对象的__hash__方法.</p>
+<pre><code>In [56]: hash(&quot;fdsaf&quot;)
+Out[56]: 2111967917974353823
+
+In [58]: class a:
+    ...:     def __hash__(self):
+    ...:         return 9527
+    ...:
+In [59]: hash(a())
+Out[59]: 9527
+</code></pre>
+<p>help([object]): 接受一个可选的参数, 该参数可以是任意的类型, 返回该对象的帮助文档, 如果是自定义对象, 则返回该函数或者类的注释.如果没有传入参数则拉起交互式的帮助系统</p>
+<pre><code>In [62]: help(1)
+Help on int object:
+class int(object)
+ |  int(x=0) -&gt; integer
+	...
+
+In [65]: class a:
+    ...:     &quot;&quot;&quot;这是help信息&quot;&quot;&quot;
+    ...:     def b(self):
+    ...:         &quot;&quot;&quot;这也是help信息&quot;&quot;&quot;
+    ...:         pass
+
+In [66]: help(a())
+Help on a in module __main__ object:
+class a(builtins.object)
+ |  这是help信息
+ |
+ |  Methods defined here:
+ |
+ |  b(self)
+ |      这也是help信息
+ |
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+</code></pre>
+<p>hex(x):接受一个整型作为必选参数, 返回该参数的16进制字符串, 该字符串以0x开头,如果x是一个自定义对象那么该对象必须实现__index__方法.</p>
+<pre><code>In [72]: hex(185)
+Out[72]: '0xb9'
+
+In [74]: class a:
+    ...:     def __index__(self): return 1
+In [75]: hex(a())
+Out[75]: '0x1'
+</code></pre>
+<p>id(object): 返回该对象在内存中的地址以整型返回.</p>
+<pre><code>In [77]: id(1)
+Out[77]: 1786755536
+In [81]: class a:
+    ...:     def __init__(self, x):
+    ...:         self.x = x
+    ...:
+In [82]: id(a(1)) == id(2)
+Out[82]: False
+</code></pre>
+<p>input([prompt]): 从标准输入中读取输入一回车键结束, 如果传入prompt, 则将prompt打印到标准输出中.</p>
+<pre><code>In [84]: input(&quot;这是提示:&quot;)
+这是提示:dd
+Out[84]: 'dd'
+</code></pre>
+<p>int(x, base=10):将一个字符串或数字转换为整型,如果没有传入参数则返回0,如果传入传入了base则表示X是base进制的数字.如果X是一个自定义对象, 则调用__init__方法.</p>
+<pre><code>In [86]: int()
+Out[86]: 0
+
+In [87]: int(1.0)
+Out[87]: 1
+
+In [90]: int(&quot;0x9b&quot;, 16)
+Out[90]: 155
+
+In [91]: class a:
+    ...:     def __int__(self):
+    ...:         return 1
+In [92]: int(a())
+Out[92]: 1
+</code></pre>
+<p>isinstance(object, classinfo):如果object是classinfo的实例或者子类的实例, 返回True, 否则返回False.如果classinfo是一个元组, 那么object只要是元组中任意一个元素的子类的实例或者实例化都返回True.</p>
+<pre><code>In [94]: class a: pass
+In [95]: class b(a): pass
+
+In [99]: isinstance(b(), a)
+Out[99]: True
+
+In [101]: isinstance(1, int)
+Out[101]: True
+
+In [103]: isinstance(1, str)
+Out[103]: False
+</code></pre>
+<p>issubclass(class, classinfo):如果class是classinfo的子类返回true, 使用方法与isinstance相同.</p>
+<pre><code>In [94]: class a: pass
+In [95]: class b(a): pass
+
+In [105]: issubclass(b, a)
+Out[105]: True
+</code></pre>
+<p>iter(object[,sentinel]):返回一个迭代器对象, 如果没有传入第二个参数, 那么object必须是实现了迭代协议或者序列协议否则将触发TypeError, 如果传入了sentinel参数那么object必须是可调用对象, 此时每迭代一次都调用object,如果object返回的值等于sentinel时,触发StopIteration异常.</p>
+<pre><code>In [108]: iter([1,2,3])
+Out[108]: &lt;list_iterator at 0x210bde35f98&gt;
+
+In [110]: class a:
+     ...:     def __iter__(self):
+     ...:         for i in range(10):
+     ...:             yield i
+     ...:
+
+In [111]: list(iter(a()))
+Out[111]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+In [12]: def a():
+    ...:     global num
+    ...:     num += 1
+    ...:     if num &gt;= 10:
+    ...:         return -1
+    ...:     return num
+
+In [13]: for i in iter(a, -1):
+    ...:     print(i)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+</code></pre>
+<p>len(s): 接受一个序列或者集合类型对象, 返回其长度, 如果时自定义对象, 将会调用对象的__len__方法.</p>
+<pre><code>In [18]: len([1,2,3])
+Out[18]: 3
+
+In [19]: len({1:2, 3:4})
+Out[19]: 2
+
+In [20]: class a:
+    ...:     def __len__(self): return 1
+
+In [21]: len(a())
+Out[21]: 1
+</code></pre>
+<p>locals():返回当前本地和只有变量的值.</p>
+<pre><code>In [24]: def a():
+    ...:     x = 1
+    ...:     print(locals())
+In [25]: a()
+{'x': 1}
+</code></pre>
+<p>map(function,iterable…):返回一个迭代器, 该函数将function应用与每一个iterable元素上并返回直到可迭代对象耗尽.</p>
+<pre><code>In [27]: map(lambda x: x ** 2, [1,2,3])
+Out[27]: &lt;map at 0x2aec3ae4a20&gt;
+
+In [28]: list(map(lambda x: x ** 2, [1,2,3]))
+Out[28]: [1, 4, 9]
+</code></pre>
+<p>max(arg1,arg2,*args[,key]):接受多个位置参数或者一个可迭代对象, 返回其中最大的值.</p>
+<pre><code>In [39]: max(1,2)
+Out[39]: 2
+
+In [40]: max([2,3,4,5])
+Out[40]: 5
+</code></pre>
+<p>memoryview(obj): 返回obj的内存查看对象(对支持缓冲区协议的数据进行包装，在不需要复制对象基础上允许Python代码访问).</p>
+<pre><code>In [43]: a = b&quot;dsadsad&quot;
+In [44]: d = memoryview(a)
+
+In [47]: d[0]
+Out[47]: 10
+# 未复制数据
+In [52]: id(d.obj)
+Out[52]: 2949631565952
+In [53]: id(a)
+Out[53]: 2949631565952
+</code></pre>
+<p>min(arg1，arg2，* args[，key]): 接受多个位置参数或者一个可迭代对象, 返回其中最小的值.</p>
+<pre><code>In [55]: min(1,2)
+Out[55]: 1
+
+In [56]: min([1,2,3,5])
+Out[56]: 1
+</code></pre>
+<p>next(iterator[,default]): 通过调用iterator的__next__方法并返回其值.</p>
+<pre><code>In [58]: class a:
+    ...:     def __next__(self):
+    ...:         for i in range(10):
+    ...:             yield i
+
+In [60]: list(next(a()))
+Out[60]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+</code></pre>
+<p>object(): 返回一个新的无任何特征的对象, object时所有class的基类.</p>
+<pre><code>In [105]: object()
+Out[105]: &lt;object at 0x2aec3a34880&gt;
+
+In [106]: class a:pass
+In [107]: issubclass(a, object)
+Out[107]: True
+</code></pre>
+<p>oct(x):接受一个整型作为参数返回以&quot;0o&quot;为前缀的八进制字符串,如果x是自定义对象, 则调用该对象的__index__方法.</p>
+<pre><code>In [109]: oct(1)
+Out[109]: '0o1'
+
+In [111]: class a:
+     ...:     def __index__(self): return 1
+
+In [112]: oct(a())
+Out[112]: '0o1'
+</code></pre>
+<p>open(file,mode='r’,buffering=-1,encoding=None,errors=None,newline=None,<br>
+closefd=True,opener=None):打开file文件并返回一个文件对象, 具体参数值见open.</p>
+<pre><code>file: 文件所在的路径以及文件名
+mode: 打开文件的模式, 默认&quot;r”
+buffering: 用于设置缓冲策略, 0为关闭缓冲, 1为选择行缓冲, &gt; 1以指示固定大小的块缓存区.默认-1,二进制文件以固定大小的块缓冲 4.encoding:用于解码或编码文件的编码的名称, 默认编码取决于所在的操作系统 5.errors:指定如何处理编码和解码错误, 仅能在文本模式下使用 6.newline: 控制通用换行模式的工作方式（仅适用于文本模式）。它可以是None，''，'\n’，'\r’，和’\r\n’
+In [114]: open(&quot;test.test&quot;, &quot;w&quot;).write(&quot;fdsa&quot;)
+Out[114]: 4
+ord(c): 接受一个字符串类型参数, 返回该Unicode代码点的整数.
+
+In [116]: ord(&quot;a&quot;)
+Out[116]: 97
+
+In [117]: ord(&quot;你&quot;)
+Out[117]: 20320
+pow(x,y[,z]):当未传入Z参数时,返回x的y次方,如果传入了Z则对结果取余.
+
+In [122]: pow(2,3)
+Out[122]: 8
+
+In [124]: pow(2,3, 2)
+Out[124]: 0
+</code></pre>
+<p>print(*objects,sep=’ ‘,end=’\n’,file=sys.stdout,flush=False):将objects对象打印到标准输出中,每一个objects使用sep分割, 以end结束,对于自定义对象, 首先调用对象__str__方法, 如果没有定义__str__方法则调用__repr__方法.</p>
+<pre><code>In [136]: class a:
+     ...:     def __str__(self): return &quot;str&quot;
+     ...:     def __repr__(self): return &quot;repr&quot;
+
+In [137]: print(a())
+str
+</code></pre>
+<p>property(fget=None，fset=None，fdel=None，doc=None): 可作为装饰器使用也可作为函数使用.用于显示类属性的读取、设置以及删除. 作为函数使用时:</p>
+<pre><code>In [140]: class a:
+     ...:     def __init__(self):
+     ...:         self._x = None
+     ...:
+     ...:     def getx(self):
+     ...:         return self._x
+     ...:
+     ...:     def setx(self, x):
+     ...:         self._x = x
+     ...:     def delx(self):
+     ...:         self._x = None
+     ...:     x = property(getx, setx, delx, &quot;test&quot;)
+作为装饰器使用时:
+
+class a:
+    def __init__(self):
+        self._x = None
+    @property
+    def x(self):
+        return self._x
+    @x.fset
+    def x(self, x):
+        self._x = x
+    @x.fdel
+    def x(self):
+        self._x = None
+参数:
+
+fget – 获取属性值的函数
+fset – 设置属性值的函数
+fdel – 删除属性值函数
+doc – 属性描述信息
+</code></pre>
+<p>range(start,stop[,step]):range并不是一个函数, range时一个不可变序列类型,返回一个迭代器对象.</p>
+<pre><code>In [149]: list(range(1, 10, 2))
+Out[149]: [1, 3, 5, 7, 9]
+
+In [150]: list(range(1, 10))
+Out[150]: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+In [151]: list(range(10))
+Out[151]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+In [152]: type(range) # 非函数
+Out[152]: type
+</code></pre>
+<p>repr(object): 返回可打印的字符串,此函数尝试返回一个字符串，该字符串在传递时会产生具有相同值的对象eval()，否则表示形式是一个括在尖括号中的字符串，其中包含对象类型的名称以及其他信息通常包括对象的名称和地址。类可以通过定义__repr__()方法来控制此函数为其实例返回的内容.</p>
+<pre><code>In [154]: repr(1)
+Out[154]: '1'
+
+In [155]: class a:
+     ...:     def __repr__(self): return &quot;1&quot;
+
+In [156]: repr(a())
+Out[156]: '1'
+
+In [157]: repr(a)
+Out[157]: &quot;&lt;class '__main__.a'&gt;&quot;
+</code></pre>
+<p>reversed(seq):接受一个可迭代类型, 返回该可迭代类型的反向迭代器.</p>
+<pre><code>In [161]: list(reversed(range(10)))
+Out[161]: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+</code></pre>
+<p>round(num, [, ndigits]): 返回num四舍五入精确到ndigits精度数字, 如果没有传入ndigits则返回最接近num的整数, 如果num时一个自定义对象, 则调用__round__方法.</p>
+<pre><code>In [163]: round(1.2563, 2)
+Out[163]: 1.26
+
+In [164]: round(1.2563)
+Out[164]: 1
+</code></pre>
+<p>set([iterable]):返回一个新的set类型对象, 接受可选可迭代类型参数, 并将可迭代类型参数转换成set类型返回.</p>
+<pre><code>In [166]: set()
+Out[166]: set()
+
+In [167]: set([1,2,3])
+Out[167]: {1, 2, 3}
+
+In [168]: set(range(10))
+Out[168]: {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+</code></pre>
+<p>setattr(object, name, value): 接受三个必选参数, 将object.name属性赋值为value.</p>
+<pre><code>In [172]: class a: pass
+In [173]: a1 = a()
+In [174]: setattr(a1, &quot;b&quot;, 1)
+In [175]: a1.b
+Out[175]: 1
+</code></pre>
+<p>slice(start,stop[,step]):返回表示由指定的索引集的切片对象, 该对象为只读数据属性.</p>
+<pre><code>In [178]: slice(0, 1)
+Out[178]: slice(0, 1, None)
+sorted(iterable,*,key=None,reverse=False):将_iterable_对象排序后返回.
+</code></pre>
+<p>key: 可选关键字参数,_key_指定一个参数的函数，该函数用于从_iterable中的_每个元素中提取比较键<br>
+reverse: 可选关键字参数, 如果设置为True，则列表元素将按照每个比较相反的方式进行排序.</p>
+<pre><code>In [181]: sorted([&quot;12&quot;, &quot;1&quot;, &quot;34&quot;, &quot;6&quot;, &quot;90&quot;], key=int)
+Out[181]: ['1', '6', '12', '34', '90']
+
+In [182]: sorted([&quot;12&quot;, &quot;1&quot;, &quot;34&quot;, &quot;6&quot;, &quot;90&quot;], key=int, reverse=True)
+Out[182]: ['90', '34', '12', '6', '1']
+</code></pre>
+<p>@staticmethod: 装饰器函数, 作用于类方法上, 将方法转换成静态方法.</p>
+<pre><code>In [185]: class a:
+     ...:     @staticmethod
+     ...:     def b(x):
+     ...:         return x
+
+In [186]: a.b(1)
+Out[186]: 1
+</code></pre>
+<p>str(object=b’',encoding='utf-8’,errors='strict’):返回一个字符串类型的对象,如果object是一个自定义对象, 那么首先会调用对象的__str__方法, 如果没有实现__str__方法则调用__repr__方法.</p>
+<pre><code>In [194]: class a:
+     ...:     def __repr__(self): return &quot;re&quot;
+     ...:     def __str__(self): return &quot;str&quot;
+
+In [195]: str(a())
+Out[195]: 'str'
+</code></pre>
+<p>sum(iterable[,start]):如果没有传入_start_参数, 则将_iterable_所有的元素叠加后返回, 如果传入了_start_参数,则从_start_参数开始将_iterable_的元素从左至右的叠加.</p>
+<pre><code>In [201]: sum([1,2,3], 8)
+Out[201]: 14
+
+In [207]: sum(range(1, 101))
+Out[207]: 5050
+super([type[,object-or-type]]):该函数用于调用父类(超类)的一个方法.
+
+In [209]: class a:
+     ...:     def add(self, x):
+     ...:         return x + 1
+
+In [210]: class b(a):
+     ...:     def add(self, x):
+     ...:         return super().add(x)
+
+In [211]: b().add(1)
+Out[212]: 2
+</code></pre>
+<p>tuple([iterable]):返回一个元组对象, 接受一个可选的可迭代参数, 如果传入了该参数则将该参数转换成元组对象.</p>
+<pre><code>In [214]: tuple([1,2,3,4])
+Out[214]: (1, 2, 3, 4)
+
+In [215]: tuple()
+Out[215]: ()
+</code></pre>
+<p>type(name,bases,dict):只传入一个参数时将返回该参数的类型,使用三个参数，返回一个新类型对象,name则成为类对象的名称,base则表明了其父类, 可选的关键字参数则将成为类的属性.(type是类型实例关系的顶端, object是父子关系的顶端，所有的数据类型的父类都是它, Object是type的一个实例,Type是object的子类, 详细见type和object之间的关系)</p>
+<pre><code>In [222]: d = type(&quot;objects&quot;, (), {&quot;names&quot;: &quot;this is name&quot;})
+
+In [223]: d
+Out[223]: __main__.objects
+In [224]: d.names
+Out[224]: 'this is name'
+
+In [217]: type(1)
+Out[217]: int
+</code></pre>
+<p>vars([object]):返回模块、类、实例、其他对象的__dict__属性.</p>
+<pre><code>In [232]: class a:
+     ...:     x = 1
+
+In [233]: vars(a)
+Out[233]:
+mappingproxy({'__module__': '__main__',
+              'x': 1,
+              '__dict__': &lt;attribute '__dict__' of 'a' objects&gt;,
+              '__weakref__': &lt;attribute '__weakref__' of 'a' objects&gt;,
+              '__doc__': None})
+</code></pre>
+<p>zip(*iterables):将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组，然后返回由这些元组组成的列表,如果各个迭代器的元素个数不一致，则返回列表长度与最短的对象相同.</p>
+<pre><code>In [237]: zip([1,2,3,4], [&quot;q&quot;, &quot;w&quot;, &quot;e&quot;, &quot;r&quot;])
+Out[237]: &lt;zip at 0x2aec3ad6d88&gt;
+
+In [238]: list(zip([1,2,3,4], [&quot;q&quot;, &quot;w&quot;, &quot;e&quot;, &quot;r&quot;]))
+Out[238]: [(1, 'q'), (2, 'w'), (3, 'e'), (4, 'r')]
+</code></pre>
+<p>import(name,globals=None,locals=None,fromlist=(),level=0):import 语句将会调用该函数,该函数导入模块_name_, 使用给定的_globals和_locals来确定如何解释包上下文中的名称.</p>
+<pre><code>In [240]: __import__(&quot;requests&quot;)
+
+Out[240]: &lt;module 'requests' from 'd:\\anaconda3\\envs\\python3\\lib\\site-packages\\requests\\__init__.py'&gt;
+In [241]: requests = __import__(&quot;requests&quot;)
+In [242]: requests.__version__
+Out[242]: '2.21.0'
+</code></pre>
+
+            </div>
+            <hr style="width: 80%;">
+            
+            <div class="postfooter">
+                <ul class="post-copyright">
+                    <li><strong>文章作者：</strong></li>
+            <li><strong>原文链接：</strong>https://perror.dev/post/python-nei-zhi-han-shu/</li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用<i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA
+                许可协议。转载请注明出处！</li>
+            </ul>
+        </div>
+        
+        <div id="otherpost">
+            
+            <a  data-pjax class="prev-post-pc" href="https://perror.dev/post/python深拷贝浅拷贝/"  style="color: black;">
+                <div id="ppcontainer">
+                    
+                    <img src="https://cdn.jsdelivr.net/gh/PerrorOne/blog-image/img/202203262012623.jpeg" style="width: 100%;" class="opimg">
+                    
+                    <h4 class="optitle">python深拷贝浅拷贝</h4>
+                </div>
+            </a>
+            <div class="prev-post">
+                上一篇 <a  data-pjax href="https://perror.dev/post/python深拷贝浅拷贝/">python深拷贝浅拷贝</a>
+            </div>
+            
+            
+        </div>
+    </div>
+    </div>
+    </div>
+    <!-- 弹窗 -->
+    <div id="myModal" class="modal">
+        <img class="modal-content" id="img01">
+    </div>
+</body>
+<script>
+    //文章阅读热度
+    var pl = $("#pl").html();
+    var rootaddr = $("#rootaddr").html();
+    pl = pl.replace(rootaddr, "");
+    $("#hotnum").attr('id', pl);
+</script>
+                    <div class="toc-container">
+                        
+                    </div>
+                    <div class="tog">
+                        <div class="toggleContainer">
+                            <div class="toggle">
+                                <i class="fas fa-angle-double-up"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👇 ------------------------->
+                    <div id="comment" class="comment">
+                        <div class="commentcontainer">
+                            
+                                
+                                    
+                                        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: 'fc2998be1c55ff5de293',
+    clientSecret: 'bcbb12664d0a8d5714f987561a8d8c64cda960f8',
+    repo: 'perrorone.github.io',
+    owner: 'PerrorOne',
+    admin: ['PerrorOne'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+                                    
+                                    
+                                
+                            
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👆 ------------------------->
+                </div>
+                <!-- main标签，pjax渲染时加载以上内容👆 -->
+                <div class="col-md-1 col-lg-2"></div>
+                <div id="bg">
+                </div>
+            </div>
+            <!-- ----------------左侧菜单栏html 👆-------------------------------------->
+            
+        </div>
+        <!-- aplayer播放器加载👇 -->
+            
+        <!-- aplayer播放器加载👆 -->
+    </div>
+    <!-- 背景图加载方式👇 -->
+    <div id="bgchoice" style="display: none">default
+                </div>
+                
+                <div id="bgurl" style="display:none">/media/images/custom-bgimage.png</div>
+                
+    <!-- 背景图加载方式👆 -->
+</body>
+
+<script>
+    //初始化
+    //更换twikoo头像
+    setTimeout(replaceAvatar,1000);
+    setTimeout(replaceAvatar,2000);
+    setTimeout(replaceAvatar,8000);
+    // --------为每张图片添加懒加载（lazyload）标签-->懒加载功能 👇------------
+    lazyload();
+    //为文章内所有代码块添加代码复制功能 👇
+    codeinit();
+    // ------代码高亮显示功能-------------
+    hljs.initHighlightingOnLoad();
+    if (shareChoice)
+        shareInit();
+    if (donateChoice)
+        donateInit();
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👇 ---------------->
+
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = document.getElementById("domainname").innerHTML + "/"; //此处修改为你的域名，必须带斜杠
+</script>
+<script type="text/javascript" src="https://perror.dev/media/js/live2d.js"></script>
+<script type="text/javascript" src="https://perror.dev/media/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "https://perror.dev/media/live2d/assets/tororo.model.json");
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👆 ---------------->
+
+
+<!----------------------- 返回顶部按钮功能👇 --------------------->
+<script>
+    $(function () {
+        $('.toggleContainer').click(function () {
+            $('html,body').animate({
+                scrollTop: '0px'
+            }, 800);
+        });
+        $(window).scroll(function () {
+            var st = $(window).scrollTop();
+            if (st > 30) {
+                $(".toggleContainer").fadeIn(400);
+            } else {
+                $(".toggleContainer").fadeOut(100);
+            }
+        });
+    });
+</script>
+<!----------------------- 返回顶部按钮功能👆 --------------------->
+
+
+<!------------ 加载全局背景图功能👇（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
+<script>
+    var bgchoice = "default"
+    var bg = $('#bg');
+    var bgurl = document.getElementById("bgurl").innerHTML;
+    if (bgchoice == 'default')
+    {
+        for (var i = 0; i < 3; i++)
+            bgurl = bgurl.replace("\\", "/");
+        bgurl = "https://perror.dev/" + bgurl;
+    }
+    bg.css("background", "url('" + bgurl + "')");
+
+    window.onload = function () {
+        aplayerbtnInit();
+    }
+</script>
+<!------------ 加载全局背景图功能👆（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
+
+
+
+
+<script src="https://perror.dev/media/js/index.js"></script>
+
+
+<script>
+    //加载后的事件同步（阅读量、移动端评论等
+    window.onload = function () {
+    //代码块高亮渲染
+    document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+    });
+        getHotnum();
+        var sharepc = $(".share").eq(0).html();
+        $(".share").eq(1).html(sharepc);   //插件只会寻找一个分享标签渲染，所以需要手动添加到移动端
+        aplayerbtnInit();
+        $(".hljs").css({
+            "padding": "20px"
+        })
+    }
+</script>
+
+<!-- <script src="https://perror.dev/media/js/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-live-query-min.js"></script> -->
