@@ -1,238 +1,316 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://perror.dev</id>
-    <title>perror</title>
-    <updated>2023-02-17T12:20:09.757Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://perror.dev"/>
-    <link rel="self" href="https://perror.dev/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
-    <logo>https://perror.dev/images/avatar.png</logo>
-    <icon>https://perror.dev/favicon.ico</icon>
-    <rights>All rights reserved 2023, perror</rights>
-    <entry>
-        <title type="html"><![CDATA[install fluxcd in k8s 1.25.5]]></title>
-        <id>https://perror.dev/post/install-fluxcd-in-k8s-1255/</id>
-        <link href="https://perror.dev/post/install-fluxcd-in-k8s-1255/">
-        </link>
-        <updated>2023-02-17T12:09:22.000Z</updated>
-        <content type="html"><![CDATA[<ol>
-<li>install the flux cli: <code>brew install fluxcd/tap/flux</code></li>
-<li>show the flux cli version: <code>flux version</code></li>
-</ol>
-<pre><code>   ➜  ~ flux version
-flux: v0.39.0
-helm-controller: v0.26.0
-image-automation-controller: v0.26.1
-image-reflector-controller: v0.22.1
-kustomize-controller: v0.30.0
-notification-controller: v0.28.0
-source-controller: v0.31.0
-</code></pre>
-<ol start="3">
-<li>create git repo on github</li>
-<li>set GITHUB_TOKEN env</li>
-<li>install the flux cd to k8s: <code>flux bootstrap github --owner=&lt;you-github-name&gt; --repository=&lt;you-repo&gt; --path=./ --components-extra=image-reflector-controller,image-automation-controller  --read-write-key --branch=main</code>, <em>Don't forget <code>--components-extra=image-reflector-controller,image-automation-controller</code></em>, Only when this parameter is used can image-related pods be created.</li>
-<li>wait flux cd pod up.</li>
-</ol>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[mysql error: rec.cc:391 thread ]]></title>
-        <id>https://perror.dev/post/mysql-error-reccc391-thread/</id>
-        <link href="https://perror.dev/post/mysql-error-reccc391-thread/">
-        </link>
-        <updated>2023-02-17T12:03:02.000Z</updated>
-        <content type="html"><![CDATA[<p>This error only in the mysql 8.0.30 version.see https://bugs.mysql.com/bug.php?id=107941 bug report. Upgrade mysql version to 8.0.31 to resolve this error</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[如何清理 Kubernetes namespace 中的 finalizers 并成功删除 argocd namespace]]></title>
-        <id>https://perror.dev/post/shan-chu-argocd-namespace-fa-sheng-cuo-wu-some-content-in-the-namespace-has-finalizers-remaining-resources-finalizerargocdargoprojio-in-10-resource-instances/</id>
-        <link href="https://perror.dev/post/shan-chu-argocd-namespace-fa-sheng-cuo-wu-some-content-in-the-namespace-has-finalizers-remaining-resources-finalizerargocdargoprojio-in-10-resource-instances/">
-        </link>
-        <updated>2023-02-14T02:25:51.000Z</updated>
-        <content type="html"><![CDATA[<p>在删除 Kubernetes 集群中的资源时，我遵循以下步骤：</p>
-<ol>
-<li>删除所有 <code>deploy</code>。</li>
-<li>删除所有 <code>configmap</code>。</li>
-<li>删除所有 <code>namespace</code>。</li>
-</ol>
-<p>  然而，我发现在删除 <code>namespace</code> 时出现了问题。尝试了官方提供的命令<br>
-<code>kubectl delete -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml</code><br>
-但是 <code>namespace</code> 删除仍然被卡住了。我注意到该 <code>namespace</code> 下存在多个 <code>argoproj.io/v1alpha1/applications</code> 资源，并且所有资源都包含一个 <code>finalizers</code> 字段。通过搜索引擎，我了解到只有删除所有资源 YAML 文件中的 <code>finalizers</code> 字段才能解决 <code>namespace</code> 删除被卡住的问题。因此，我直接删除了 <code>finalizers</code> 字段并更新了所有资源，直到所有资源都被修改好为止。最终，<code>namespace</code> 能够被成功删除。<br>
-  在 Kubernetes 中，删除某些资源时，这些资源可能具有关联的其他资源，这些关联资源需要被清理，以便能够顺利删除要删除的资源。当某个 <code>namespace</code> 中存在关联资源时，删除该 <code>namespace</code> 可能会失败。在这种情况下，Kubernetes 会在 <code>namespace</code> 对应的 <code>finalizers</code> 列表中添加一些条目，以确保所有关联资源被清理，然后再删除 <code>namespace</code>。在删除 <code>namespace</code> 时，Kubernetes 会检查 <code>finalizers</code> 列表中的所有条目，确保这些条目对应的所有资源已被清理，然后才会继续删除 <code>namespace</code>。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[helm 报错：another operation (install/upgrade/rollback) is in progress处理方法]]></title>
-        <id>https://perror.dev/post/helm-bao-cuo-another-operation-installupgraderollback-is-in-progress-chu-li-fang-fa/</id>
-        <link href="https://perror.dev/post/helm-bao-cuo-another-operation-installupgraderollback-is-in-progress-chu-li-fang-fa/">
-        </link>
-        <updated>2023-02-01T07:46:36.000Z</updated>
-        <content type="html"><![CDATA[<h3 id="背景">背景</h3>
-<p>使用flux cd来管理helmreleases</p>
-<h3 id="错误信息">错误信息</h3>
-<p>单个helmrelease报错：another operation (install/upgrade/rollback) is in progress。</p>
-<h3 id="处理方式">处理方式</h3>
-<ol>
-<li>运行 <code>helm history &lt;name&gt; --namespace &lt;ns&gt;</code><br>
-<img src="https://perror.dev/post-images/1675238086770.jpeg" alt="" loading="lazy"></li>
-<li>运行： <code>lux suspend hr &lt;name&gt; -n &lt;ns&gt;</code></li>
-<li>选择status=pending-upgrade的版本，运行： <code>helm uninstall &lt;name&gt; --namespace &lt;ns&gt; &lt;REVISION&gt;</code></li>
-<li>运行： <code>flux resume helmrelease &lt;name&gt; -n &lt;ns&gt;</code></li>
-</ol>
-<p>搞定😊</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[k8s PVC自动扩容实践 ]]></title>
-        <id>https://perror.dev/post/k8s-pvc-zi-dong-kuo-rong-shi-jian/</id>
-        <link href="https://perror.dev/post/k8s-pvc-zi-dong-kuo-rong-shi-jian/">
-        </link>
-        <updated>2022-10-27T09:07:29.000Z</updated>
-        <summary type="html"><![CDATA[<p>依赖:</p>
-<ol>
-<li>k8s &gt;= 1.24</li>
-<li><a href="https://github.com/topolvm/pvc-autoresizer">pvc-autoresizer</a> &gt;= 0.5.0</li>
-</ol>
-<p>一、安装 pvc-autoresizer</p>
-<ul>
-<li>build  and push docker 镜像 <code>git clone https://github.com/topolvm/pvc-autoresizer &amp;&amp; git checkout v0.5.0 &amp;&amp; cd pvc-autoresizer &amp;&amp; docker build -t pvc-autoresizer:0.5.0 . &amp;&amp; docker push pvc-autoresizer:0.5.0</code></li>
-<li>添加 helm repo: <code>helm repo add pvc-autoresizer https://topolvm.github.io/pvc-autoresizer/</code></li>
-</ul>
-]]></summary>
-        <content type="html"><![CDATA[<p>依赖:</p>
-<ol>
-<li>k8s &gt;= 1.24</li>
-<li><a href="https://github.com/topolvm/pvc-autoresizer">pvc-autoresizer</a> &gt;= 0.5.0</li>
-</ol>
-<p>一、安装 pvc-autoresizer</p>
-<ul>
-<li>build  and push docker 镜像 <code>git clone https://github.com/topolvm/pvc-autoresizer &amp;&amp; git checkout v0.5.0 &amp;&amp; cd pvc-autoresizer &amp;&amp; docker build -t pvc-autoresizer:0.5.0 . &amp;&amp; docker push pvc-autoresizer:0.5.0</code></li>
-<li>添加 helm repo: <code>helm repo add pvc-autoresizer https://topolvm.github.io/pvc-autoresizer/</code></li>
-</ul>
-  <!-- more -->
-<ul>
-<li>values.yaml</li>
-</ul>
-<pre><code># config from https://github.com/topolvm/pvc-autoresizer/blob/main/charts/pvc-autoresizer/values.yaml
-image:
-  # image.repository -- pvc-autoresizer image repository to use.
-  repository: perrorone/pvc-autoresizer
-
-  # image.tag -- pvc-autoresizer image tag to use.
-  # @default -- `{{ .Chart.AppVersion }}`
-  tag:  v0.5.0
-
-controller:
-  # controller.replicas -- Specify the number of replicas of the controller Pod.
-  replicas: 1
-
-  args:
-    # controller.args.prometheusURL -- Specify Prometheus URL to query volume stats.
-    # Used as &quot;--prometheus-url&quot; option
-    prometheusURL: &lt;you_prometheus_url&gt;
-</code></pre>
-<ul>
-<li>安装 pvc-autoresizer: <code>helm install --create-namespace --namespace pvc-autoresizer pvc-autoresizer pvc-autoresizer/pvc-autoresizer --values ./values.yaml&quot;</code></li>
-<li>检查是否成功 <code>kubectl get pod -n pvc-autoresizer | grep pvc-autoresizer</code></li>
-</ul>
-<p>二、 创建StatefulSet以及存储类</p>
-<ul>
-<li>编写stateful-set.yaml:</li>
-</ul>
-<pre><code>apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: test-pvc-autoresizer
-  namespace: staging
-  annotations:
-    resize.topolvm.io/enabled: &quot;true&quot; # 必须存在, 才能自动扩容
-parameters:
-  type: pd-ssd
-provisioner: pd.csi.storage.gke.io
-reclaimPolicy: Retain
-volumeBindingMode: WaitForFirstConsumer
-allowVolumeExpansion: true
----
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: test-pvc-autoresizer
-  namespace: staging
-spec:
-  selector:
-    matchLabels:
-      app: test-pvc-autoresizer
-  serviceName: &quot;test-pvc-autoresizer&quot;
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: test-pvc-autoresizer
-    spec:
-      terminationGracePeriodSeconds: 10
-      containers:
-        - name: test-pvc-autoresizer
-          image: perrorone/go-file:v1.0.0
-          ports:
-            - containerPort: 80
-              name: http
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: http
-          volumeMounts:
-            - name: test-pvc-data
-              mountPath: /data
-          resources:
-            requests:
-              cpu: 200m
-              memory: 300Mi
-            limits:
-              cpu: 500m
-              memory: 500Mi
-  volumeClaimTemplates:
-    - metadata:
-        name: test-pvc-data
-        annotations:  # 必须存在, 使得自动创建的 PVC携带以下设置想才能自动扩容
-            resize.topolvm.io/storage_limit: 8Gi # 最大扩容大小
-            resize.topolvm.io/threshold: 20%
-      spec:
-        accessModes: [ &quot;ReadWriteOnce&quot; ]
-        storageClassName: &quot;test-pvc-autoresizer&quot;
-        resources:
-          requests:
-            storage: 1Gi
-</code></pre>
-<ul>
-<li>部署: <code>kubectl apply -f ./stateful-set.yaml</code></li>
-</ul>
-<p>三、测试</p>
-<ul>
-<li>
-<p>进入pod中检查挂载目录大小, <code>df -h</code> 输出可以看到<code>/data</code>目录只使用了1%空间</p>
-</li>
-<li>
-<p>写入文件测试自动扩容: <code>dd if=/dev/zero of=1G.file bs=50M count=20</code></p>
-</li>
-<li>
-<p>检查pvc-autoresizer pod 日志<br>
-<img src="https://perror.dev/post-images/1666863168702.jpg" alt="" loading="lazy"></p>
-</li>
-<li>
-<p>再次检查pod挂载目录大小, 可以看见挂载目录已经使用了100%: <code>/dev/sdf                975.9M    959.9M         0 100% /data</code></p>
-</li>
-<li>
-<p>等待一会,再次查看挂载目录大小, 可以看见已经扩容成功: <code>/dev/sdf                  1.9G    960.4M   1007.4M  49% /data</code> 😋😋😋😋😋😋<br>
-<img src="https://perror.dev/post-images/1666863439959.jpg" alt="" loading="lazy"></p>
-</li>
-</ul>
-]]></content>
-    </entry>
+  <title>Perror</title>
+  
+  <subtitle>It&#39;s Perror</subtitle>
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2023-02-18T12:05:45.372Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>Perror</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>install fluxcd in k8s 1.25.5</title>
+    <link href="http://example.com/2023/02/18/install-fluxcd-in-k8s-1-25-5/"/>
+    <id>http://example.com/2023/02/18/install-fluxcd-in-k8s-1-25-5/</id>
+    <published>2023-02-18T18:04:41.000Z</published>
+    <updated>2023-02-18T12:05:45.372Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;install the flux cli: &lt;code&gt;brew install fluxcd/tap/flux&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;show the flux cli version: &lt;code&gt;flux version&lt;/code&gt;&lt;pre</summary>
+        
+      
+    
+    
+    
+    
+    <category term="devops" scheme="http://example.com/tags/devops/"/>
+    
+    <category term="k8s" scheme="http://example.com/tags/k8s/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mysql error: rec.cc:391 thread </title>
+    <link href="http://example.com/2023/02/18/mysql-error-rec-cc-391-thread/"/>
+    <id>http://example.com/2023/02/18/mysql-error-rec-cc-391-thread/</id>
+    <published>2023-02-18T18:04:12.000Z</published>
+    <updated>2023-02-18T12:05:45.372Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;This error only in the mysql 8.0.30 version.see &lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="bug" scheme="http://example.com/tags/bug/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何清理 Kubernetes namespace 中的 finalizers 并成功删除 argocd namespace</title>
+    <link href="http://example.com/2023/02/18/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace/"/>
+    <id>http://example.com/2023/02/18/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace/</id>
+    <published>2023-02-18T18:03:14.000Z</published>
+    <updated>2023-02-18T12:05:45.376Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在删除 Kubernetes 集群中的资源时，我遵循以下步骤：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;删除所有 &lt;code&gt;deploy&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;删除所有 &lt;code&gt;configmap&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;删除所有</summary>
+        
+      
+    
+    
+    
+    
+    <category term="devops" scheme="http://example.com/tags/devops/"/>
+    
+    <category term="k8s" scheme="http://example.com/tags/k8s/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>helm 报错：another operation (install/upgrade/rollback) is in progress处理方法</title>
+    <link href="http://example.com/2023/02/18/helm-bao-cuo-another-operation-install-upgrade-rollback-is-in-progress-chu-li-fang-fa/"/>
+    <id>http://example.com/2023/02/18/helm-bao-cuo-another-operation-install-upgrade-rollback-is-in-progress-chu-li-fang-fa/</id>
+    <published>2023-02-18T18:01:54.000Z</published>
+    <updated>2023-02-18T12:05:45.372Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h3&gt;&lt;p&gt;使用flux cd来管理helmreleases&lt;/p&gt;
+&lt;h3 id=&quot;错误信息&quot;&gt;&lt;a href=&quot;#错误信息&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="devops" scheme="http://example.com/tags/devops/"/>
+    
+    <category term="k8s" scheme="http://example.com/tags/k8s/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>k8s PVC自动扩容实践</title>
+    <link href="http://example.com/2023/02/18/k8s-pvc-zi-dong-kuo-rong-shi-jian/"/>
+    <id>http://example.com/2023/02/18/k8s-pvc-zi-dong-kuo-rong-shi-jian/</id>
+    <published>2023-02-18T17:54:22.000Z</published>
+    <updated>2023-02-18T12:05:45.372Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;依赖:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;k8s &amp;gt;= 1.24&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/topolvm/pvc-autoresizer&quot;&gt;pvc-autoresizer&lt;/a&gt; &amp;gt;= 0.5.0&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;一、安装 pvc-autoresizer&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;build  and push docker 镜像 &lt;code&gt;git clone https://github.com/topolvm/pvc-autoresizer &amp;amp;&amp;amp; git checkout v0.5.0 &amp;amp;&amp;amp; cd pvc-autoresizer &amp;amp;&amp;amp; docker build -t pvc-autoresizer:0.5.0 . &amp;amp;&amp;amp; docker push pvc-autoresizer:0.5.0&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;添加 helm repo: &lt;code&gt;helm repo add pvc-autoresizer https://topolvm.github.io/pvc-autoresizer/&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</summary>
+    
+    
+    
+    
+    <category term="devops" scheme="http://example.com/tags/devops/"/>
+    
+    <category term="k8s" scheme="http://example.com/tags/k8s/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis的一些小知识</title>
+    <link href="http://example.com/2023/02/18/redis-de-yi-xie-xiao-zhi-shi/"/>
+    <id>http://example.com/2023/02/18/redis-de-yi-xie-xiao-zhi-shi/</id>
+    <published>2023-02-18T17:53:52.000Z</published>
+    <updated>2023-02-18T12:05:45.372Z</updated>
+    
+    
+    <summary type="html">&lt;h4 id=&quot;redis的数据类型使用场合？&quot;&gt;&lt;a href=&quot;#redis的数据类型使用场合？&quot; class=&quot;headerlink&quot; title=&quot;redis的数据类型使用场合？&quot;&gt;&lt;/a&gt;redis的数据类型使用场合？&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;string：其value可以储存string以及数字类型，一般用于复杂的技术功能上。&lt;/li&gt;
+&lt;li&gt;hash：其value存放的是结构化的对象，它可以能方便的去操作某个字段，我使用他实现过用户行为数据缓存以及session功能。&lt;/li&gt;
+&lt;li&gt;list：类似python中的list数据类型，我一般使用他做消息队列或者分页功能。&lt;/li&gt;
+&lt;li&gt;set：该数据结构储存的是一系列无序、不重复的数据，这个还提供差集、交集等等功能， 我使用它为爬虫去重以及用户阅读过的文章功能。&lt;/li&gt;
+&lt;li&gt;sorted sort：有序集合储存一系列有序，不重复的数据，大多数场景都使用他做一个榜单的功能。&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    
+    <category term="redis" scheme="http://example.com/tags/redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>cast类型转换库—go库推荐</title>
+    <link href="http://example.com/2023/02/18/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian/"/>
+    <id>http://example.com/2023/02/18/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian/</id>
+    <published>2023-02-18T17:53:10.000Z</published>
+    <updated>2023-02-18T12:05:45.372Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;golang 中各种类型之间的转换实在是太过于繁琐，但是类型转换偏偏又是我们在开发过程中最常用的操作。同类型之间转换还稍微好一点，可以使用内置类型函数进行转换，但是想要转换不同的类型却需要引入不同的库， 而 cast 库正好解决了这一痛点，它提供了很多种的类型转换函数同我们使用， 通常的类型转换我们只需要引入这一个库就可以解决。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="golang" scheme="http://example.com/tags/golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis sds详解</title>
+    <link href="http://example.com/2023/02/18/sds-xiang-jie/"/>
+    <id>http://example.com/2023/02/18/sds-xiang-jie/</id>
+    <published>2023-02-18T17:52:22.000Z</published>
+    <updated>2023-02-18T12:05:45.376Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;什么是SDS？&quot;&gt;&lt;a href=&quot;#什么是SDS？&quot; class=&quot;headerlink&quot; title=&quot;什么是SDS？&quot;&gt;&lt;/a&gt;什么是SDS？&lt;/h3&gt;&lt;p&gt;SDS是redis构建的一种抽象类型，主要用于储存redis的默认字符串表示、AOF模块中的AOF缓冲区、客户端状态输入缓冲区。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="redis" scheme="http://example.com/tags/redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go的channel详解</title>
+    <link href="http://example.com/2023/02/18/go-de-channel-xiang-jie/"/>
+    <id>http://example.com/2023/02/18/go-de-channel-xiang-jie/</id>
+    <published>2023-02-18T17:51:42.000Z</published>
+    <updated>2023-02-18T12:05:45.372Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;此片文章基于&lt;a href=&quot;https://studygolang.com/dl/golang/go1.12.1.src.tar.gz&quot;&gt;golang 1.12.1&lt;/a&gt;版本源码解析而成，chan源码位于go/src/runtime/chan.go文件中。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="golang" scheme="http://example.com/tags/golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python IO多路复用实践</title>
+    <link href="http://example.com/2023/02/18/io-duo-lu-fu-yong-shi-jian/"/>
+    <id>http://example.com/2023/02/18/io-duo-lu-fu-yong-shi-jian/</id>
+    <published>2023-02-18T17:51:02.000Z</published>
+    <updated>2023-02-18T12:05:45.372Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;最近几天一直在看tornado源码，发现torando虽然标榜使用异步模型实现， 但是实际上是使用IO多路复用实现的事件循环，为了能对 IO多路复用加深印象，决定自己实现一个简易的HTTP客户端对比一下同步客户端和IO多路复用客户端的性能差别。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="python" scheme="http://example.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python dict</title>
+    <link href="http://example.com/2023/02/18/dict/"/>
+    <id>http://example.com/2023/02/18/dict/</id>
+    <published>2023-02-18T17:47:55.000Z</published>
+    <updated>2023-02-18T12:05:45.372Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;python的dict是一种映射类型, 底层使用了哈希表的方式来储存数据,</summary>
+        
+      
+    
+    
+    
+    
+    <category term="python" scheme="http://example.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python深拷贝浅拷贝</title>
+    <link href="http://example.com/2023/02/18/python-shen-kao-bei-qian-kao-bei/"/>
+    <id>http://example.com/2023/02/18/python-shen-kao-bei-qian-kao-bei/</id>
+    <published>2023-02-18T17:46:25.000Z</published>
+    <updated>2023-02-18T12:05:45.372Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;说到python中的对象拷贝问题，还得看看is和==的区别：&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;&amp;gt;&amp;gt;&amp;gt; a =</summary>
+        
+      
+    
+    
+    
+    
+    <category term="python" scheme="http://example.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python内置函数</title>
+    <link href="http://example.com/2017/12/15/python-nei-zhi-han-shu/"/>
+    <id>http://example.com/2017/12/15/python-nei-zhi-han-shu/</id>
+    <published>2017-12-15T17:21:05.000Z</published>
+    <updated>2023-02-18T12:05:45.372Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;abs(x): 接受一个整数或浮点数作为参数，返回该参数的绝对值，如果该参数是一个复数，则返回复数的模。&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code</summary>
+        
+      
+    
+    
+    
+    
+    <category term="python" scheme="http://example.com/tags/python/"/>
+    
+    <category term="技术" scheme="http://example.com/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
+  
 </feed>
