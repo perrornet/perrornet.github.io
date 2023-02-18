@@ -3,11 +3,11 @@
   <title>Perror</title>
   
   <subtitle>It&#39;s Perror</subtitle>
-  <link href="http://example.com/atom.xml" rel="self"/>
+  <link href="https://perror.dev/atom.xml" rel="self"/>
   
-  <link href="http://example.com/"/>
-  <updated>2023-02-18T12:32:40.092Z</updated>
-  <id>http://example.com/</id>
+  <link href="https://perror.dev/"/>
+  <updated>2023-02-18T12:37:34.639Z</updated>
+  <id>https://perror.dev/</id>
   
   <author>
     <name>Perror</name>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>install fluxcd in k8s 1.25.5</title>
-    <link href="http://example.com/2023/02/18/install-fluxcd-in-k8s-1-25-5/"/>
-    <id>http://example.com/2023/02/18/install-fluxcd-in-k8s-1-25-5/</id>
+    <link href="https://perror.dev/2023/02/18/install-fluxcd-in-k8s-1-25-5/"/>
+    <id>https://perror.dev/2023/02/18/install-fluxcd-in-k8s-1-25-5/</id>
     <published>2023-02-18T18:04:41.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
       
@@ -37,18 +37,18 @@
     
     
     
-    <category term="devops" scheme="http://example.com/tags/devops/"/>
+    <category term="devops" scheme="https://perror.dev/tags/devops/"/>
     
-    <category term="k8s" scheme="http://example.com/tags/k8s/"/>
+    <category term="k8s" scheme="https://perror.dev/tags/k8s/"/>
     
   </entry>
   
   <entry>
     <title>mysql error: rec.cc:391 thread </title>
-    <link href="http://example.com/2023/02/18/mysql-error-rec-cc-391-thread/"/>
-    <id>http://example.com/2023/02/18/mysql-error-rec-cc-391-thread/</id>
+    <link href="https://perror.dev/2023/02/18/mysql-error-rec-cc-391-thread/"/>
+    <id>https://perror.dev/2023/02/18/mysql-error-rec-cc-391-thread/</id>
     <published>2023-02-18T18:04:12.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
       
@@ -62,16 +62,16 @@
     
     
     
-    <category term="bug" scheme="http://example.com/tags/bug/"/>
+    <category term="bug" scheme="https://perror.dev/tags/bug/"/>
     
   </entry>
   
   <entry>
     <title>如何清理 Kubernetes namespace 中的 finalizers 并成功删除 argocd namespace</title>
-    <link href="http://example.com/2023/02/18/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace/"/>
-    <id>http://example.com/2023/02/18/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace/</id>
+    <link href="https://perror.dev/2023/02/18/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace/"/>
+    <id>https://perror.dev/2023/02/18/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace/</id>
     <published>2023-02-18T18:03:14.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
       
@@ -89,18 +89,18 @@
     
     
     
-    <category term="devops" scheme="http://example.com/tags/devops/"/>
+    <category term="devops" scheme="https://perror.dev/tags/devops/"/>
     
-    <category term="k8s" scheme="http://example.com/tags/k8s/"/>
+    <category term="k8s" scheme="https://perror.dev/tags/k8s/"/>
     
   </entry>
   
   <entry>
     <title>helm 报错：another operation (install/upgrade/rollback) is in progress处理方法</title>
-    <link href="http://example.com/2023/02/18/helm-bao-cuo-another-operation-install-upgrade-rollback-is-in-progress-chu-li-fang-fa/"/>
-    <id>http://example.com/2023/02/18/helm-bao-cuo-another-operation-install-upgrade-rollback-is-in-progress-chu-li-fang-fa/</id>
+    <link href="https://perror.dev/2023/02/18/helm-bao-cuo-another-operation-install-upgrade-rollback-is-in-progress-chu-li-fang-fa/"/>
+    <id>https://perror.dev/2023/02/18/helm-bao-cuo-another-operation-install-upgrade-rollback-is-in-progress-chu-li-fang-fa/</id>
     <published>2023-02-18T18:01:54.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
       
@@ -115,18 +115,18 @@
     
     
     
-    <category term="devops" scheme="http://example.com/tags/devops/"/>
+    <category term="devops" scheme="https://perror.dev/tags/devops/"/>
     
-    <category term="k8s" scheme="http://example.com/tags/k8s/"/>
+    <category term="k8s" scheme="https://perror.dev/tags/k8s/"/>
     
   </entry>
   
   <entry>
     <title>k8s PVC自动扩容实践</title>
-    <link href="http://example.com/2023/02/18/k8s-pvc-zi-dong-kuo-rong-shi-jian/"/>
-    <id>http://example.com/2023/02/18/k8s-pvc-zi-dong-kuo-rong-shi-jian/</id>
+    <link href="https://perror.dev/2023/02/18/k8s-pvc-zi-dong-kuo-rong-shi-jian/"/>
+    <id>https://perror.dev/2023/02/18/k8s-pvc-zi-dong-kuo-rong-shi-jian/</id>
     <published>2023-02-18T17:54:22.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
     <summary type="html">&lt;p&gt;依赖:&lt;/p&gt;
@@ -143,18 +143,18 @@
     
     
     
-    <category term="devops" scheme="http://example.com/tags/devops/"/>
+    <category term="devops" scheme="https://perror.dev/tags/devops/"/>
     
-    <category term="k8s" scheme="http://example.com/tags/k8s/"/>
+    <category term="k8s" scheme="https://perror.dev/tags/k8s/"/>
     
   </entry>
   
   <entry>
     <title>redis的一些小知识</title>
-    <link href="http://example.com/2023/02/18/redis-de-yi-xie-xiao-zhi-shi/"/>
-    <id>http://example.com/2023/02/18/redis-de-yi-xie-xiao-zhi-shi/</id>
+    <link href="https://perror.dev/2023/02/18/redis-de-yi-xie-xiao-zhi-shi/"/>
+    <id>https://perror.dev/2023/02/18/redis-de-yi-xie-xiao-zhi-shi/</id>
     <published>2023-02-18T17:53:52.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
     <summary type="html">&lt;h4 id=&quot;redis的数据类型使用场合？&quot;&gt;&lt;a href=&quot;#redis的数据类型使用场合？&quot; class=&quot;headerlink&quot; title=&quot;redis的数据类型使用场合？&quot;&gt;&lt;/a&gt;redis的数据类型使用场合？&lt;/h4&gt;&lt;ul&gt;
@@ -168,16 +168,16 @@
     
     
     
-    <category term="redis" scheme="http://example.com/tags/redis/"/>
+    <category term="redis" scheme="https://perror.dev/tags/redis/"/>
     
   </entry>
   
   <entry>
     <title>cast类型转换库—go库推荐</title>
-    <link href="http://example.com/2023/02/18/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian/"/>
-    <id>http://example.com/2023/02/18/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian/</id>
+    <link href="https://perror.dev/2023/02/18/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian/"/>
+    <id>https://perror.dev/2023/02/18/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian/</id>
     <published>2023-02-18T17:53:10.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
     <summary type="html">&lt;p&gt;golang 中各种类型之间的转换实在是太过于繁琐，但是类型转换偏偏又是我们在开发过程中最常用的操作。同类型之间转换还稍微好一点，可以使用内置类型函数进行转换，但是想要转换不同的类型却需要引入不同的库， 而 cast 库正好解决了这一痛点，它提供了很多种的类型转换函数同我们使用， 通常的类型转换我们只需要引入这一个库就可以解决。&lt;/p&gt;</summary>
@@ -185,16 +185,16 @@
     
     
     
-    <category term="golang" scheme="http://example.com/tags/golang/"/>
+    <category term="golang" scheme="https://perror.dev/tags/golang/"/>
     
   </entry>
   
   <entry>
     <title>redis sds详解</title>
-    <link href="http://example.com/2023/02/18/sds-xiang-jie/"/>
-    <id>http://example.com/2023/02/18/sds-xiang-jie/</id>
+    <link href="https://perror.dev/2023/02/18/sds-xiang-jie/"/>
+    <id>https://perror.dev/2023/02/18/sds-xiang-jie/</id>
     <published>2023-02-18T17:52:22.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
     <summary type="html">&lt;h3 id=&quot;什么是SDS？&quot;&gt;&lt;a href=&quot;#什么是SDS？&quot; class=&quot;headerlink&quot; title=&quot;什么是SDS？&quot;&gt;&lt;/a&gt;什么是SDS？&lt;/h3&gt;&lt;p&gt;SDS是redis构建的一种抽象类型，主要用于储存redis的默认字符串表示、AOF模块中的AOF缓冲区、客户端状态输入缓冲区。&lt;/p&gt;</summary>
@@ -202,16 +202,16 @@
     
     
     
-    <category term="redis" scheme="http://example.com/tags/redis/"/>
+    <category term="redis" scheme="https://perror.dev/tags/redis/"/>
     
   </entry>
   
   <entry>
     <title>go的channel详解</title>
-    <link href="http://example.com/2023/02/18/go-de-channel-xiang-jie/"/>
-    <id>http://example.com/2023/02/18/go-de-channel-xiang-jie/</id>
+    <link href="https://perror.dev/2023/02/18/go-de-channel-xiang-jie/"/>
+    <id>https://perror.dev/2023/02/18/go-de-channel-xiang-jie/</id>
     <published>2023-02-18T17:51:42.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
     <summary type="html">&lt;p&gt;此片文章基于&lt;a href=&quot;https://studygolang.com/dl/golang/go1.12.1.src.tar.gz&quot;&gt;golang 1.12.1&lt;/a&gt;版本源码解析而成，chan源码位于go/src/runtime/chan.go文件中。&lt;/p&gt;</summary>
@@ -219,16 +219,16 @@
     
     
     
-    <category term="golang" scheme="http://example.com/tags/golang/"/>
+    <category term="golang" scheme="https://perror.dev/tags/golang/"/>
     
   </entry>
   
   <entry>
     <title>python IO多路复用实践</title>
-    <link href="http://example.com/2023/02/18/io-duo-lu-fu-yong-shi-jian/"/>
-    <id>http://example.com/2023/02/18/io-duo-lu-fu-yong-shi-jian/</id>
+    <link href="https://perror.dev/2023/02/18/io-duo-lu-fu-yong-shi-jian/"/>
+    <id>https://perror.dev/2023/02/18/io-duo-lu-fu-yong-shi-jian/</id>
     <published>2023-02-18T17:51:02.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
     <summary type="html">&lt;p&gt;最近几天一直在看tornado源码，发现torando虽然标榜使用异步模型实现， 但是实际上是使用IO多路复用实现的事件循环，为了能对 IO多路复用加深印象，决定自己实现一个简易的HTTP客户端对比一下同步客户端和IO多路复用客户端的性能差别。&lt;/p&gt;</summary>
@@ -236,16 +236,16 @@
     
     
     
-    <category term="python" scheme="http://example.com/tags/python/"/>
+    <category term="python" scheme="https://perror.dev/tags/python/"/>
     
   </entry>
   
   <entry>
     <title>python dict</title>
-    <link href="http://example.com/2023/02/18/dict/"/>
-    <id>http://example.com/2023/02/18/dict/</id>
+    <link href="https://perror.dev/2023/02/18/dict/"/>
+    <id>https://perror.dev/2023/02/18/dict/</id>
     <published>2023-02-18T17:47:55.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
       
@@ -259,16 +259,16 @@
     
     
     
-    <category term="python" scheme="http://example.com/tags/python/"/>
+    <category term="python" scheme="https://perror.dev/tags/python/"/>
     
   </entry>
   
   <entry>
     <title>python深拷贝浅拷贝</title>
-    <link href="http://example.com/2023/02/18/python-shen-kao-bei-qian-kao-bei/"/>
-    <id>http://example.com/2023/02/18/python-shen-kao-bei-qian-kao-bei/</id>
+    <link href="https://perror.dev/2023/02/18/python-shen-kao-bei-qian-kao-bei/"/>
+    <id>https://perror.dev/2023/02/18/python-shen-kao-bei-qian-kao-bei/</id>
     <published>2023-02-18T17:46:25.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
       
@@ -283,16 +283,16 @@
     
     
     
-    <category term="python" scheme="http://example.com/tags/python/"/>
+    <category term="python" scheme="https://perror.dev/tags/python/"/>
     
   </entry>
   
   <entry>
     <title>后端传给前端int 类型数据自增或自减</title>
-    <link href="http://example.com/2018/03/16/hou-duan-chuan-gei-qian-duan-int-lei-xing-shu-ju-zi-zeng-huo-zi-jian/"/>
-    <id>http://example.com/2018/03/16/hou-duan-chuan-gei-qian-duan-int-lei-xing-shu-ju-zi-zeng-huo-zi-jian/</id>
+    <link href="https://perror.dev/2018/03/16/hou-duan-chuan-gei-qian-duan-int-lei-xing-shu-ju-zi-zeng-huo-zi-jian/"/>
+    <id>https://perror.dev/2018/03/16/hou-duan-chuan-gei-qian-duan-int-lei-xing-shu-ju-zi-zeng-huo-zi-jian/</id>
     <published>2018-03-16T19:53:35.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
       
@@ -306,16 +306,16 @@
     
     
     
-    <category term="bug" scheme="http://example.com/tags/bug/"/>
+    <category term="bug" scheme="https://perror.dev/tags/bug/"/>
     
   </entry>
   
   <entry>
     <title>python内置函数</title>
-    <link href="http://example.com/2017/12/15/python-nei-zhi-han-shu/"/>
-    <id>http://example.com/2017/12/15/python-nei-zhi-han-shu/</id>
+    <link href="https://perror.dev/2017/12/15/python-nei-zhi-han-shu/"/>
+    <id>https://perror.dev/2017/12/15/python-nei-zhi-han-shu/</id>
     <published>2017-12-15T17:21:05.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
       
@@ -330,18 +330,18 @@
     
     
     
-    <category term="python" scheme="http://example.com/tags/python/"/>
+    <category term="python" scheme="https://perror.dev/tags/python/"/>
     
-    <category term="技术" scheme="http://example.com/tags/%E6%8A%80%E6%9C%AF/"/>
+    <category term="技术" scheme="https://perror.dev/tags/%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   
   <entry>
     <title>aiohttp,asyncio,RunTimeError</title>
-    <link href="http://example.com/2017/07/13/aiohttp-asyncio-runtimeerror/"/>
-    <id>http://example.com/2017/07/13/aiohttp-asyncio-runtimeerror/</id>
+    <link href="https://perror.dev/2017/07/13/aiohttp-asyncio-runtimeerror/"/>
+    <id>https://perror.dev/2017/07/13/aiohttp-asyncio-runtimeerror/</id>
     <published>2017-07-13T11:04:10.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
       
@@ -355,16 +355,16 @@
     
     
     
-    <category term="bug" scheme="http://example.com/tags/bug/"/>
+    <category term="bug" scheme="https://perror.dev/tags/bug/"/>
     
   </entry>
   
   <entry>
     <title>流畅的python--dict的优点以及缺点</title>
-    <link href="http://example.com/2017/06/17/liu-chang-de-python-dict-de-you-dian-yi-ji-que-dian/"/>
-    <id>http://example.com/2017/06/17/liu-chang-de-python-dict-de-you-dian-yi-ji-que-dian/</id>
+    <link href="https://perror.dev/2017/06/17/liu-chang-de-python-dict-de-you-dian-yi-ji-que-dian/"/>
+    <id>https://perror.dev/2017/06/17/liu-chang-de-python-dict-de-you-dian-yi-ji-que-dian/</id>
     <published>2017-06-17T13:38:13.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
       
@@ -378,16 +378,16 @@
     
     
     
-    <category term="python" scheme="http://example.com/tags/python/"/>
+    <category term="python" scheme="https://perror.dev/tags/python/"/>
     
   </entry>
   
   <entry>
     <title>流畅的python--字典中的散列表</title>
-    <link href="http://example.com/2017/06/15/liu-chang-de-python-zi-dian-zhong-de-san-lie-biao/"/>
-    <id>http://example.com/2017/06/15/liu-chang-de-python-zi-dian-zhong-de-san-lie-biao/</id>
+    <link href="https://perror.dev/2017/06/15/liu-chang-de-python-zi-dian-zhong-de-san-lie-biao/"/>
+    <id>https://perror.dev/2017/06/15/liu-chang-de-python-zi-dian-zhong-de-san-lie-biao/</id>
     <published>2017-06-15T22:27:44.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
       
@@ -401,16 +401,16 @@
     
     
     
-    <category term="python" scheme="http://example.com/tags/python/"/>
+    <category term="python" scheme="https://perror.dev/tags/python/"/>
     
   </entry>
   
   <entry>
     <title>流畅的python--特殊方法</title>
-    <link href="http://example.com/2017/06/15/liu-chang-de-python-te-shu-fang-fa/"/>
-    <id>http://example.com/2017/06/15/liu-chang-de-python-te-shu-fang-fa/</id>
+    <link href="https://perror.dev/2017/06/15/liu-chang-de-python-te-shu-fang-fa/"/>
+    <id>https://perror.dev/2017/06/15/liu-chang-de-python-te-shu-fang-fa/</id>
     <published>2017-06-15T21:23:39.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
       
@@ -424,16 +424,16 @@
     
     
     
-    <category term="python" scheme="http://example.com/tags/python/"/>
+    <category term="python" scheme="https://perror.dev/tags/python/"/>
     
   </entry>
   
   <entry>
     <title>python根据exif信息旋转图片</title>
-    <link href="http://example.com/2017/06/08/python-gen-ju-exif-xin-xi-xuan-zhuan-tu-pian/"/>
-    <id>http://example.com/2017/06/08/python-gen-ju-exif-xin-xi-xuan-zhuan-tu-pian/</id>
+    <link href="https://perror.dev/2017/06/08/python-gen-ju-exif-xin-xi-xuan-zhuan-tu-pian/"/>
+    <id>https://perror.dev/2017/06/08/python-gen-ju-exif-xin-xi-xuan-zhuan-tu-pian/</id>
     <published>2017-06-08T00:10:49.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
       
@@ -448,16 +448,16 @@
     
     
     
-    <category term="python" scheme="http://example.com/tags/python/"/>
+    <category term="python" scheme="https://perror.dev/tags/python/"/>
     
   </entry>
   
   <entry>
     <title>python的高级用法 -- namedtuple</title>
-    <link href="http://example.com/2017/06/07/python-de-gao-ji-yong-fa-namedtuple/"/>
-    <id>http://example.com/2017/06/07/python-de-gao-ji-yong-fa-namedtuple/</id>
+    <link href="https://perror.dev/2017/06/07/python-de-gao-ji-yong-fa-namedtuple/"/>
+    <id>https://perror.dev/2017/06/07/python-de-gao-ji-yong-fa-namedtuple/</id>
     <published>2017-06-07T23:47:00.000Z</published>
-    <updated>2023-02-18T12:32:40.092Z</updated>
+    <updated>2023-02-18T12:37:34.639Z</updated>
     
     
       
