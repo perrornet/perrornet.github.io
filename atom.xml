@@ -6,7 +6,7 @@
   <link href="https://perror.dev/atom.xml" rel="self"/>
   
   <link href="https://perror.dev/"/>
-  <updated>2023-02-18T12:37:34.639Z</updated>
+  <updated>2023-02-18T12:41:15.445Z</updated>
   <id>https://perror.dev/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://perror.dev/2023/02/18/install-fluxcd-in-k8s-1-25-5/"/>
     <id>https://perror.dev/2023/02/18/install-fluxcd-in-k8s-1-25-5/</id>
     <published>2023-02-18T18:04:41.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
       
@@ -48,7 +48,7 @@
     <link href="https://perror.dev/2023/02/18/mysql-error-rec-cc-391-thread/"/>
     <id>https://perror.dev/2023/02/18/mysql-error-rec-cc-391-thread/</id>
     <published>2023-02-18T18:04:12.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
       
@@ -71,7 +71,7 @@
     <link href="https://perror.dev/2023/02/18/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace/"/>
     <id>https://perror.dev/2023/02/18/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace/</id>
     <published>2023-02-18T18:03:14.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
       
@@ -100,7 +100,7 @@
     <link href="https://perror.dev/2023/02/18/helm-bao-cuo-another-operation-install-upgrade-rollback-is-in-progress-chu-li-fang-fa/"/>
     <id>https://perror.dev/2023/02/18/helm-bao-cuo-another-operation-install-upgrade-rollback-is-in-progress-chu-li-fang-fa/</id>
     <published>2023-02-18T18:01:54.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
       
@@ -126,7 +126,7 @@
     <link href="https://perror.dev/2023/02/18/k8s-pvc-zi-dong-kuo-rong-shi-jian/"/>
     <id>https://perror.dev/2023/02/18/k8s-pvc-zi-dong-kuo-rong-shi-jian/</id>
     <published>2023-02-18T17:54:22.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
     <summary type="html">&lt;p&gt;依赖:&lt;/p&gt;
@@ -154,7 +154,7 @@
     <link href="https://perror.dev/2023/02/18/redis-de-yi-xie-xiao-zhi-shi/"/>
     <id>https://perror.dev/2023/02/18/redis-de-yi-xie-xiao-zhi-shi/</id>
     <published>2023-02-18T17:53:52.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
     <summary type="html">&lt;h4 id=&quot;redis的数据类型使用场合？&quot;&gt;&lt;a href=&quot;#redis的数据类型使用场合？&quot; class=&quot;headerlink&quot; title=&quot;redis的数据类型使用场合？&quot;&gt;&lt;/a&gt;redis的数据类型使用场合？&lt;/h4&gt;&lt;ul&gt;
@@ -177,7 +177,7 @@
     <link href="https://perror.dev/2023/02/18/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian/"/>
     <id>https://perror.dev/2023/02/18/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian/</id>
     <published>2023-02-18T17:53:10.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
     <summary type="html">&lt;p&gt;golang 中各种类型之间的转换实在是太过于繁琐，但是类型转换偏偏又是我们在开发过程中最常用的操作。同类型之间转换还稍微好一点，可以使用内置类型函数进行转换，但是想要转换不同的类型却需要引入不同的库， 而 cast 库正好解决了这一痛点，它提供了很多种的类型转换函数同我们使用， 通常的类型转换我们只需要引入这一个库就可以解决。&lt;/p&gt;</summary>
@@ -194,7 +194,7 @@
     <link href="https://perror.dev/2023/02/18/sds-xiang-jie/"/>
     <id>https://perror.dev/2023/02/18/sds-xiang-jie/</id>
     <published>2023-02-18T17:52:22.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
     <summary type="html">&lt;h3 id=&quot;什么是SDS？&quot;&gt;&lt;a href=&quot;#什么是SDS？&quot; class=&quot;headerlink&quot; title=&quot;什么是SDS？&quot;&gt;&lt;/a&gt;什么是SDS？&lt;/h3&gt;&lt;p&gt;SDS是redis构建的一种抽象类型，主要用于储存redis的默认字符串表示、AOF模块中的AOF缓冲区、客户端状态输入缓冲区。&lt;/p&gt;</summary>
@@ -211,7 +211,7 @@
     <link href="https://perror.dev/2023/02/18/go-de-channel-xiang-jie/"/>
     <id>https://perror.dev/2023/02/18/go-de-channel-xiang-jie/</id>
     <published>2023-02-18T17:51:42.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
     <summary type="html">&lt;p&gt;此片文章基于&lt;a href=&quot;https://studygolang.com/dl/golang/go1.12.1.src.tar.gz&quot;&gt;golang 1.12.1&lt;/a&gt;版本源码解析而成，chan源码位于go/src/runtime/chan.go文件中。&lt;/p&gt;</summary>
@@ -228,7 +228,7 @@
     <link href="https://perror.dev/2023/02/18/io-duo-lu-fu-yong-shi-jian/"/>
     <id>https://perror.dev/2023/02/18/io-duo-lu-fu-yong-shi-jian/</id>
     <published>2023-02-18T17:51:02.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
     <summary type="html">&lt;p&gt;最近几天一直在看tornado源码，发现torando虽然标榜使用异步模型实现， 但是实际上是使用IO多路复用实现的事件循环，为了能对 IO多路复用加深印象，决定自己实现一个简易的HTTP客户端对比一下同步客户端和IO多路复用客户端的性能差别。&lt;/p&gt;</summary>
@@ -245,7 +245,7 @@
     <link href="https://perror.dev/2023/02/18/dict/"/>
     <id>https://perror.dev/2023/02/18/dict/</id>
     <published>2023-02-18T17:47:55.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
       
@@ -268,7 +268,7 @@
     <link href="https://perror.dev/2023/02/18/python-shen-kao-bei-qian-kao-bei/"/>
     <id>https://perror.dev/2023/02/18/python-shen-kao-bei-qian-kao-bei/</id>
     <published>2023-02-18T17:46:25.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
       
@@ -292,7 +292,7 @@
     <link href="https://perror.dev/2018/03/16/hou-duan-chuan-gei-qian-duan-int-lei-xing-shu-ju-zi-zeng-huo-zi-jian/"/>
     <id>https://perror.dev/2018/03/16/hou-duan-chuan-gei-qian-duan-int-lei-xing-shu-ju-zi-zeng-huo-zi-jian/</id>
     <published>2018-03-16T19:53:35.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
       
@@ -315,7 +315,7 @@
     <link href="https://perror.dev/2017/12/15/python-nei-zhi-han-shu/"/>
     <id>https://perror.dev/2017/12/15/python-nei-zhi-han-shu/</id>
     <published>2017-12-15T17:21:05.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
       
@@ -341,7 +341,7 @@
     <link href="https://perror.dev/2017/07/13/aiohttp-asyncio-runtimeerror/"/>
     <id>https://perror.dev/2017/07/13/aiohttp-asyncio-runtimeerror/</id>
     <published>2017-07-13T11:04:10.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
       
@@ -364,7 +364,7 @@
     <link href="https://perror.dev/2017/06/17/liu-chang-de-python-dict-de-you-dian-yi-ji-que-dian/"/>
     <id>https://perror.dev/2017/06/17/liu-chang-de-python-dict-de-you-dian-yi-ji-que-dian/</id>
     <published>2017-06-17T13:38:13.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
       
@@ -387,7 +387,7 @@
     <link href="https://perror.dev/2017/06/15/liu-chang-de-python-zi-dian-zhong-de-san-lie-biao/"/>
     <id>https://perror.dev/2017/06/15/liu-chang-de-python-zi-dian-zhong-de-san-lie-biao/</id>
     <published>2017-06-15T22:27:44.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
       
@@ -410,7 +410,7 @@
     <link href="https://perror.dev/2017/06/15/liu-chang-de-python-te-shu-fang-fa/"/>
     <id>https://perror.dev/2017/06/15/liu-chang-de-python-te-shu-fang-fa/</id>
     <published>2017-06-15T21:23:39.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
       
@@ -433,7 +433,7 @@
     <link href="https://perror.dev/2017/06/08/python-gen-ju-exif-xin-xi-xuan-zhuan-tu-pian/"/>
     <id>https://perror.dev/2017/06/08/python-gen-ju-exif-xin-xi-xuan-zhuan-tu-pian/</id>
     <published>2017-06-08T00:10:49.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
       
@@ -457,7 +457,7 @@
     <link href="https://perror.dev/2017/06/07/python-de-gao-ji-yong-fa-namedtuple/"/>
     <id>https://perror.dev/2017/06/07/python-de-gao-ji-yong-fa-namedtuple/</id>
     <published>2017-06-07T23:47:00.000Z</published>
-    <updated>2023-02-18T12:37:34.639Z</updated>
+    <updated>2023-02-18T12:41:15.445Z</updated>
     
     
       
