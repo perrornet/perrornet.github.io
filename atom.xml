@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-02-18T12:15:49.992Z</updated>
+  <updated>2023-02-18T12:32:40.092Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://example.com/2023/02/18/install-fluxcd-in-k8s-1-25-5/"/>
     <id>http://example.com/2023/02/18/install-fluxcd-in-k8s-1-25-5/</id>
     <published>2023-02-18T18:04:41.000Z</published>
-    <updated>2023-02-18T12:15:49.992Z</updated>
+    <updated>2023-02-18T12:32:40.092Z</updated>
     
     
       
@@ -48,7 +48,7 @@
     <link href="http://example.com/2023/02/18/mysql-error-rec-cc-391-thread/"/>
     <id>http://example.com/2023/02/18/mysql-error-rec-cc-391-thread/</id>
     <published>2023-02-18T18:04:12.000Z</published>
-    <updated>2023-02-18T12:15:49.992Z</updated>
+    <updated>2023-02-18T12:32:40.092Z</updated>
     
     
       
@@ -71,7 +71,7 @@
     <link href="http://example.com/2023/02/18/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace/"/>
     <id>http://example.com/2023/02/18/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace/</id>
     <published>2023-02-18T18:03:14.000Z</published>
-    <updated>2023-02-18T12:15:49.992Z</updated>
+    <updated>2023-02-18T12:32:40.092Z</updated>
     
     
       
@@ -100,7 +100,7 @@
     <link href="http://example.com/2023/02/18/helm-bao-cuo-another-operation-install-upgrade-rollback-is-in-progress-chu-li-fang-fa/"/>
     <id>http://example.com/2023/02/18/helm-bao-cuo-another-operation-install-upgrade-rollback-is-in-progress-chu-li-fang-fa/</id>
     <published>2023-02-18T18:01:54.000Z</published>
-    <updated>2023-02-18T12:15:49.992Z</updated>
+    <updated>2023-02-18T12:32:40.092Z</updated>
     
     
       
@@ -126,7 +126,7 @@
     <link href="http://example.com/2023/02/18/k8s-pvc-zi-dong-kuo-rong-shi-jian/"/>
     <id>http://example.com/2023/02/18/k8s-pvc-zi-dong-kuo-rong-shi-jian/</id>
     <published>2023-02-18T17:54:22.000Z</published>
-    <updated>2023-02-18T12:15:49.992Z</updated>
+    <updated>2023-02-18T12:32:40.092Z</updated>
     
     
     <summary type="html">&lt;p&gt;依赖:&lt;/p&gt;
@@ -154,7 +154,7 @@
     <link href="http://example.com/2023/02/18/redis-de-yi-xie-xiao-zhi-shi/"/>
     <id>http://example.com/2023/02/18/redis-de-yi-xie-xiao-zhi-shi/</id>
     <published>2023-02-18T17:53:52.000Z</published>
-    <updated>2023-02-18T12:15:49.992Z</updated>
+    <updated>2023-02-18T12:32:40.092Z</updated>
     
     
     <summary type="html">&lt;h4 id=&quot;redis的数据类型使用场合？&quot;&gt;&lt;a href=&quot;#redis的数据类型使用场合？&quot; class=&quot;headerlink&quot; title=&quot;redis的数据类型使用场合？&quot;&gt;&lt;/a&gt;redis的数据类型使用场合？&lt;/h4&gt;&lt;ul&gt;
@@ -177,7 +177,7 @@
     <link href="http://example.com/2023/02/18/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian/"/>
     <id>http://example.com/2023/02/18/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian/</id>
     <published>2023-02-18T17:53:10.000Z</published>
-    <updated>2023-02-18T12:15:49.992Z</updated>
+    <updated>2023-02-18T12:32:40.092Z</updated>
     
     
     <summary type="html">&lt;p&gt;golang 中各种类型之间的转换实在是太过于繁琐，但是类型转换偏偏又是我们在开发过程中最常用的操作。同类型之间转换还稍微好一点，可以使用内置类型函数进行转换，但是想要转换不同的类型却需要引入不同的库， 而 cast 库正好解决了这一痛点，它提供了很多种的类型转换函数同我们使用， 通常的类型转换我们只需要引入这一个库就可以解决。&lt;/p&gt;</summary>
@@ -194,7 +194,7 @@
     <link href="http://example.com/2023/02/18/sds-xiang-jie/"/>
     <id>http://example.com/2023/02/18/sds-xiang-jie/</id>
     <published>2023-02-18T17:52:22.000Z</published>
-    <updated>2023-02-18T12:15:49.992Z</updated>
+    <updated>2023-02-18T12:32:40.092Z</updated>
     
     
     <summary type="html">&lt;h3 id=&quot;什么是SDS？&quot;&gt;&lt;a href=&quot;#什么是SDS？&quot; class=&quot;headerlink&quot; title=&quot;什么是SDS？&quot;&gt;&lt;/a&gt;什么是SDS？&lt;/h3&gt;&lt;p&gt;SDS是redis构建的一种抽象类型，主要用于储存redis的默认字符串表示、AOF模块中的AOF缓冲区、客户端状态输入缓冲区。&lt;/p&gt;</summary>
@@ -211,7 +211,7 @@
     <link href="http://example.com/2023/02/18/go-de-channel-xiang-jie/"/>
     <id>http://example.com/2023/02/18/go-de-channel-xiang-jie/</id>
     <published>2023-02-18T17:51:42.000Z</published>
-    <updated>2023-02-18T12:15:49.992Z</updated>
+    <updated>2023-02-18T12:32:40.092Z</updated>
     
     
     <summary type="html">&lt;p&gt;此片文章基于&lt;a href=&quot;https://studygolang.com/dl/golang/go1.12.1.src.tar.gz&quot;&gt;golang 1.12.1&lt;/a&gt;版本源码解析而成，chan源码位于go/src/runtime/chan.go文件中。&lt;/p&gt;</summary>
@@ -228,7 +228,7 @@
     <link href="http://example.com/2023/02/18/io-duo-lu-fu-yong-shi-jian/"/>
     <id>http://example.com/2023/02/18/io-duo-lu-fu-yong-shi-jian/</id>
     <published>2023-02-18T17:51:02.000Z</published>
-    <updated>2023-02-18T12:15:49.992Z</updated>
+    <updated>2023-02-18T12:32:40.092Z</updated>
     
     
     <summary type="html">&lt;p&gt;最近几天一直在看tornado源码，发现torando虽然标榜使用异步模型实现， 但是实际上是使用IO多路复用实现的事件循环，为了能对 IO多路复用加深印象，决定自己实现一个简易的HTTP客户端对比一下同步客户端和IO多路复用客户端的性能差别。&lt;/p&gt;</summary>
@@ -245,7 +245,7 @@
     <link href="http://example.com/2023/02/18/dict/"/>
     <id>http://example.com/2023/02/18/dict/</id>
     <published>2023-02-18T17:47:55.000Z</published>
-    <updated>2023-02-18T12:15:49.992Z</updated>
+    <updated>2023-02-18T12:32:40.092Z</updated>
     
     
       
@@ -268,7 +268,7 @@
     <link href="http://example.com/2023/02/18/python-shen-kao-bei-qian-kao-bei/"/>
     <id>http://example.com/2023/02/18/python-shen-kao-bei-qian-kao-bei/</id>
     <published>2023-02-18T17:46:25.000Z</published>
-    <updated>2023-02-18T12:15:49.992Z</updated>
+    <updated>2023-02-18T12:32:40.092Z</updated>
     
     
       
@@ -288,11 +288,34 @@
   </entry>
   
   <entry>
+    <title>后端传给前端int 类型数据自增或自减</title>
+    <link href="http://example.com/2018/03/16/hou-duan-chuan-gei-qian-duan-int-lei-xing-shu-ju-zi-zeng-huo-zi-jian/"/>
+    <id>http://example.com/2018/03/16/hou-duan-chuan-gei-qian-duan-int-lei-xing-shu-ju-zi-zeng-huo-zi-jian/</id>
+    <published>2018-03-16T19:53:35.000Z</published>
+    <updated>2023-02-18T12:32:40.092Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;由于我使用的python3 ,在python中int 类型不像其他语言的int类型， python 将long类型也加入到了int中， 所以再python中能够正确显示的int类型在其他的语言中不一定能够正确的显示， 当python 传的int</summary>
+        
+      
+    
+    
+    
+    
+    <category term="bug" scheme="http://example.com/tags/bug/"/>
+    
+  </entry>
+  
+  <entry>
     <title>python内置函数</title>
     <link href="http://example.com/2017/12/15/python-nei-zhi-han-shu/"/>
     <id>http://example.com/2017/12/15/python-nei-zhi-han-shu/</id>
     <published>2017-12-15T17:21:05.000Z</published>
-    <updated>2023-02-18T12:15:49.992Z</updated>
+    <updated>2023-02-18T12:32:40.092Z</updated>
     
     
       
@@ -310,6 +333,144 @@
     <category term="python" scheme="http://example.com/tags/python/"/>
     
     <category term="技术" scheme="http://example.com/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>aiohttp,asyncio,RunTimeError</title>
+    <link href="http://example.com/2017/07/13/aiohttp-asyncio-runtimeerror/"/>
+    <id>http://example.com/2017/07/13/aiohttp-asyncio-runtimeerror/</id>
+    <published>2017-07-13T11:04:10.000Z</published>
+    <updated>2023-02-18T12:32:40.092Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;首先，你得到的AssertionError: There is no current event loop in thread</summary>
+        
+      
+    
+    
+    
+    
+    <category term="bug" scheme="http://example.com/tags/bug/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>流畅的python--dict的优点以及缺点</title>
+    <link href="http://example.com/2017/06/17/liu-chang-de-python-dict-de-you-dian-yi-ji-que-dian/"/>
+    <id>http://example.com/2017/06/17/liu-chang-de-python-dict-de-you-dian-yi-ji-que-dian/</id>
+    <published>2017-06-17T13:38:13.000Z</published>
+    <updated>2023-02-18T12:32:40.092Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;1.健必须是可散列的。&lt;br&gt;用户自己实现的对象默认都是可散列的，因为id()不同。一个可散列对象应该有以下属性：&lt;br&gt;支持hash()函数，通过hash()方法得到的散列值是不变的。&lt;br&gt;可以通过eq()方法来检测相等性&lt;br&gt;如果a == b，那么hash(a)</summary>
+        
+      
+    
+    
+    
+    
+    <category term="python" scheme="http://example.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>流畅的python--字典中的散列表</title>
+    <link href="http://example.com/2017/06/15/liu-chang-de-python-zi-dian-zhong-de-san-lie-biao/"/>
+    <id>http://example.com/2017/06/15/liu-chang-de-python-zi-dian-zhong-de-san-lie-biao/</id>
+    <published>2017-06-15T22:27:44.000Z</published>
+    <updated>2023-02-18T12:32:40.092Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;字典中的散列表其实就是稀疏数组（总会有一些元素是空白的数组），散列表中的单元叫：表元，在构建字典时会有产生两个表元，一个用来标记健，一个用来标记值，因为两个表元的长度都是相等的，所以可以通过表元的偏移量来查找字典。&lt;br&gt;python中最具有效率的内置数据类型就是字典和集合</summary>
+        
+      
+    
+    
+    
+    
+    <category term="python" scheme="http://example.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>流畅的python--特殊方法</title>
+    <link href="http://example.com/2017/06/15/liu-chang-de-python-te-shu-fang-fa/"/>
+    <id>http://example.com/2017/06/15/liu-chang-de-python-te-shu-fang-fa/</id>
+    <published>2017-06-15T21:23:39.000Z</published>
+    <updated>2023-02-18T12:32:40.092Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;python中的特殊方法是主要是被python解释器调用，再大部分情况下不需要自己去实现特殊方法，比如len(x)，这里实际上是调用的len()方法，但是在实际中我们不会去使用x.len()这样的书写。如果x是一个自己实现的类并且再类里面实现了一个len()方法，那么pyt</summary>
+        
+      
+    
+    
+    
+    
+    <category term="python" scheme="http://example.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python根据exif信息旋转图片</title>
+    <link href="http://example.com/2017/06/08/python-gen-ju-exif-xin-xi-xuan-zhuan-tu-pian/"/>
+    <id>http://example.com/2017/06/08/python-gen-ju-exif-xin-xi-xuan-zhuan-tu-pian/</id>
+    <published>2017-06-08T00:10:49.000Z</published>
+    <updated>2023-02-18T12:32:40.092Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这几天在写业务代码有个需求：压缩图片。本来是很简单需求，三下五除二就写好了，但是在自己用手机上传图片的时候发现压缩后的图片都歪了，查了一下，原因是图片中的exif信息中的Orientation记录中图片的旋转角度。需要根据这个来旋转图片。&lt;/p&gt;
+&lt;p&gt;首先读取图片的exi</summary>
+        
+      
+    
+    
+    
+    
+    <category term="python" scheme="http://example.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python的高级用法 -- namedtuple</title>
+    <link href="http://example.com/2017/06/07/python-de-gao-ji-yong-fa-namedtuple/"/>
+    <id>http://example.com/2017/06/07/python-de-gao-ji-yong-fa-namedtuple/</id>
+    <published>2017-06-07T23:47:00.000Z</published>
+    <updated>2023-02-18T12:32:40.092Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;namedtuple函数用来构建一个有名字的元组或者类，这种方法可以更有效的调试&lt;br&gt;代码：&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;&amp;gt;&amp;gt;&amp;gt;</summary>
+        
+      
+    
+    
+    
     
   </entry>
   

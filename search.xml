@@ -240,6 +240,25 @@
     
     
     <entry>
+      <title>后端传给前端int 类型数据自增或自减</title>
+      <link href="/2018/03/16/hou-duan-chuan-gei-qian-duan-int-lei-xing-shu-ju-zi-zeng-huo-zi-jian/"/>
+      <url>/2018/03/16/hou-duan-chuan-gei-qian-duan-int-lei-xing-shu-ju-zi-zeng-huo-zi-jian/</url>
+      
+        <content type="html"><![CDATA[<p>由于我使用的python3 ,在python中int 类型不像其他语言的int类型， python 将long类型也加入到了int中， 所以再python中能够正确显示的int类型在其他的语言中不一定能够正确的显示， 当python 传的int 超过了浏览器所能解析的最大值时就会出现这种情况， 建议将较大的int 类型转换成string 在传给前端。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> bug </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>python内置函数</title>
       <link href="/2017/12/15/python-nei-zhi-han-shu/"/>
       <url>/2017/12/15/python-nei-zhi-han-shu/</url>
@@ -255,6 +274,114 @@
             <tag> 技术 </tag>
             
         </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>aiohttp,asyncio,RunTimeError</title>
+      <link href="/2017/07/13/aiohttp-asyncio-runtimeerror/"/>
+      <url>/2017/07/13/aiohttp-asyncio-runtimeerror/</url>
+      
+        <content type="html"><![CDATA[<p>首先，你得到的AssertionError: There is no current event loop in thread ‘Thread-1’.是因为asyncio程序中的每个线程都有自己的事件循环，但它只会在主线程中为你自动创建一个事件循环。所以如果你asyncio.get_event_loop在主线程中调用一次，它将自动创建一个循环对象并将其设置为默认值，但是如果你在一个子线程中再次调用它，你会得到这个错误。相反，您需要在线程启动时显式创建/设置事件循环：</p><pre class="line-numbers language-none"><code class="language-none">loop = asyncio.new_event_loop()asyncio.set_event_loop(loop)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>一旦你这样做，你应该能够使用get_event_loop()在特定的线程。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> bug </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>流畅的python--dict的优点以及缺点</title>
+      <link href="/2017/06/17/liu-chang-de-python-dict-de-you-dian-yi-ji-que-dian/"/>
+      <url>/2017/06/17/liu-chang-de-python-dict-de-you-dian-yi-ji-que-dian/</url>
+      
+        <content type="html"><![CDATA[<p>1.健必须是可散列的。<br>用户自己实现的对象默认都是可散列的，因为id()不同。一个可散列对象应该有以下属性：<br>支持hash()函数，通过hash()方法得到的散列值是不变的。<br>可以通过eq()方法来检测相等性<br>如果a == b，那么hash(a) == hash(b)</p><p>2.字典内存开销大<br>因为字典是由散列表实现的，散列表中肯定对出现一些稀疏，这就导致了字典会占用一些空间。当然和字典的速度相比这点内存是可以忽略的。</p><p>3.字典的健顺序不是唯一的<br>由于散列表在插入或者读取时候可能会产生散列冲突，这就导致了字典中健的顺序不是唯一的，但是不管字典健的顺序怎么变，如果两个字典健值对都一样那么这两个字典都是相等的：</p><pre class="line-numbers language-none"><code class="language-none">a = {"1":1,"2":3,"3":4,"4":4}b = {"3":3,"4":4,"1":1,"2":2}a == bTrue<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>流畅的python--字典中的散列表</title>
+      <link href="/2017/06/15/liu-chang-de-python-zi-dian-zhong-de-san-lie-biao/"/>
+      <url>/2017/06/15/liu-chang-de-python-zi-dian-zhong-de-san-lie-biao/</url>
+      
+        <content type="html"><![CDATA[<p>字典中的散列表其实就是稀疏数组（总会有一些元素是空白的数组），散列表中的单元叫：表元，在构建字典时会有产生两个表元，一个用来标记健，一个用来标记值，因为两个表元的长度都是相等的，所以可以通过表元的偏移量来查找字典。<br>python中最具有效率的内置数据类型就是字典和集合，这两种都是通过散列表来实现的。为了测试python中字典，集合和其他的数据类型的速度我做了以下的实验：</p><pre class="line-numbers language-none"><code class="language-none">import timeMAX = 10000000list_a = [i for i in range(MAX)]set_a = set(list_a)dict_a = {}.fromkeys(list_a)test = [i for i in range(1000)]def testTime(x,name):start = time.clock()for i in test:if i in x:passprint name,':','%f' % (time.clock() - start)testTime(list_a, 'list')testTime(set_a, 'set')testTime(dict_a, 'dict')``````结果：<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>list : 0.012472<br>set : 0.000079<br>dict : 0.000071</p><pre><code>从上面可以看出集合与字典相比其他类型要快得多，这是因为列表中没有散列表支持in运算符。散列的算法：比如python要获取dict[key]背后的值，python会先使用hash(key)来计算key的散列值，用然后去散列值的最低位的几位数字作为表元的偏移量，如果表元是空的，就会抛出一个KeyError异常，如果找到，就会获得一个:key:value值，python再最后会比较两个key的散列值是否一致。如果为真返回value，如果不相等这时候就称为散列冲突。这种情况的发生是因为散列表把随机的元素映射到几位数字上去。而散列表有依赖这个数字做检索。为了解决这个问题，散列表就会再从新取几位数字，去表元中寻找。如果表元为空这回抛出一个keyerror异常，如果没有找到就会重复上面的步骤直到找到。</code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>流畅的python--特殊方法</title>
+      <link href="/2017/06/15/liu-chang-de-python-te-shu-fang-fa/"/>
+      <url>/2017/06/15/liu-chang-de-python-te-shu-fang-fa/</url>
+      
+        <content type="html"><![CDATA[<p>python中的特殊方法是主要是被python解释器调用，再大部分情况下不需要自己去实现特殊方法，比如len(x)，这里实际上是调用的len()方法，但是在实际中我们不会去使用x.len()这样的书写。如果x是一个自己实现的类并且再类里面实现了一个len()方法，那么python就会去调用这个类里面的方法。<br>大部分情况下调用特殊方法都是隐性调用。比如: for i in x: 这里实际是调用了x的iter()方法，所有的特殊方法都可以自定义。但是在编程时是不建议大量的实现特殊方法，除非元编程。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>python根据exif信息旋转图片</title>
+      <link href="/2017/06/08/python-gen-ju-exif-xin-xi-xuan-zhuan-tu-pian/"/>
+      <url>/2017/06/08/python-gen-ju-exif-xin-xi-xuan-zhuan-tu-pian/</url>
+      
+        <content type="html"><![CDATA[<p>这几天在写业务代码有个需求：压缩图片。本来是很简单需求，三下五除二就写好了，但是在自己用手机上传图片的时候发现压缩后的图片都歪了，查了一下，原因是图片中的exif信息中的Orientation记录中图片的旋转角度。需要根据这个来旋转图片。</p><p>首先读取图片的exif信息：</p><pre class="line-numbers language-none"><code class="language-none">from PIL import Imageimg = Image.open('1.jpg')# 先判断图片是否有exif信息if hasattr(img, '_getexif'):# 获取exif信息dict_exif = img._getexif()if dict_exif(274, 0) == 3:# 旋转new_img = img.rotate(-90)elif dict_exif(274, 0) == 6:# 旋转new_img = img.rotate(180)else:new_img = imgelse:new_img = imgnew_img.save('new_1.jpg', )<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>python的高级用法 -- namedtuple</title>
+      <link href="/2017/06/07/python-de-gao-ji-yong-fa-namedtuple/"/>
+      <url>/2017/06/07/python-de-gao-ji-yong-fa-namedtuple/</url>
+      
+        <content type="html"><![CDATA[<p>namedtuple函数用来构建一个有名字的元组或者类，这种方法可以更有效的调试<br>代码：</p><pre class="line-numbers language-none"><code class="language-none">&gt;&gt;&gt; from collections import namedtuple# 创建一个类&gt;&gt;&gt; a = namedtuple('c', ('name', 'age'))&gt;&gt;&gt; x = a('perror', 21)&gt;&gt;&gt; print xc(name='perror', age=21)&gt;&gt;&gt; # 该返回值可以用访问对象的方法来访问&gt;&gt;&gt; print x.nameperror&gt;&gt;&gt; print x.age21&gt;&gt;&gt; # 也可以用标的方式去访问&gt;&gt;&gt; print x[0]perror<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>命名元组除了继承普通元组的方法外还有额外的三个方法：_fields 类属性，make() 类方法，_asdict() 类实例方法</p><pre class="line-numbers language-none"><code class="language-none">&gt;&gt;&gt; # 查看该命名元组中的所有字段&gt;&gt;&gt; x._fields('name', 'age')&gt;&gt;&gt; # _make 通过一个可迭代对象来生成一个类实例&gt;&gt;&gt;s = ('perror', '21')&gt;&gt;&gt; new_s = x._make(s)&gt;&gt;&gt; # 通过类实例方法更友好的打印出元组的字段&gt;&gt;&gt;new_s._asdict()OrderedDict([('name', 'perror'), ('age', 23)])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
       
     </entry>
     
