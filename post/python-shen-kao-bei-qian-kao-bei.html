@@ -4,8 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Tag: k8s, golang,python,devops,k8s,kube">
-    <meta name="description" content="I&#39;m a developer, a devops, a gamer, a movie lover, a dog lover.">
+    <meta name="keywords" content="python深拷贝浅拷贝, golang,python,devops,k8s,kube">
+    <meta name="description" content="说到python中的对象拷贝问题，还得看看is和==的区别：
+&amp;gt;&amp;gt;&amp;gt; a = [1,2,3,4]
+&amp;gt;&amp;gt;&amp;gt; b = [1,2,3,4]
+&amp;gt;&amp;gt;&amp;gt; a == b
+True
+&amp;gt;&amp;gt;&amp;g">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -28,7 +33,7 @@
 </script>
 
 
-    <title>Tag: k8s | Perror</title>
+    <title>python深拷贝浅拷贝 | Perror</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -213,251 +218,480 @@
 
 </header>
 
-    <div class="bg-cover pd-header about-cover">
-    <div class="container">
-    <div class="row">
-    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-        <div class="brand">
-            <div class="title center-align">
-                
-                It&#39;s Perror
-                
-            </div>
+    
 
-            <div class="description center-align">
-                
-                <span id="subtitle"></span>
-                <script src="/libs/typed/typed.js"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: [ 
-                            
-                                "I&#39;m a developer, a gamer, a movie lover, a dog lover.",
-                            
-                        ],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: false,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
-                
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">python深拷贝浅拷贝</h1>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/python/">
+                                <span class="chip bg-color">python</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2023-02-18
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
+                    808
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
+                    3 Min
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>说到python中的对象拷贝问题，还得看看is和==的区别：</p>
+<pre class="line-numbers language-none"><code class="language-none">&gt;&gt;&gt; a = [1,2,3,4]
+&gt;&gt;&gt; b = [1,2,3,4]
+&gt;&gt;&gt; a == b
+True
+&gt;&gt;&gt; a is b
+False<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以看见a和b中的数值都是一样的，但是与is的结果却不是一样的，这是因为python中比较的是a和b的数值相等，is比较对象的标识是否相等。所以在python中我们经常会使用==来比较对象的数值时候相等， 判断对象绑定的值时候是None, 最好使用is。这里面有一个坑，一些新手经常犯的错误，空字符串，空列表，空字典，他们的都等于False，但是他们都不是（不等于）None,所以在判断一个字符串，列表，字典是否为空时， 不要用None来做比较,因为这些变量无论是从对象标识，数值都与None不相等。   我们平常是用的对象复制一般都是浅拷贝。copy模块为我们提供了copy(浅拷贝)，deepcopy(深拷贝）函数,</p>
+<p>什么是浅拷贝：<br>浅拷贝就是将拷贝的对象引用拷贝一份，拷贝对象指向的是被拷贝对象的数值，简单的说就是，在原有数值上面再添加的一份引用。</p>
+<pre class="line-numbers language-none"><code class="language-none">&gt;&gt;&gt; a =1
+&gt;&gt;&gt; b = a
+&gt;&gt;&gt; id(a)
+4297636352
+&gt;&gt;&gt; id(b)
+4297636352<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>什么是深拷贝：<br>深拷贝就是拷贝对象对被拷贝对象数值上复制一份，然后新建一个对象，这个新的对象数值，对象标识都是和被拷贝对象相等的.</p>
+<pre class="line-numbers language-none"><code class="language-none">&gt;&gt;&gt; import copy
+&gt;&gt;&gt; a = [1,2,3]
+&gt;&gt;&gt; b = copy.deepcopy(a)
+&gt;&gt;&gt; b
+[1,2,3]
+&gt;&gt;&gt; a
+[1,2,3]
+&gt;&gt;&gt; a == b
+True
+&gt;&gt;&gt; a is b
+True
+&gt;&gt;&gt; id(a)
+4297636352
+&gt;&gt;&gt; id(b)
+4297636352
+&gt;&gt;&gt; a.append(0)
+&gt;&gt;&gt; a
+[1,2,3,0]
+&gt;&gt;&gt; b
+[1,2,3]
+&gt;&gt;&gt; b.append(9)
+&gt;&gt;&gt; b
+[1, 2, 3, 9]
+&gt;&gt;&gt; a
+[1, 2, 3, 0]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>基于这种现象，所以我们应该特别注意函数在使用可变参数作为默认参数，如不注意就会出现下面这种情况：</p>
+<pre class="line-numbers language-none"><code class="language-none">&gt;&gt;&gt; def a(x = []):
+... x.append(0)
+... print(x)
+&gt;&gt;&gt; a()
+[0]
+&gt;&gt;&gt; a()
+[0, 0]
+&gt;&gt;&gt; a()
+[0, 0, 0]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>为了避免这种情况我们应该避免使用可变对象作为函数默认参数：</p>
+<pre class="line-numbers language-none"><code class="language-none">&gt;&gt;&gt; def a(x = None):
+...     if x is None:
+...             x = []
+...     else:
+...             x.append(0)
+...     print(x)
+...
+&gt;&gt;&gt; a()
+[]
+&gt;&gt;&gt; a()
+[]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>同时创建类初始化传参也是使用浅拷贝来传递的，这样就会出现这种情况：</p>
+<pre class="line-numbers language-none"><code class="language-none">&gt;&gt;&gt; class A:
+...     def __init__(self, name):
+...         self.name = name
+...     def printf(self):
+...         print(self.name)
+...
+&gt;&gt;&gt; x = [1,2,3,4]
+&gt;&gt;&gt; a = A(x)
+&gt;&gt;&gt; a.printf()
+[1, 2, 3, 4]
+&gt;&gt;&gt; x.append(5)
+&gt;&gt;&gt; a.printf()
+[1, 2, 3, 4, 5]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在传入的参数改变的时候，类里面的变量的值页跟着改变了，这种情况时最难发现的。深拷贝/浅拷贝他们最大的区别就是:深拷贝拷贝父级对象及其子对象; 浅拷贝只拷贝父级对象.</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Perror</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://perror.dev/post/python-shen-kao-bei-qian-kao-bei.html">https://perror.dev/post/python-shen-kao-bei-qian-kao-bei.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Perror</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/python/">
+                                    <span class="chip bg-color">python</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/post/dict.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="python dict">
+                        
+                        <span class="card-title">python dict</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Perror
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/python/">
+                        <span class="chip bg-color">python</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/post/hou-duan-chuan-gei-qian-duan-int-lei-xing-shu-ju-zi-zeng-huo-zi-jian.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="后端传给前端int 类型数据自增或自减">
+                        
+                        <span class="card-title">后端传给前端int 类型数据自增或自减</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-03-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Perror
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/bug/">
+                        <span class="chip bg-color">bug</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
 <script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
 </script>
 
-
-    </div>
-</div>
-
-<main class="content">
-
     
 
-<div id="tags" class="container chip-container">
-    <div class="card">
-        <div class="card-content">
-            <div class="tag-title center-align">
-                <i class="fas fa-tags"></i>&nbsp;&nbsp;Post Tags
-            </div>
-            <div class="tag-chips">
-                
-                
-                <a href="/tags/python/" title="python: 8">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="python" style="background-color: #F9EBEA;">python
-                        <span class="tag-length">8</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/bug/" title="bug: 3">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="bug" style="background-color: #F5EEF8;">bug
-                        <span class="tag-length">3</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/golang/" title="golang: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="golang" style="background-color: #D5F5E3;">golang
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/devops/" title="devops: 4">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="devops" style="background-color: #E8F8F5;">devops
-                        <span class="tag-length">4</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/k8s/" title="k8s: 4">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-active "
-                            data-tagname="k8s" style="background-color: #FEF9E7;">k8s
-                        <span class="tag-length">4</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E6%8A%80%E6%9C%AF/" title="技术: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="技术" style="background-color: #F8F9F9;">技术
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/redis/" title="redis: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="redis" style="background-color: #82E0AA;">redis
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-            </div>
-        </div>
-    </div>
-</div>
-
-    
-
-    <article id="articles" class="container articles">
-        <div class="row tags-posts">
-            
-            
-            <div class="article tag-post col s12 m6 l4" data-tags="devops, k8s" data-aos="fade-up">
-                <div class="card">
-                    <a href="/post/install-fluxcd-in-k8s-1-25-5.html">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="install fluxcd in k8s 1.25.5">
-                            
-                            <span class="card-title">install fluxcd in k8s 1.25.5</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Perror
-                                
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="article tag-post col s12 m6 l4" data-tags="devops, k8s" data-aos="fade-up">
-                <div class="card">
-                    <a href="/post/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace.html">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="如何清理 Kubernetes namespace 中的 finalizers 并成功删除 argocd namespace">
-                            
-                            <span class="card-title">如何清理 Kubernetes namespace 中的 finalizers 并成功删除 argocd namespace</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Perror
-                                
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="article tag-post col s12 m6 l4" data-tags="devops, k8s" data-aos="fade-up">
-                <div class="card">
-                    <a href="/post/helm-bao-cuo-another-operation-install-upgrade-rollback-is-in-progress-chu-li-fang-fa.html">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="helm 报错：another operation (install/upgrade/rollback) is in progress处理方法">
-                            
-                            <span class="card-title">helm 报错：another operation (install/upgrade/rollback) is in progress处理方法</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Perror
-                                
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="article tag-post col s12 m6 l4" data-tags="devops, k8s" data-aos="fade-up">
-                <div class="card">
-                    <a href="/post/k8s-pvc-zi-dong-kuo-rong-shi-jian.html">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="k8s PVC自动扩容实践">
-                            
-                            <span class="card-title">k8s PVC自动扩容实践</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Perror
-                                
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </article>
 </main>
 
 

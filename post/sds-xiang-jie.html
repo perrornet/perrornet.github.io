@@ -4,8 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Tag: k8s, golang,python,devops,k8s,kube">
-    <meta name="description" content="I&#39;m a developer, a devops, a gamer, a movie lover, a dog lover.">
+    <meta name="keywords" content="redis sds详解, golang,python,devops,k8s,kube">
+    <meta name="description" content="什么是SDS？SDS是redis构建的一种抽象类型，主要用于储存redis的默认字符串表示、AOF模块中的AOF缓冲区、客户端状态输入缓冲区。
+
+
+SDS有什么优点？redis为什么不使用C的字符串？我们要先来看看C字符串中的缺点：
+
+C字">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -28,7 +33,7 @@
 </script>
 
 
-    <title>Tag: k8s | Perror</title>
+    <title>redis sds详解 | Perror</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -213,251 +218,435 @@
 
 </header>
 
-    <div class="bg-cover pd-header about-cover">
-    <div class="container">
-    <div class="row">
-    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-        <div class="brand">
-            <div class="title center-align">
-                
-                It&#39;s Perror
-                
-            </div>
+    
 
-            <div class="description center-align">
-                
-                <span id="subtitle"></span>
-                <script src="/libs/typed/typed.js"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: [ 
-                            
-                                "I&#39;m a developer, a gamer, a movie lover, a dog lover.",
-                            
-                        ],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: false,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
-                
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">redis sds详解</h1>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/redis/">
+                                <span class="chip bg-color">redis</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2023-02-18
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
+                    1.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
+                    3 Min
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="什么是SDS？"><a href="#什么是SDS？" class="headerlink" title="什么是SDS？"></a>什么是SDS？</h3><p>SDS是redis构建的一种抽象类型，主要用于储存redis的默认字符串表示、AOF模块中的AOF缓冲区、客户端状态输入缓冲区。</p>
+<span id="more"></span>
+
+<h3 id="SDS有什么优点？"><a href="#SDS有什么优点？" class="headerlink" title="SDS有什么优点？"></a>SDS有什么优点？</h3><p>redis为什么不使用C的字符串？我们要先来看看C字符串中的缺点：</p>
+<ol>
+<li>C字符串不记录自身长度信息，为了获取字符串长度必须遍历整个字符串，时间复杂度为O(n)。</li>
+<li>由于C字符串不记录自身长度，稍有不小心就会造成缓冲区溢出。</li>
+<li>对于redis这种缓存类型数据库，对于缓存的Value是有可能经常的更改的。但是C字符串每次的增长或是缩小都需要一次内存的重分配操作。</li>
+<li>redis数据库中缓存的内容不是特定的，有可能会是图片、音频等等文件的二进制数据，但是C字符串中的字符必须符合某种编码，且字符串中不能包含空格，这些限制也导致了redis不能使用C字符串来作为自身字符串的实现。 而SDS则将这些缺点都一一杜绝：<br>    1. SDS记录了自身的长度信息，使得获取字符串长度的时间复杂度为O(1)。<br>    2. SDS使用了预分配空间以及惰性空间释放的算法，解决了频繁分配内存的操作。<br>    3. SDS由于保存了自身的长度，也导致了SDS不会像C一样按照’\0’确定字符串的结尾。</li>
+</ol>
+<h3 id="SDS是如何实现的？"><a href="#SDS是如何实现的？" class="headerlink" title="SDS是如何实现的？"></a>SDS是如何实现的？</h3><p>redis使用名为sdshdr的结构体表示SDS值：</p>
+<pre class="line-numbers language-none"><code class="language-none">struct sdshdr{
+	int len; // 记录buf数组中已使用字节的数量
+	int free; // 记录buf中未使用字节数量
+	char buf[]; // 保存字符串的数组
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>SDS遵循这C字符串以空字符结尾的惯例，以便能够重用C字符串中的函数，这个结尾的空字符串并不会增加len字段的值，例如现在需要使用SDS保存’golang’这个字符串，那么SDS对应的结构体是：<br><a target="_blank" rel="noopener" href="https://imgtu.com/i/qNgzqI"><img src="https://s1.ax1x.com/2022/03/25/qNgzqI.png" alt="qNgzqI.png"></a></p>
+<p>由于SDS记录了自身的长度，所以redis中获取字符串的长度只需要返回len字段的字段，其时间复杂度为O(1)，而对于C字符串经常发生的缓冲区溢出，SDS的空间分配策略完全杜绝了这种可能性：当redis需要对SDS字符串修改时，首先会检查SDS的空间是否满足修改所需的空间，如果不满足则将SDS空间扩容至满足该修改空间所需的容量，SDS空间扩容的算法如下：</p>
+<pre><code>1. 如果SDS修改后的长度小于1MB，那么程序将会分配len字段值同样大小的未使用空间，这也是为什么我上面给出的例图中len的值是6，free值也是6的原因。对于上面那个例子，SDS的总占用大小为：6(len) + 6(free) + 1('\0’) = 13字节的容量。
+2.  如果SDS修改后的长度大于1MB，那么SDS将会为SDS分配1MB的未使用空间。如果一个SDS len值修改后的容量为2MB，那么redis将会为SDS分配1MB的未使用空间。则此时SDS的总占用大小为：2MB(len) + 1MB(len) + 1byte('\0’) =3073 byte容量。
+</code></pre>
+<p>这种扩容算法，减少了频繁的向系统申请内存的操作。SDS的空间释放并不是实时的，而是惰性释放：redis认为如果一个SDS的容量到达过N大小，则极有可能在其缩小后也有可能到达N，且惰性释放也减少了下次内存分配的可能，假如现在有一个’golang’字符串存储在redis中， 现在我们需要将’golang’修改为’go’，那么redis将会对SDS结构体将会是这样的：<br><a target="_blank" rel="noopener" href="https://imgtu.com/i/qN2RTP"><img src="https://s1.ax1x.com/2022/03/25/qN2RTP.png" alt="qN2RTP.png"></a><br><a target="_blank" rel="noopener" href="https://imgtu.com/i/qN24fS"><img src="https://s1.ax1x.com/2022/03/25/qN24fS.png" alt="qN24fS.png"></a><br>SDS提供了清理内存的API，我们可以在有需要时，调用该API以便真正的释放内存。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li><p>redis只会使用C字符串作为字面量使用，大多数情况都使用SDS来表示字符串。</p>
+</li>
+<li><p>能够使用常数级复杂度获取字符串的长度。</p>
+</li>
+<li><p>杜绝了缓冲区溢出。</p>
+</li>
+<li><p>减少了字符串所需内存重新分配的次数。以及对于二进制数据安全，且兼容部分C字符串函数。</p>
+</li>
+</ol>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Perror</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://perror.dev/post/sds-xiang-jie.html">https://perror.dev/post/sds-xiang-jie.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Perror</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/redis/">
+                                    <span class="chip bg-color">redis</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/post/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="cast类型转换库—go库推荐">
+                        
+                        <span class="card-title">cast类型转换库—go库推荐</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            golang 中各种类型之间的转换实在是太过于繁琐，但是类型转换偏偏又是我们在开发过程中最常用的操作。同类型之间转换还稍微好一点，可以使用内置类型函数进行转换，但是想要转换不同的类型却需要引入不同的库， 而 cast 库正好解决了这一痛点，
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Perror
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/golang/">
+                        <span class="chip bg-color">golang</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/post/go-de-channel-xiang-jie.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="go的channel详解">
+                        
+                        <span class="card-title">go的channel详解</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            此片文章基于golang 1.12.1版本源码解析而成，chan源码位于go/src/runtime/chan.go文件中。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Perror
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/golang/">
+                        <span class="chip bg-color">golang</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
 <script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
 </script>
 
-
-    </div>
-</div>
-
-<main class="content">
-
     
 
-<div id="tags" class="container chip-container">
-    <div class="card">
-        <div class="card-content">
-            <div class="tag-title center-align">
-                <i class="fas fa-tags"></i>&nbsp;&nbsp;Post Tags
-            </div>
-            <div class="tag-chips">
-                
-                
-                <a href="/tags/python/" title="python: 8">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="python" style="background-color: #F9EBEA;">python
-                        <span class="tag-length">8</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/bug/" title="bug: 3">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="bug" style="background-color: #F5EEF8;">bug
-                        <span class="tag-length">3</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/golang/" title="golang: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="golang" style="background-color: #D5F5E3;">golang
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/devops/" title="devops: 4">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="devops" style="background-color: #E8F8F5;">devops
-                        <span class="tag-length">4</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/k8s/" title="k8s: 4">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-active "
-                            data-tagname="k8s" style="background-color: #FEF9E7;">k8s
-                        <span class="tag-length">4</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E6%8A%80%E6%9C%AF/" title="技术: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="技术" style="background-color: #F8F9F9;">技术
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/redis/" title="redis: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="redis" style="background-color: #82E0AA;">redis
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-            </div>
-        </div>
-    </div>
-</div>
-
-    
-
-    <article id="articles" class="container articles">
-        <div class="row tags-posts">
-            
-            
-            <div class="article tag-post col s12 m6 l4" data-tags="devops, k8s" data-aos="fade-up">
-                <div class="card">
-                    <a href="/post/install-fluxcd-in-k8s-1-25-5.html">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="install fluxcd in k8s 1.25.5">
-                            
-                            <span class="card-title">install fluxcd in k8s 1.25.5</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Perror
-                                
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="article tag-post col s12 m6 l4" data-tags="devops, k8s" data-aos="fade-up">
-                <div class="card">
-                    <a href="/post/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace.html">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="如何清理 Kubernetes namespace 中的 finalizers 并成功删除 argocd namespace">
-                            
-                            <span class="card-title">如何清理 Kubernetes namespace 中的 finalizers 并成功删除 argocd namespace</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Perror
-                                
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="article tag-post col s12 m6 l4" data-tags="devops, k8s" data-aos="fade-up">
-                <div class="card">
-                    <a href="/post/helm-bao-cuo-another-operation-install-upgrade-rollback-is-in-progress-chu-li-fang-fa.html">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="helm 报错：another operation (install/upgrade/rollback) is in progress处理方法">
-                            
-                            <span class="card-title">helm 报错：another operation (install/upgrade/rollback) is in progress处理方法</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Perror
-                                
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="article tag-post col s12 m6 l4" data-tags="devops, k8s" data-aos="fade-up">
-                <div class="card">
-                    <a href="/post/k8s-pvc-zi-dong-kuo-rong-shi-jian.html">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="k8s PVC自动扩容实践">
-                            
-                            <span class="card-title">k8s PVC自动扩容实践</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Perror
-                                
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </article>
 </main>
 
 

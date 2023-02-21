@@ -4,8 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Tag: k8s, golang,python,devops,k8s,kube">
-    <meta name="description" content="I&#39;m a developer, a devops, a gamer, a movie lover, a dog lover.">
+    <meta name="keywords" content="k8s PVC自动扩容实践, golang,python,devops,k8s,kube">
+    <meta name="description" content="依赖:
+
+k8s &amp;gt;= 1.24
+pvc-autoresizer &amp;gt;= 0.5.0
+
+一、安装 pvc-autoresizer
+
+build  and push docker 镜像 git clone https://githu">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -28,7 +35,7 @@
 </script>
 
 
-    <title>Tag: k8s | Perror</title>
+    <title>k8s PVC自动扩容实践 | Perror</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -213,251 +220,537 @@
 
 </header>
 
-    <div class="bg-cover pd-header about-cover">
-    <div class="container">
-    <div class="row">
-    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-        <div class="brand">
-            <div class="title center-align">
-                
-                It&#39;s Perror
-                
-            </div>
+    
 
-            <div class="description center-align">
-                
-                <span id="subtitle"></span>
-                <script src="/libs/typed/typed.js"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: [ 
-                            
-                                "I&#39;m a developer, a gamer, a movie lover, a dog lover.",
-                            
-                        ],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: false,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
-                
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">k8s PVC自动扩容实践</h1>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/devops/">
+                                <span class="chip bg-color">devops</span>
+                            </a>
+                        
+                            <a href="/tags/k8s/">
+                                <span class="chip bg-color">k8s</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2023-02-18
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
+                    528
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
+                    2 Min
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>依赖:</p>
+<ol>
+<li>k8s &gt;= 1.24</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/topolvm/pvc-autoresizer">pvc-autoresizer</a> &gt;= 0.5.0</li>
+</ol>
+<p>一、安装 pvc-autoresizer</p>
+<ul>
+<li><p>build  and push docker 镜像 <code>git clone https://github.com/topolvm/pvc-autoresizer &amp;&amp; git checkout v0.5.0 &amp;&amp; cd pvc-autoresizer &amp;&amp; docker build -t pvc-autoresizer:0.5.0 . &amp;&amp; docker push pvc-autoresizer:0.5.0</code></p>
+</li>
+<li><p>添加 helm repo: <code>helm repo add pvc-autoresizer https://topolvm.github.io/pvc-autoresizer/</code></p>
+<span id="more"></span>
+
+</li>
+<li><p>values.yaml</p>
+<pre class="line-numbers language-none"><code class="language-none"># config from https://github.com/topolvm/pvc-autoresizer/blob/main/charts/pvc-autoresizer/values.yaml
+image:
+  # image.repository -- pvc-autoresizer image repository to use.
+  repository: perrorone/pvc-autoresizer
+
+  # image.tag -- pvc-autoresizer image tag to use.
+  # @default -- `{{ .Chart.AppVersion }}`
+  tag:  v0.5.0
+
+controller:
+  # controller.replicas -- Specify the number of replicas of the controller Pod.
+  replicas: 1
+
+  args:
+    # controller.args.prometheusURL -- Specify Prometheus URL to query volume stats.
+    # Used as "--prometheus-url" option
+    prometheusURL: &lt;you_prometheus_url&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>安装 pvc-autoresizer: <code>helm install --create-namespace --namespace pvc-autoresizer pvc-autoresizer pvc-autoresizer/pvc-autoresizer --values ./values.yaml"</code></p>
+</li>
+<li><p>检查是否成功 <code>kubectl get pod -n pvc-autoresizer | grep pvc-autoresizer</code></p>
+</li>
+</ul>
+<p>二、 创建StatefulSet以及存储类</p>
+<ul>
+<li>编写stateful-set.yaml:<pre class="line-numbers language-none"><code class="language-none">apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: test-pvc-autoresizer
+  namespace: staging
+  annotations:
+    resize.topolvm.io/enabled: "true" # 必须存在, 才能自动扩容
+parameters:
+  type: pd-ssd
+provisioner: pd.csi.storage.gke.io
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: test-pvc-autoresizer
+  namespace: staging
+spec:
+  selector:
+    matchLabels:
+      app: test-pvc-autoresizer
+  serviceName: "test-pvc-autoresizer"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: test-pvc-autoresizer
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: test-pvc-autoresizer
+          image: perrorone/go-file:v1.0.0
+          ports:
+            - containerPort: 80
+              name: http
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+          volumeMounts:
+            - name: test-pvc-data
+              mountPath: /data
+          resources:
+            requests:
+              cpu: 200m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+  volumeClaimTemplates:
+    - metadata:
+        name: test-pvc-data
+        annotations:  # 必须存在, 使得自动创建的 PVC携带以下设置想才能自动扩容
+            resize.topolvm.io/storage_limit: 8Gi # 最大扩容大小
+            resize.topolvm.io/threshold: 20%
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "test-pvc-autoresizer"
+        resources:
+          requests:
+            storage: 1Gi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>部署: <code>kubectl apply -f ./stateful-set.yaml</code></li>
+</ul>
+<p>三、测试</p>
+<ul>
+<li><p>进入pod中检查挂载目录大小, <code>df -h</code> 输出可以看到<code>/data</code>目录只使用了1%空间</p>
+</li>
+<li><p>写入文件测试自动扩容: <code>dd if=/dev/zero of=1G.file bs=50M count=20</code></p>
+</li>
+<li><p>检查pvc-autoresizer pod 日志<br><img src="/medias/1666863168702.jpg"></p>
+</li>
+<li><p>再次检查pod挂载目录大小, 可以看见挂载目录已经使用了100%: <code>/dev/sdf                975.9M    959.9M         0 100% /data</code></p>
+</li>
+<li><p>等待一会,再次查看挂载目录大小, 可以看见已经扩容成功: <code>/dev/sdf                  1.9G    960.4M   1007.4M  49% /data</code> 😋😋😋😋😋😋<br><img src="/medias/1666863439959.jpg"></p>
+</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Perror</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://perror.dev/post/k8s-pvc-zi-dong-kuo-rong-shi-jian.html">https://perror.dev/post/k8s-pvc-zi-dong-kuo-rong-shi-jian.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">Perror</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/devops/">
+                                    <span class="chip bg-color">devops</span>
+                                </a>
+                            
+                                <a href="/tags/k8s/">
+                                    <span class="chip bg-color">k8s</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/post/helm-bao-cuo-another-operation-install-upgrade-rollback-is-in-progress-chu-li-fang-fa.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="helm 报错：another operation (install/upgrade/rollback) is in progress处理方法">
+                        
+                        <span class="card-title">helm 报错：another operation (install/upgrade/rollback) is in progress处理方法</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Perror
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/devops/">
+                        <span class="chip bg-color">devops</span>
+                    </a>
+                    
+                    <a href="/tags/k8s/">
+                        <span class="chip bg-color">k8s</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/post/redis-de-yi-xie-xiao-zhi-shi.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="redis的一些小知识">
+                        
+                        <span class="card-title">redis的一些小知识</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            redis的数据类型使用场合？
+string：其value可以储存string以及数字类型，一般用于复杂的技术功能上。
+hash：其value存放的是结构化的对象，它可以能方便的去操作某个字段，我使用他实现过用户行为数据缓存以及sessio
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Perror
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/redis/">
+                        <span class="chip bg-color">redis</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
 <script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
 </script>
 
-
-    </div>
-</div>
-
-<main class="content">
-
     
 
-<div id="tags" class="container chip-container">
-    <div class="card">
-        <div class="card-content">
-            <div class="tag-title center-align">
-                <i class="fas fa-tags"></i>&nbsp;&nbsp;Post Tags
-            </div>
-            <div class="tag-chips">
-                
-                
-                <a href="/tags/python/" title="python: 8">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="python" style="background-color: #F9EBEA;">python
-                        <span class="tag-length">8</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/bug/" title="bug: 3">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="bug" style="background-color: #F5EEF8;">bug
-                        <span class="tag-length">3</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/golang/" title="golang: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="golang" style="background-color: #D5F5E3;">golang
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/devops/" title="devops: 4">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="devops" style="background-color: #E8F8F5;">devops
-                        <span class="tag-length">4</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/k8s/" title="k8s: 4">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-active "
-                            data-tagname="k8s" style="background-color: #FEF9E7;">k8s
-                        <span class="tag-length">4</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E6%8A%80%E6%9C%AF/" title="技术: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="技术" style="background-color: #F8F9F9;">技术
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/redis/" title="redis: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="redis" style="background-color: #82E0AA;">redis
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-            </div>
-        </div>
-    </div>
-</div>
-
-    
-
-    <article id="articles" class="container articles">
-        <div class="row tags-posts">
-            
-            
-            <div class="article tag-post col s12 m6 l4" data-tags="devops, k8s" data-aos="fade-up">
-                <div class="card">
-                    <a href="/post/install-fluxcd-in-k8s-1-25-5.html">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="install fluxcd in k8s 1.25.5">
-                            
-                            <span class="card-title">install fluxcd in k8s 1.25.5</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Perror
-                                
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="article tag-post col s12 m6 l4" data-tags="devops, k8s" data-aos="fade-up">
-                <div class="card">
-                    <a href="/post/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace.html">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="如何清理 Kubernetes namespace 中的 finalizers 并成功删除 argocd namespace">
-                            
-                            <span class="card-title">如何清理 Kubernetes namespace 中的 finalizers 并成功删除 argocd namespace</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Perror
-                                
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="article tag-post col s12 m6 l4" data-tags="devops, k8s" data-aos="fade-up">
-                <div class="card">
-                    <a href="/post/helm-bao-cuo-another-operation-install-upgrade-rollback-is-in-progress-chu-li-fang-fa.html">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="helm 报错：another operation (install/upgrade/rollback) is in progress处理方法">
-                            
-                            <span class="card-title">helm 报错：another operation (install/upgrade/rollback) is in progress处理方法</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Perror
-                                
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="article tag-post col s12 m6 l4" data-tags="devops, k8s" data-aos="fade-up">
-                <div class="card">
-                    <a href="/post/k8s-pvc-zi-dong-kuo-rong-shi-jian.html">
-                        <div class="card-image tag-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="k8s PVC自动扩容实践">
-                            
-                            <span class="card-title">k8s PVC自动扩容实践</span>
-                        </div>
-                    </a>
-                    <div class="card-content article-content">
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Perror
-                                
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </article>
 </main>
 
 
