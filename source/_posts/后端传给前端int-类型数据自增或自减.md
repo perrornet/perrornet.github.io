@@ -4,4 +4,4 @@ date: 2018-03-16 19:53:35
 tags:
     - bug
 ---
-由于我使用的python3 ,在python中int 类型不像其他语言的int类型， python 将long类型也加入到了int中， 所以再python中能够正确显示的int类型在其他的语言中不一定能够正确的显示， 当python 传的int 超过了浏览器所能解析的最大值时就会出现这种情况， 建议将较大的int 类型转换成string 在传给前端。
+由于我使用的是Python 3，Python 中的 int 类型与其他语言中的 int 类型不同，Python 将 long 类型也加入到了 int 中。因此，在其他语言中能够正确显示的 int 类型，在 Python 中不一定能够正确显示。当 Python 传递的 int 超过了浏览器所能解析的最大值时，就会出现这种情况。建议将较大的 int 类型转换成字符串后再传给前端。

@@ -6,21 +6,34 @@ tags:
     - devops
     - k8s
 ---
+## 依赖
+## 依赖
 
+此实践依赖于：
 
-依赖:
-1. k8s >= 1.24
-2. [pvc-autoresizer](https://github.com/topolvm/pvc-autoresizer) >= 0.5.0
+1. k8s版本 >= 1.24
+2. [pvc-autoresizer](https://github.com/topolvm/pvc-autoresizer) 版本 >= 0.5.0
 
-一、安装 pvc-autoresizer
-* build  and push docker 镜像 `git clone https://github.com/topolvm/pvc-autoresizer && git checkout v0.5.0 && cd pvc-autoresizer && docker build -t pvc-autoresizer:0.5.0 . && docker push pvc-autoresizer:0.5.0`
-* 添加 helm repo: `helm repo add pvc-autoresizer https://topolvm.github.io/pvc-autoresizer/`
-  <!-- more -->
+## 安装 pvc-autoresizer
 
+1. 克隆[pvc-autoresizer](https://github.com/topolvm/pvc-autoresizer)仓库并检出版本 0.5.0，然后构建并推送Docker镜像：
 
-* values.yaml
 ```
-# config from https://github.com/topolvm/pvc-autoresizer/blob/main/charts/pvc-autoresizer/values.yaml
+git clone <https://github.com/topolvm/pvc-autoresizer> && git checkout v0.5.0 && cd pvc-autoresizer && docker build -t pvc-autoresizer:0.5.0 . && docker push pvc-autoresizer:0.5.0
+
+```
+
+1. 添加pvc-autoresizer的Helm repo:
+
+```
+helm repo add pvc-autoresizer <https://topolvm.github.io/pvc-autoresizer/>
+
+```
+
+1. 准备`values.yaml`文件，内容如下：
+
+```
+# config from <https://github.com/topolvm/pvc-autoresizer/blob/main/charts/pvc-autoresizer/values.yaml>
 image:
   # image.repository -- pvc-autoresizer image repository to use.
   repository: perrorone/pvc-autoresizer
@@ -37,13 +50,27 @@ controller:
     # controller.args.prometheusURL -- Specify Prometheus URL to query volume stats.
     # Used as "--prometheus-url" option
     prometheusURL: <you_prometheus_url>
+
 ```
 
-* 安装 pvc-autoresizer: `helm install --create-namespace --namespace pvc-autoresizer pvc-autoresizer pvc-autoresizer/pvc-autoresizer --values ./values.yaml"`
-* 检查是否成功 `kubectl get pod -n pvc-autoresizer | grep pvc-autoresizer`
+1. 安装pvc-autoresizer:
 
-二、 创建StatefulSet以及存储类
-* 编写stateful-set.yaml:
+```
+helm install --create-namespace --namespace pvc-autoresizer pvc-autoresizer pvc-autoresizer/pvc-autoresizer --values ./values.yaml
+
+```
+
+1. 检查是否安装成功:
+
+```
+kubectl get pod -n pvc-autoresizer | grep pvc-autoresizer
+
+```
+
+## 创建StatefulSet以及存储类
+
+1. 编写`stateful-set.yaml`文件，内容如下:
+
 ```
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -112,16 +139,37 @@ spec:
         resources:
           requests:
             storage: 1Gi
+
 ```
-* 部署: `kubectl apply -f ./stateful-set.yaml`
 
-三、测试
-* 进入pod中检查挂载目录大小, `df -h` 输出可以看到`/data`目录只使用了1%空间
-* 写入文件测试自动扩容: `dd if=/dev/zero of=1G.file bs=50M count=20`
-* 检查pvc-autoresizer pod 日志
-  ![](/medias/1666863168702.jpg)
+1. 部署StatefulSet和存储类:
 
-* 再次检查pod挂载目录大小, 可以看见挂载目录已经使用了100%: `/dev/sdf                975.9M    959.9M         0 100% /data`
-* 等待一会,再次查看挂载目录大小, 可以看见已经扩容成功: `/dev/sdf                  1.9G    960.4M   1007.4M  49% /data` 😋😋😋😋😋😋
-  ![](/medias/1666863439959.jpg)
+```
+kubectl apply -f ./stateful-set.yaml
 
+```
+
+## 测试
+
+1. 进入pod并查看挂载目录大小，可以看到`/data`目录只使用了1%的空间
+
+```
+df -h
+
+```
+
+2. 测试自动扩容，写入文件:
+
+```
+dd if=/dev/zero of=1G.file bs=50M count=20
+
+```
+
+3. 检查pvc-autoresizer pod 日志:
+
+   ![/medias/1666863168702.jpg](/medias/1666863168702.jpg)
+
+4. 再次检查pod挂载目录大小, 可以看见挂载目录已经使用了100%:`/dev/sdf 975.9M 959.9M 0 100% /data`
+5. 等待一段时间后，再次查看挂载目录大小，可以看见已经扩容成功:`/dev/sdf 1.9G 960.4M 1007.4M 49% /data`😋😋😋😋😋😋
+
+![/medias/1666863439959.jpg](/medias/1666863439959.jpg)
