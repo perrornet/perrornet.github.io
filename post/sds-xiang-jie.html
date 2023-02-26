@@ -5,12 +5,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="redis sds详解, golang,python,devops,k8s,kube">
-    <meta name="description" content="什么是SDS？SDS是redis构建的一种抽象类型，主要用于储存redis的默认字符串表示、AOF模块中的AOF缓冲区、客户端状态输入缓冲区。
+    <meta name="description" content="什么是SDS？SDS是Redis构建的一种抽象类型，主要用于储存Redis的默认字符串表示、AOF模块中的AOF缓冲区和客户端状态输入缓冲区。
+SDS的优点为什么Redis不使用C字符串？我们需要先了解C字符串的缺点：
 
-
-SDS有什么优点？redis为什么不使用C的字符串？我们要先来看看C字符串中的缺点：
-
-C字">
+C字符串不记录自身">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -301,38 +299,42 @@ C字">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="什么是SDS？"><a href="#什么是SDS？" class="headerlink" title="什么是SDS？"></a>什么是SDS？</h3><p>SDS是redis构建的一种抽象类型，主要用于储存redis的默认字符串表示、AOF模块中的AOF缓冲区、客户端状态输入缓冲区。</p>
-<span id="more"></span>
-
-<h3 id="SDS有什么优点？"><a href="#SDS有什么优点？" class="headerlink" title="SDS有什么优点？"></a>SDS有什么优点？</h3><p>redis为什么不使用C的字符串？我们要先来看看C字符串中的缺点：</p>
+                <h3 id="什么是SDS？"><a href="#什么是SDS？" class="headerlink" title="什么是SDS？"></a>什么是SDS？</h3><p>SDS是Redis构建的一种抽象类型，主要用于储存Redis的默认字符串表示、AOF模块中的AOF缓冲区和客户端状态输入缓冲区。</p>
+<h3 id="SDS的优点"><a href="#SDS的优点" class="headerlink" title="SDS的优点"></a>SDS的优点</h3><p>为什么Redis不使用C字符串？我们需要先了解C字符串的缺点：</p>
 <ol>
-<li>C字符串不记录自身长度信息，为了获取字符串长度必须遍历整个字符串，时间复杂度为O(n)。</li>
-<li>由于C字符串不记录自身长度，稍有不小心就会造成缓冲区溢出。</li>
-<li>对于redis这种缓存类型数据库，对于缓存的Value是有可能经常的更改的。但是C字符串每次的增长或是缩小都需要一次内存的重分配操作。</li>
-<li>redis数据库中缓存的内容不是特定的，有可能会是图片、音频等等文件的二进制数据，但是C字符串中的字符必须符合某种编码，且字符串中不能包含空格，这些限制也导致了redis不能使用C字符串来作为自身字符串的实现。 而SDS则将这些缺点都一一杜绝：<br>    1. SDS记录了自身的长度信息，使得获取字符串长度的时间复杂度为O(1)。<br>    2. SDS使用了预分配空间以及惰性空间释放的算法，解决了频繁分配内存的操作。<br>    3. SDS由于保存了自身的长度，也导致了SDS不会像C一样按照’\0’确定字符串的结尾。</li>
+<li>C字符串不记录自身长度信息，获取字符串长度必须遍历整个字符串，时间复杂度为O(n)。</li>
+<li>C字符串不记录自身长度，稍有不小心就会造成缓冲区溢出。</li>
+<li>对于Redis这种缓存类型数据库，对于缓存的Value常常会经常更改。但是C字符串每次的增长或是缩小都需要一次内存的重分配操作。</li>
+<li>Redis数据库中缓存的内容不是特定的，有可能会是图片、音频等等文件的二进制数据，但是C字符串中的字符必须符合某种编码，且字符串中不能包含空格，这些限制也导致了Redis不能使用C字符串来作为自身字符串的实现。</li>
 </ol>
-<h3 id="SDS是如何实现的？"><a href="#SDS是如何实现的？" class="headerlink" title="SDS是如何实现的？"></a>SDS是如何实现的？</h3><p>redis使用名为sdshdr的结构体表示SDS值：</p>
+<p>而SDS则将这些缺点都一一杜绝：</p>
+<ol>
+<li>SDS记录了自身的长度信息，使得获取字符串长度的时间复杂度为O(1)。</li>
+<li>SDS使用了预分配空间以及惰性空间释放的算法，解决了频繁分配内存的操作。</li>
+<li>SDS由于保存了自身的长度，也导致了SDS不会像C一样按照’\0’确定字符串的结尾。</li>
+</ol>
+<h3 id="SDS的实现"><a href="#SDS的实现" class="headerlink" title="SDS的实现"></a>SDS的实现</h3><p>Redis使用名为sdshdr的结构体表示SDS值：</p>
 <pre class="line-numbers language-none"><code class="language-none">struct sdshdr{
-	int len; // 记录buf数组中已使用字节的数量
-	int free; // 记录buf中未使用字节数量
-	char buf[]; // 保存字符串的数组
+   int len; // 记录buf数组中已使用字节的数量
+   int free; // 记录buf中未使用字节数量
+   char buf[]; // 保存字符串的数组
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>SDS遵循这C字符串以空字符结尾的惯例，以便能够重用C字符串中的函数，这个结尾的空字符串并不会增加len字段的值，例如现在需要使用SDS保存’golang’这个字符串，那么SDS对应的结构体是：<br><a target="_blank" rel="noopener" href="https://imgtu.com/i/qNgzqI"><img src="https://s1.ax1x.com/2022/03/25/qNgzqI.png" alt="qNgzqI.png"></a></p>
-<p>由于SDS记录了自身的长度，所以redis中获取字符串的长度只需要返回len字段的字段，其时间复杂度为O(1)，而对于C字符串经常发生的缓冲区溢出，SDS的空间分配策略完全杜绝了这种可能性：当redis需要对SDS字符串修改时，首先会检查SDS的空间是否满足修改所需的空间，如果不满足则将SDS空间扩容至满足该修改空间所需的容量，SDS空间扩容的算法如下：</p>
-<pre><code>1. 如果SDS修改后的长度小于1MB，那么程序将会分配len字段值同样大小的未使用空间，这也是为什么我上面给出的例图中len的值是6，free值也是6的原因。对于上面那个例子，SDS的总占用大小为：6(len) + 6(free) + 1('\0’) = 13字节的容量。
-2.  如果SDS修改后的长度大于1MB，那么SDS将会为SDS分配1MB的未使用空间。如果一个SDS len值修改后的容量为2MB，那么redis将会为SDS分配1MB的未使用空间。则此时SDS的总占用大小为：2MB(len) + 1MB(len) + 1byte('\0’) =3073 byte容量。
-</code></pre>
-<p>这种扩容算法，减少了频繁的向系统申请内存的操作。SDS的空间释放并不是实时的，而是惰性释放：redis认为如果一个SDS的容量到达过N大小，则极有可能在其缩小后也有可能到达N，且惰性释放也减少了下次内存分配的可能，假如现在有一个’golang’字符串存储在redis中， 现在我们需要将’golang’修改为’go’，那么redis将会对SDS结构体将会是这样的：<br><a target="_blank" rel="noopener" href="https://imgtu.com/i/qN2RTP"><img src="https://s1.ax1x.com/2022/03/25/qN2RTP.png" alt="qN2RTP.png"></a><br><a target="_blank" rel="noopener" href="https://imgtu.com/i/qN24fS"><img src="https://s1.ax1x.com/2022/03/25/qN24fS.png" alt="qN24fS.png"></a><br>SDS提供了清理内存的API，我们可以在有需要时，调用该API以便真正的释放内存。</p>
+<p>SDS遵循C字符串以空字符结尾的惯例，以便能够重用C字符串中的函数。这个结尾的空字符串并不会增加len字段的值。例如现在需要使用SDS保存“golang”这个字符串，那么SDS对应的结构体是：</p>
+<p><img src="https://s1.ax1x.com/2022/03/25/qNgzqI.png" alt="https://s1.ax1x.com/2022/03/25/qNgzqI.png)"></p>
+<p>由于SDS记录了自身的长度，所以Redis中获取字符串的长度只需要返回len字段的字段，其时间复杂度为O(1)。而对于C字符串经常发生的缓冲区溢出，SDS的空间分配策略完全杜绝了这种可能性。当Redis需要对SDS字符串修改时，首先会检查SDS的空间是否满足修改所需的空间。如果不满足则将SDS空间扩容至满足该修改空间所需的容量。SDS空间扩容的算法如下：</p>
+<ol>
+<li>如果SDS修改后的长度小于1MB，那么程序将会分配len字段值同样大小的未使用空间。对于上面那个例子，SDS的总占用大小为：6（len）+ 6（free）+ 1（‘\0’）= 13字节的容量。</li>
+<li>如果SDS修改后的长度大于1MB，那么SDS将会为SDS分配1MB的未使用空间。如果一个SDS len值修改后的容量为2MB，那么Redis将会为SDS分配1MB的未使用空间。则此时SDS的总占用大小为：2MB（len）+ 1MB（len）+ 1byte（‘\0’）= 3073 byte容量。</li>
+</ol>
+<p>这种扩容算法，减少了频繁的向系统申请内存的操作。SDS的空间释放并不是实时的，而是惰性释放：Redis认为如果一个SDS的容量到达过N大小，则极有可能在其缩小后也有可能到达N。且惰性释放也减少了下次内存分配的可能。假如现在有一个“golang”字符串存储在Redis中，现在我们需要将“golang”修改为“go”，那么Redis将会对SDS结构体将会是这样的：</p>
+<p><img src="https://s1.ax1x.com/2022/03/25/qN2RTP.png" alt="https://i.imgur.com/1Bx9XnC.png"><br><img src="https://s1.ax1x.com/2022/03/25/qN24fS.png" alt="https://i.imgur.com/1Bx9XnC.png"></p>
+<p>SDS提供了清理内存的API，我们可以在有需要时调用该API以便真正的释放内存。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
-<li><p>redis只会使用C字符串作为字面量使用，大多数情况都使用SDS来表示字符串。</p>
-</li>
-<li><p>能够使用常数级复杂度获取字符串的长度。</p>
-</li>
-<li><p>杜绝了缓冲区溢出。</p>
-</li>
-<li><p>减少了字符串所需内存重新分配的次数。以及对于二进制数据安全，且兼容部分C字符串函数。</p>
-</li>
+<li>Redis只会使用C字符串作为字面量使用，大多数情况都使用SDS来表示字符串。</li>
+<li>能够使用常数级复杂度获取字符串的长度。</li>
+<li>杜绝了缓冲区溢出。</li>
+<li>减少了字符串所需内存重新分配的次数。以及对于二进制数据安全，且兼容部分C字符串函数。</li>
 </ol>
 
                 
@@ -461,7 +463,7 @@ C字">
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            golang 中各种类型之间的转换实在是太过于繁琐，但是类型转换偏偏又是我们在开发过程中最常用的操作。同类型之间转换还稍微好一点，可以使用内置类型函数进行转换，但是想要转换不同的类型却需要引入不同的库， 而 cast 库正好解决了这一痛点，
+                            
                         
                     </div>
                     <div class="publish-info">
@@ -506,7 +508,7 @@ C字">
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            此片文章基于golang 1.12.1版本源码解析而成，chan源码位于go/src/runtime/chan.go文件中。
+                            
                         
                     </div>
                     <div class="publish-info">
@@ -723,7 +725,7 @@ C字">
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.9k</span> -->
+<!--                         class="white-color">14.8k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->

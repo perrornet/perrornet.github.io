@@ -5,10 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="install fluxcd in k8s 1.25.5, golang,python,devops,k8s,kube">
-    <meta name="description" content="
-install the flux cli: brew install fluxcd/tap/flux
-show the flux cli version: flux version   ➜  ~ flux version
-flux: v0">
+    <meta name="description" content="以下是在Kubernetes上使用Flux CD进行GitOps的步骤：
+1.安装Flux CLI：使用brew install fluxcd/tap/flux命令进行安装。
+2.显示Flux CLI版本：使用flux version命令显">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -278,7 +277,7 @@ flux: v0">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    124
+                    165
                 </div>
                 
 
@@ -303,21 +302,14 @@ flux: v0">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <ol>
-<li>install the flux cli: <code>brew install fluxcd/tap/flux</code></li>
-<li>show the flux cli version: <code>flux version</code><pre class="line-numbers language-none"><code class="language-none">   ➜  ~ flux version
-flux: v0.39.0
-helm-controller: v0.26.0
-image-automation-controller: v0.26.1
-image-reflector-controller: v0.22.1
-kustomize-controller: v0.30.0
-notification-controller: v0.28.0
-source-controller: v0.31.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>create git repo on github</li>
-<li>set GITHUB_TOKEN env</li>
-<li>install the flux cd to k8s: <code>flux bootstrap github --owner=&lt;you-github-name&gt; --repository=&lt;you-repo&gt; --path=./ --components-extra=image-reflector-controller,image-automation-controller  --read-write-key --branch=main</code>, <em>Don’t forget <code>--components-extra=image-reflector-controller,image-automation-controller</code></em>, Only when this parameter is used can image-related pods be created.</li>
-<li>wait flux cd pod up.</li>
-</ol>
+                <p>以下是在Kubernetes上使用Flux CD进行GitOps的步骤：</p>
+<p>1.安装Flux CLI：使用<code>brew install fluxcd/tap/flux</code>命令进行安装。</p>
+<p>2.显示Flux CLI版本：使用<code>flux version</code>命令显示Flux CLI版本信息。</p>
+<p>3.在GitHub上创建Git仓库。</p>
+<p>4.设置GITHUB_TOKEN环境变量。</p>
+<p>5.使用<code>flux bootstrap github</code>命令将Flux CD安装到Kubernetes集群中。在命令中，需要指定GitHub用户名和仓库名、读写密钥、分支以及使用的组件（包括image-reflector-controller和image-automation-controller）。</p>
+<p>6.等待Flux CD Pod启动并完成初始化。</p>
+<p>请注意，只有在使用<code>--components-extra=image-reflector-controller,image-automation-controller</code>参数时，才能创建与镜像相关的Pod。</p>
 
                 
             </div>
@@ -717,7 +709,7 @@ source-controller: v0.31.0<span aria-hidden="true" class="line-numbers-rows"><sp
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.9k</span> -->
+<!--                         class="white-color">14.8k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->

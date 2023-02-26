@@ -5,14 +5,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="k8s PVC自动扩容实践, golang,python,devops,k8s,kube">
-    <meta name="description" content="依赖:
+    <meta name="description" content="依赖依赖此实践依赖于：
 
-k8s &amp;gt;= 1.24
-pvc-autoresizer &amp;gt;= 0.5.0
+k8s版本 &amp;gt;= 1.24
+pvc-autoresizer 版本 &amp;gt;= 0.5.0
 
-一、安装 pvc-autoresizer
-
-build  and push docker 镜像 git clone https://githu">
+安装 pvc-autoresizer
+克隆pvc-autoresizer仓库并检出版本 0.5.0，然后构建并推送D">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -282,14 +281,14 @@ build  and push docker 镜像 git clone https://githu">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    528
+                    586
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    2 Min
+                    3 Min
                 </div>
                 
 
@@ -307,21 +306,27 @@ build  and push docker 镜像 git clone https://githu">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>依赖:</p>
+                <h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><h2 id="依赖-1"><a href="#依赖-1" class="headerlink" title="依赖"></a>依赖</h2><p>此实践依赖于：</p>
 <ol>
-<li>k8s &gt;= 1.24</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/topolvm/pvc-autoresizer">pvc-autoresizer</a> &gt;= 0.5.0</li>
+<li>k8s版本 &gt;= 1.24</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/topolvm/pvc-autoresizer">pvc-autoresizer</a> 版本 &gt;= 0.5.0</li>
 </ol>
-<p>一、安装 pvc-autoresizer</p>
-<ul>
-<li><p>build  and push docker 镜像 <code>git clone https://github.com/topolvm/pvc-autoresizer &amp;&amp; git checkout v0.5.0 &amp;&amp; cd pvc-autoresizer &amp;&amp; docker build -t pvc-autoresizer:0.5.0 . &amp;&amp; docker push pvc-autoresizer:0.5.0</code></p>
-</li>
-<li><p>添加 helm repo: <code>helm repo add pvc-autoresizer https://topolvm.github.io/pvc-autoresizer/</code></p>
-<span id="more"></span>
+<h2 id="安装-pvc-autoresizer"><a href="#安装-pvc-autoresizer" class="headerlink" title="安装 pvc-autoresizer"></a>安装 pvc-autoresizer</h2><ol>
+<li>克隆<a target="_blank" rel="noopener" href="https://github.com/topolvm/pvc-autoresizer">pvc-autoresizer</a>仓库并检出版本 0.5.0，然后构建并推送Docker镜像：</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">git clone &lt;https://github.com/topolvm/pvc-autoresizer&gt; &amp;&amp; git checkout v0.5.0 &amp;&amp; cd pvc-autoresizer &amp;&amp; docker build -t pvc-autoresizer:0.5.0 . &amp;&amp; docker push pvc-autoresizer:0.5.0
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-</li>
-<li><p>values.yaml</p>
-<pre class="line-numbers language-none"><code class="language-none"># config from https://github.com/topolvm/pvc-autoresizer/blob/main/charts/pvc-autoresizer/values.yaml
+<ol>
+<li>添加pvc-autoresizer的Helm repo:</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">helm repo add pvc-autoresizer &lt;https://topolvm.github.io/pvc-autoresizer/&gt;
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol>
+<li>准备<code>values.yaml</code>文件，内容如下：</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none"># config from &lt;https://github.com/topolvm/pvc-autoresizer/blob/main/charts/pvc-autoresizer/values.yaml&gt;
 image:
   # image.repository -- pvc-autoresizer image repository to use.
   repository: perrorone/pvc-autoresizer
@@ -337,16 +342,25 @@ controller:
   args:
     # controller.args.prometheusURL -- Specify Prometheus URL to query volume stats.
     # Used as "--prometheus-url" option
-    prometheusURL: &lt;you_prometheus_url&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>安装 pvc-autoresizer: <code>helm install --create-namespace --namespace pvc-autoresizer pvc-autoresizer pvc-autoresizer/pvc-autoresizer --values ./values.yaml"</code></p>
-</li>
-<li><p>检查是否成功 <code>kubectl get pod -n pvc-autoresizer | grep pvc-autoresizer</code></p>
-</li>
-</ul>
-<p>二、 创建StatefulSet以及存储类</p>
-<ul>
-<li>编写stateful-set.yaml:<pre class="line-numbers language-none"><code class="language-none">apiVersion: storage.k8s.io/v1
+    prometheusURL: &lt;you_prometheus_url&gt;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol>
+<li>安装pvc-autoresizer:</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">helm install --create-namespace --namespace pvc-autoresizer pvc-autoresizer pvc-autoresizer/pvc-autoresizer --values ./values.yaml
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol>
+<li>检查是否安装成功:</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">kubectl get pod -n pvc-autoresizer | grep pvc-autoresizer
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="创建StatefulSet以及存储类"><a href="#创建StatefulSet以及存储类" class="headerlink" title="创建StatefulSet以及存储类"></a>创建StatefulSet以及存储类</h2><ol>
+<li>编写<code>stateful-set.yaml</code>文件，内容如下:</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: test-pvc-autoresizer
@@ -412,22 +426,37 @@ spec:
         storageClassName: "test-pvc-autoresizer"
         resources:
           requests:
-            storage: 1Gi<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>部署: <code>kubectl apply -f ./stateful-set.yaml</code></li>
-</ul>
-<p>三、测试</p>
-<ul>
-<li><p>进入pod中检查挂载目录大小, <code>df -h</code> 输出可以看到<code>/data</code>目录只使用了1%空间</p>
+            storage: 1Gi
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol>
+<li>部署StatefulSet和存储类:</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">kubectl apply -f ./stateful-set.yaml
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ol>
+<li>进入pod并查看挂载目录大小，可以看到<code>/data</code>目录只使用了1%的空间</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">df -h
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="2">
+<li>测试自动扩容，写入文件:</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">dd if=/dev/zero of=1G.file bs=50M count=20
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ol start="3">
+<li><p>检查pvc-autoresizer pod 日志:</p>
+<p><img src="/medias/1666863168702.jpg" alt="/medias/1666863168702.jpg"></p>
 </li>
-<li><p>写入文件测试自动扩容: <code>dd if=/dev/zero of=1G.file bs=50M count=20</code></p>
+<li><p>再次检查pod挂载目录大小, 可以看见挂载目录已经使用了100%:<code>/dev/sdf 975.9M 959.9M 0 100% /data</code></p>
 </li>
-<li><p>检查pvc-autoresizer pod 日志<br><img src="/medias/1666863168702.jpg"></p>
+<li><p>等待一段时间后，再次查看挂载目录大小，可以看见已经扩容成功:<code>/dev/sdf 1.9G 960.4M 1007.4M 49% /data</code>😋😋😋😋😋😋</p>
 </li>
-<li><p>再次检查pod挂载目录大小, 可以看见挂载目录已经使用了100%: <code>/dev/sdf                975.9M    959.9M         0 100% /data</code></p>
-</li>
-<li><p>等待一会,再次查看挂载目录大小, 可以看见已经扩容成功: <code>/dev/sdf                  1.9G    960.4M   1007.4M  49% /data</code> 😋😋😋😋😋😋<br><img src="/medias/1666863439959.jpg"></p>
-</li>
-</ul>
+</ol>
+<p><img src="/medias/1666863439959.jpg" alt="/medias/1666863439959.jpg"></p>
 
                 
             </div>
@@ -608,9 +637,7 @@ spec:
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            redis的数据类型使用场合？
-string：其value可以储存string以及数字类型，一般用于复杂的技术功能上。
-hash：其value存放的是结构化的对象，它可以能方便的去操作某个字段，我使用他实现过用户行为数据缓存以及sessio
+                            
                         
                     </div>
                     <div class="publish-info">
@@ -827,7 +854,7 @@ hash：其value存放的是结构化的对象，它可以能方便的去操作�
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.9k</span> -->
+<!--                         class="white-color">14.8k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->

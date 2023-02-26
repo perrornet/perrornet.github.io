@@ -285,8 +285,7 @@
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                这几天在写业务代码有个需求：压缩图片。本来是很简单需求，三下五除二就写好了，但是在自己用手机上传图片的时候发现压缩后的图片都歪了，查了一下，原因是图片中的exif信息中的Orientation记录中图片的旋转角度。需要根据这个来旋转图片。
-
+                                最近写业务代码时遇到了一个需求：压缩图片。这本应该是一个简单的需求，三下五除二就能解决。但是当我用手机上传图片时，发现压缩后的图片都歪了。经过查找，发现问题出在图片的exif信息中的Orientation记录，它记录了图片的旋转角度。因此，
                             
                         </div>
                         <div class="publish-info">
@@ -331,10 +330,11 @@
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                namedtuple函数用来构建一个有名字的元组或者类，这种方法可以更有效的调试代码：
-&gt;&gt;&gt; from collections import namedtuple
+                                namedtuple 函数可以用来创建一个有名字的元组或者类，这种方法可以更有效的调试代码。下面是一个例子：
+from collections import namedtuple
+
 # 创建一个类
-&gt;&gt;&gt; a = nam
+a = namedtuple('c', (
                             
                         </div>
                         <div class="publish-info">
@@ -458,7 +458,7 @@
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.9k</span> -->
+<!--                         class="white-color">14.8k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->

@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="流畅的python--特殊方法, golang,python,devops,k8s,kube">
-    <meta name="description" content="python中的特殊方法是主要是被python解释器调用，再大部分情况下不需要自己去实现特殊方法，比如len(x)，这里实际上是调用的len()方法，但是在实际中我们不会去使用x.len()这样的书写。如果x是一个自己实现的类并且再类里面实">
+    <meta name="description" content="Python中的特殊方法主要是被Python解释器调用，大部分情况下不需要自己实现特殊方法，比如len(x)，实际上是调用了len()方法。在实际编程中，我们不会使用x.len()这样的写法。如果x是一个自己实现的类并且在类里面实现了一个l">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -271,7 +271,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    186
+                    265
                 </div>
                 
 
@@ -296,7 +296,9 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>python中的特殊方法是主要是被python解释器调用，再大部分情况下不需要自己去实现特殊方法，比如len(x)，这里实际上是调用的len()方法，但是在实际中我们不会去使用x.len()这样的书写。如果x是一个自己实现的类并且再类里面实现了一个len()方法，那么python就会去调用这个类里面的方法。<br>大部分情况下调用特殊方法都是隐性调用。比如: for i in x: 这里实际是调用了x的iter()方法，所有的特殊方法都可以自定义。但是在编程时是不建议大量的实现特殊方法，除非元编程。</p>
+                <p>Python中的特殊方法主要是被Python解释器调用，大部分情况下不需要自己实现特殊方法，比如<code>len(x)</code>，实际上是调用了<code>len()</code>方法。在实际编程中，我们不会使用<code>x.len()</code>这样的写法。如果<code>x</code>是一个自己实现的类并且在类里面实现了一个<code>len()</code>方法，那么Python就会调用这个类里面的方法。</p>
+<p>大部分情况下，调用特殊方法都是隐式调用。例如：<code>for i in x:</code>，实际上是调用了<code>x</code>的<code>iter()</code>方法。所有的特殊方法都可以自定义，但在编程时不建议大量实现特殊方法，除非进行元编程。</p>
+<p>因此，在自定义类时应该遵循Python的惯例，尽可能使用Python内置的方法和函数，而不是过度实现特殊方法。这样可以提高代码可读性和可维护性。同时，合理地实现特殊方法也是元编程的一种方式，可以实现更高级的功能。</p>
 
                 
             </div>
@@ -686,7 +688,7 @@
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.9k</span> -->
+<!--                         class="white-color">14.8k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->

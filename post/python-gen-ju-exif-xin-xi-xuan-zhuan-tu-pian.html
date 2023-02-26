@@ -5,8 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="python根据exif信息旋转图片, golang,python,devops,k8s,kube">
-    <meta name="description" content="这几天在写业务代码有个需求：压缩图片。本来是很简单需求，三下五除二就写好了，但是在自己用手机上传图片的时候发现压缩后的图片都歪了，查了一下，原因是图片中的exif信息中的Orientation记录中图片的旋转角度。需要根据这个来旋转图片。
-">
+    <meta name="description" content="最近写业务代码时遇到了一个需求：压缩图片。这本应该是一个简单的需求，三下五除二就能解决。但是当我用手机上传图片时，发现压缩后的图片都歪了。经过查找，发现问题出在图片的exif信息中的Orientation记录，它记录了图片的旋转角度。因此，">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -272,7 +271,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    171
+                    239
                 </div>
                 
 
@@ -297,25 +296,31 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>这几天在写业务代码有个需求：压缩图片。本来是很简单需求，三下五除二就写好了，但是在自己用手机上传图片的时候发现压缩后的图片都歪了，查了一下，原因是图片中的exif信息中的Orientation记录中图片的旋转角度。需要根据这个来旋转图片。</p>
-<p>首先读取图片的exif信息：</p>
+                <p>最近写业务代码时遇到了一个需求：压缩图片。这本应该是一个简单的需求，三下五除二就能解决。但是当我用手机上传图片时，发现压缩后的图片都歪了。经过查找，发现问题出在图片的exif信息中的Orientation记录，它记录了图片的旋转角度。因此，需要根据这个角度来旋转图片。</p>
+<p>首先需要读取图片的exif信息，代码如下：</p>
 <pre class="line-numbers language-none"><code class="language-none">from PIL import Image
+
 img = Image.open('1.jpg')
+
 # 先判断图片是否有exif信息
 if hasattr(img, '_getexif'):
-# 获取exif信息
-dict_exif = img._getexif()
-if dict_exif(274, 0) == 3:
-# 旋转
-new_img = img.rotate(-90)
-elif dict_exif(274, 0) == 6:
-# 旋转
-new_img = img.rotate(180)
+    # 获取exif信息
+    dict_exif = img._getexif()
+    if dict_exif.get(274, 0) == 3:
+        # 旋转
+        new_img = img.rotate(-90)
+    elif dict_exif.get(274, 0) == 6:
+        # 旋转
+        new_img = img.rotate(180)
+    else:
+        new_img = img
 else:
-new_img = img
-else:
-new_img = img
-new_img.save('new_1.jpg', )<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    new_img = img
+
+new_img.save('new_1.jpg')
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>通过这个代码，我们可以获取图片的exif信息，并根据其中的Orientation记录来旋转图片。最终，我们得到了正确的压缩后的图片。</p>
 
                 
             </div>
@@ -697,7 +702,7 @@ new_img.save('new_1.jpg', )<span aria-hidden="true" class="line-numbers-rows"><s
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.9k</span> -->
+<!--                         class="white-color">14.8k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->

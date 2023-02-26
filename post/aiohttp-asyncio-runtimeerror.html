@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="aiohttp,asyncio,RunTimeError, golang,python,devops,k8s,kube">
-    <meta name="description" content="首先，你得到的AssertionError: There is no current event loop in thread ‘Thread-1’.是因为asyncio程序中的每个线程都有自己的事件循环，但它只会在主线程中为你自动创建一个">
+    <meta name="description" content="首先，你可能遇到了AssertionError: There is no current event loop in thread ‘Thread-1’。这是因为asyncio程序中的每个线程都有自己的事件循环，但只有在主线程中才会自动创建">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -271,7 +271,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    168
+                    150
                 </div>
                 
 
@@ -296,10 +296,13 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>首先，你得到的AssertionError: There is no current event loop in thread ‘Thread-1’.是因为asyncio程序中的每个线程都有自己的事件循环，但它只会在主线程中为你自动创建一个事件循环。所以如果你asyncio.get_event_loop在主线程中调用一次，它将自动创建一个循环对象并将其设置为默认值，但是如果你在一个子线程中再次调用它，你会得到这个错误。相反，您需要在线程启动时显式创建/设置事件循环：</p>
+                <p>首先，你可能遇到了AssertionError: There is no current event loop in thread ‘Thread-1’。这是因为asyncio程序中的每个线程都有自己的事件循环，但只有在主线程中才会自动创建一个事件循环。因此，如果你在子线程中调用asyncio.get_event_loop()，你将会遇到此错误。</p>
+<p>为了解决这个问题，你需要在启动线程时显式地创建和设置事件循环，示例代码如下：</p>
 <pre class="line-numbers language-none"><code class="language-none">loop = asyncio.new_event_loop()
-asyncio.set_event_loop(loop)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>一旦你这样做，你应该能够使用get_event_loop()在特定的线程。</p>
+asyncio.set_event_loop(loop)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>一旦这样做，你应该就能够使用get_event_loop()在特定的线程中正常工作了。</p>
 
                 
             </div>
@@ -693,7 +696,7 @@ asyncio.set_event_loop(loop)<span aria-hidden="true" class="line-numbers-rows"><
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.9k</span> -->
+<!--                         class="white-color">14.8k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->

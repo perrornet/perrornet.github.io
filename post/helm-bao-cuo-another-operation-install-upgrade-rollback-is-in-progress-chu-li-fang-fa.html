@@ -5,10 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="helm 报错：another operation (install/upgrade/rollback) is in progress处理方法, golang,python,devops,k8s,kube">
-    <meta name="description" content="背景使用flux cd来管理helmreleases
-错误信息单个helmrelease报错：another operation (install/upgrade/rollback) is in progress。
-处理方式
-运行 helm">
+    <meta name="description" content="背景本文介绍使用Flux CD管理Helm Releases的方法。
+问题描述在使用Helm Release时，有时会出现报错信息：”another operation (install/upgrade/rollback) is in pr">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -278,7 +276,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    89
+                    148
                 </div>
                 
 
@@ -303,15 +301,20 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>使用flux cd来管理helmreleases</p>
-<h3 id="错误信息"><a href="#错误信息" class="headerlink" title="错误信息"></a>错误信息</h3><p>单个helmrelease报错：another operation (install/upgrade/rollback) is in progress。</p>
-<h3 id="处理方式"><a href="#处理方式" class="headerlink" title="处理方式"></a>处理方式</h3><ol>
-<li>运行 <code>helm history &lt;name&gt; --namespace &lt;ns&gt;</code><br><img src="/medias/1675238086770.jpeg"></li>
-<li>运行： <code>lux suspend hr &lt;name&gt; -n &lt;ns&gt;</code></li>
-<li>选择status=pending-upgrade的版本，运行： <code>helm uninstall &lt;name&gt; --namespace &lt;ns&gt; &lt;REVISION&gt;</code></li>
-<li>运行： <code>flux resume helmrelease &lt;name&gt; -n &lt;ns&gt;</code></li>
+                <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>本文介绍使用Flux CD管理Helm Releases的方法。</p>
+<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>在使用Helm Release时，有时会出现报错信息：”another operation (install/upgrade/rollback) is in progress”。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ol>
+<li><p>运行<code>helm history &lt;name&gt; --namespace &lt;ns&gt;</code>命令，查看Release的历史版本。</p>
+<p><img src="/medias/1675238086770.jpeg" alt="/medias/1675238086770.jpeg"></p>
+</li>
+<li><p>运行<code>lux suspend hr &lt;name&gt; -n &lt;ns&gt;</code>命令，暂停Release的自动升级。</p>
+</li>
+<li><p>选择<code>status=pending-upgrade</code>的版本，运行<code>helm uninstall &lt;name&gt; --namespace &lt;ns&gt; &lt;REVISION&gt;</code>命令，卸载该版本。</p>
+</li>
+<li><p>运行<code>flux resume helmrelease &lt;name&gt; -n &lt;ns&gt;</code>命令，重新启动Release。</p>
+</li>
 </ol>
-<p>搞定😊</p>
+<p>以上步骤可解决该错误。</p>
 
                 
             </div>
@@ -492,14 +495,7 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            依赖:
-
-k8s &gt;= 1.24
-pvc-autoresizer &gt;= 0.5.0
-
-一、安装 pvc-autoresizer
-
-build  and push docker 镜像 git clone https://githu
+                            
                         
                     </div>
                     <div class="publish-info">
@@ -720,7 +716,7 @@ build  and push docker 镜像 git clone https://githu
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.9k</span> -->
+<!--                         class="white-color">14.8k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->

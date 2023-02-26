@@ -5,7 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="cast类型转换库—go库推荐, golang,python,devops,k8s,kube">
-    <meta name="description" content="golang 中各种类型之间的转换实在是太过于繁琐，但是类型转换偏偏又是我们在开发过程中最常用的操作。同类型之间转换还稍微好一点，可以使用内置类型函数进行转换，但是想要转换不同的类型却需要引入不同的库， 而 cast 库正好解决了这一痛点，">
+    <meta name="description" content="在 Go 语言中，类型转换是一项经常需要进行的操作，但转换不同类型之间的值却需要引入不同的库，过程相对繁琐。不过，cast 库解决了这个问题，提供了很多种类型转换函数，而且通常只需要引入这一个库即可。
+cast 库不仅提供了常见类型之间的转">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -271,14 +272,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    481
+                    441
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    2 Min
+                    1 Min
                 </div>
                 
 
@@ -296,50 +297,59 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>golang 中各种类型之间的转换实在是太过于繁琐，但是类型转换偏偏又是我们在开发过程中最常用的操作。同类型之间转换还稍微好一点，可以使用内置类型函数进行转换，但是想要转换不同的类型却需要引入不同的库， 而 cast 库正好解决了这一痛点，它提供了很多种的类型转换函数同我们使用， 通常的类型转换我们只需要引入这一个库就可以解决。</p>
-<span id="more"></span>
-
-
-<p>通常 go 中的类型转换都需要 err 变量来提示类型不可转换，cast 库提供了两种方法：</p>
-<ol>
-<li>仅返回该类型的零值，不会返回 err</li>
-<li>使用函数 To__E 将会返回一个 err 变量来告诉我们是否发生错误这样分开提供函数，极大的方便我们在开发中根据当前所需选择函数。</li>
-</ol>
-<p>常用 API 列表：</p>
+                <p>在 Go 语言中，类型转换是一项经常需要进行的操作，但转换不同类型之间的值却需要引入不同的库，过程相对繁琐。不过，<code>cast</code> 库解决了这个问题，提供了很多种类型转换函数，而且通常只需要引入这一个库即可。</p>
+<p><code>cast</code> 库不仅提供了常见类型之间的转换，例如 int 转换为 string，还提供了更加复杂的类型转换，例如将时间字符串转换为 <code>time.Time</code> 类型。此外，它还提供了两种转换函数，一种仅返回该类型的零值，不会返回错误，另一种则会返回错误，以便开发人员可以根据实际需求选择使用。</p>
+<p>以下是一些常用的 API：</p>
 <ul>
-<li><p>cast.StringToDate: 将常见的时间字符串转换为 time.Time 类型</p>
-<pre class="line-numbers language-none"><code class="language-none">fmt.Println(cast.StringToDate("2006-01-02 15:04:05")) 
-// output: 2006-01-02 15:04:05 +0000 UTC &lt;nil&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-</li>
-<li><p>cast.ToBoolSlice: 将任意类型的数组转换为 []bool 类型</p>
-<pre class="line-numbers language-none"><code class="language-none">fmt.Println(cast.ToBoolSlice([]interface{}{1,2,0,true, false})) 
-// output: [true true false true false]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li><p>cast.ToBool: 将任意类型转换为 bool 类型</p>
+<li><code>cast.StringToDate</code>: 将常见的时间字符串转换为 <code>time.Time</code> 类型</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">fmt.Println(cast.StringToDate("2006-01-02 15:04:05"))
+// output: 2006-01-02 15:04:05 +0000 UTC &lt;nil&gt;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li><code>cast.ToBoolSlice</code>: 将任意类型的数组转换为 <code>[]bool</code> 类型</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">fmt.Println(cast.ToBoolSlice([]interface{}{1,2,0,true, false}))
+// output: [true true false true false]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li><code>cast.ToBool</code>: 将任意类型转换为 <code>bool</code> 类型</li>
+</ul>
 <pre class="line-numbers language-none"><code class="language-none">fmt.Println(cast.ToBool(1)) // output:true
 fmt.Println(cast.ToBool(0)) // output: false
 fmt.Println(cast.ToBool("")) // output: false
 fmt.Println(cast.ToBool("0")) // output: false
 fmt.Println(cast.ToBool("1")) // output: true
 fmt.Println(cast.ToBool("true")) // output: true
-fmt.Println(cast.ToBool("false")) // output: false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>cast.ToString: 将任意类型转换成 string</p>
+fmt.Println(cast.ToBool("false")) // output: false
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><code>cast.ToString</code>: 将任意类型转换成字符串类型</li>
+</ul>
 <pre class="line-numbers language-none"><code class="language-none">cast.ToString("mayonegg")         // "mayonegg"
 cast.ToString(8)                  // "8"
 cast.ToString(8.31)               // "8.31"
 cast.ToString([]byte("one time")) // "one time"
 cast.ToString(nil)        // "nil"
 var foo interface{} = "one more time"
-cast.ToString(foo)                // "one more time"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>cast.ToStringMap: 将任意类型 map 转换成 map[string]interface{}</p>
+cast.ToString(foo)                // "one more time"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><code>cast.ToStringMap</code>: 将任意类型的 map 转换成 <code>map[string]interface{}</code></li>
+</ul>
 <pre class="line-numbers language-none"><code class="language-none">fmt.Println(cast.ToStringMap(map[interface{}]interface{}{
     1:2,
     "2":3,
     true:1,
 }))
- // output: map[1:2 2:3 true:1]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>更多的 API 可查看其文档：<a target="_blank" rel="noopener" href="https://github.com/spf13/cast">https://github.com/spf13/cast</a></p>
-</li>
-</ul>
+ // output: map[1:2 2:3 true:1]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>更多的 API 可以在其文档中查看：<a target="_blank" rel="noopener" href="https://github.com/spf13/cast">https://github.com/spf13/cast</a></p>
 
                 
             </div>
@@ -467,9 +477,7 @@ cast.ToString(foo)                // "one more time"<span aria-hidden="true" cla
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            redis的数据类型使用场合？
-string：其value可以储存string以及数字类型，一般用于复杂的技术功能上。
-hash：其value存放的是结构化的对象，它可以能方便的去操作某个字段，我使用他实现过用户行为数据缓存以及sessio
+                            
                         
                     </div>
                     <div class="publish-info">
@@ -514,7 +522,7 @@ hash：其value存放的是结构化的对象，它可以能方便的去操作�
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            什么是SDS？SDS是redis构建的一种抽象类型，主要用于储存redis的默认字符串表示、AOF模块中的AOF缓冲区、客户端状态输入缓冲区。
+                            
                         
                     </div>
                     <div class="publish-info">
@@ -731,7 +739,7 @@ hash：其value存放的是结构化的对象，它可以能方便的去操作�
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.9k</span> -->
+<!--                         class="white-color">14.8k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->

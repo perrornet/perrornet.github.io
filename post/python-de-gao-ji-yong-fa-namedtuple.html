@@ -5,10 +5,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="python的高级用法 -- namedtuple, golang,python,devops,k8s,kube">
-    <meta name="description" content="namedtuple函数用来构建一个有名字的元组或者类，这种方法可以更有效的调试代码：
-&amp;gt;&amp;gt;&amp;gt; from collections import namedtuple
+    <meta name="description" content="namedtuple 函数可以用来创建一个有名字的元组或者类，这种方法可以更有效的调试代码。下面是一个例子：
+from collections import namedtuple
+
 # 创建一个类
-&amp;gt;&amp;gt;&amp;gt; a = nam">
+a = namedtuple(&#39;c&#39;, (">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -270,7 +271,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    252
+                    239
                 </div>
                 
 
@@ -295,31 +296,36 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>namedtuple函数用来构建一个有名字的元组或者类，这种方法可以更有效的调试<br>代码：</p>
-<pre class="line-numbers language-none"><code class="language-none">&gt;&gt;&gt; from collections import namedtuple
+                <p><code>namedtuple</code> 函数可以用来创建一个有名字的元组或者类，这种方法可以更有效的调试代码。下面是一个例子：</p>
+<pre class="line-numbers language-none"><code class="language-none">from collections import namedtuple
+
 # 创建一个类
-&gt;&gt;&gt; a = namedtuple('c', ('name', 'age'))
-&gt;&gt;&gt; x = a('perror', 21)
-&gt;&gt;&gt; print x
-c(name='perror', age=21)
-&gt;&gt;&gt; # 该返回值可以用访问对象的方法来访问
-&gt;&gt;&gt; print x.name
-perror
-&gt;&gt;&gt; print x.age
-21
-&gt;&gt;&gt; # 也可以用标的方式去访问
-&gt;&gt;&gt; print x[0]
-perror<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>命名元组除了继承普通元组的方法外还有额外的三个方法：_fields 类属性，make() 类方法，_asdict() 类实例方法</p>
-<pre class="line-numbers language-none"><code class="language-none">&gt;&gt;&gt; # 查看该命名元组中的所有字段
-&gt;&gt;&gt; x._fields
-('name', 'age')
-&gt;&gt;&gt; # _make 通过一个可迭代对象来生成一个类实例
-&gt;&gt;&gt;s = ('perror', '21')
-&gt;&gt;&gt; new_s = x._make(s)
-&gt;&gt;&gt; # 通过类实例方法更友好的打印出元组的字段
-&gt;&gt;&gt;new_s._asdict()
-OrderedDict([('name', 'perror'), ('age', 23)])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+a = namedtuple('c', ('name', 'age'))
+x = a('perror', 21)
+
+# 该返回值可以用访问对象的方法来访问
+print(x.name)
+print(x.age)
+
+# 也可以用标的方式去访问
+print(x[0])
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>除了继承普通元组的方法外，命名元组还有额外的三个方法：<code>_fields</code> 类属性，<code>make()</code> 类方法，<code>_asdict()</code> 类实例方法。</p>
+<p>下面是这些方法的具体用法：</p>
+<pre class="line-numbers language-none"><code class="language-none"># 查看该命名元组中的所有字段
+print(x._fields)
+
+# `_make` 通过一个可迭代对象来生成一个类实例
+s = ('perror', '21')
+new_s = x._make(s)
+
+# 通过类实例方法更友好的打印出元组的字段
+print(new_s._asdict())
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注意，命名元组创建后，可以用其属性名或标的方式来访问其中的元素。</p>
+
                 
             </div>
             <hr/>
@@ -697,7 +703,7 @@ OrderedDict([('name', 'perror'), ('age', 23)])<span aria-hidden="true" class="li
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.9k</span> -->
+<!--                         class="white-color">14.8k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->

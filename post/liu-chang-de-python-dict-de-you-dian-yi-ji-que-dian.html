@@ -5,7 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="流畅的python--dict的优点以及缺点, golang,python,devops,k8s,kube">
-    <meta name="description" content="1.健必须是可散列的。用户自己实现的对象默认都是可散列的，因为id()不同。一个可散列对象应该有以下属性：支持hash()函数，通过hash()方法得到的散列值是不变的。可以通过eq()方法来检测相等性如果a == b，那么hash(a) ">
+    <meta name="description" content="以下是Python中字典的一些特点：
+
+健必须是可散列的。这意味着键必须支持hash()函数，并且通过hash()方法得到的散列值是不变的。此外，它们还必须支持eq()方法以检测相等性。如果a == b，则hash(a) == hash(b">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -271,7 +273,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    265
+                    239
                 </div>
                 
 
@@ -296,20 +298,23 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>1.健必须是可散列的。<br>用户自己实现的对象默认都是可散列的，因为id()不同。一个可散列对象应该有以下属性：<br>支持hash()函数，通过hash()方法得到的散列值是不变的。<br>可以通过eq()方法来检测相等性<br>如果a == b，那么hash(a) == hash(b)</p>
-<p>2.字典内存开销大<br>因为字典是由散列表实现的，散列表中肯定对出现一些稀疏，这就导致了字典会占用一些空间。当然和字典的速度相比这点内存是可以忽略的。</p>
-<p>3.字典的健顺序不是唯一的<br>由于散列表在插入或者读取时候可能会产生散列冲突，这就导致了字典中健的顺序不是唯一的，但是不管字典健的顺序怎么变，如果两个字典健值对都一样那么这两个字典都是相等的：</p>
+                <p>以下是Python中字典的一些特点：</p>
+<ol>
+<li>健必须是可散列的。这意味着键必须支持hash()函数，并且通过hash()方法得到的散列值是不变的。此外，它们还必须支持eq()方法以检测相等性。如果a == b，则hash(a) == hash(b)。</li>
+<li>字典内存开销大。由于字典是由散列表实现的，散列表中可能会有一些稀疏性，这会占用一些空间。与字典的速度相比，这些内存消耗可以忽略不计。</li>
+<li>字典的键顺序不是唯一的。由于散列表在插入或读取时可能会产生散列冲突，因此字典中键的顺序不是唯一的。但是，不管字典键的顺序如何变化，如果两个字典键值对都相同，则这两个字典是相等的。</li>
+</ol>
 <pre class="line-numbers language-none"><code class="language-none">a = {
-"1":1,
-"2":3,
-"3":4,
-"4":4
+    "1": 1,
+    "2": 3,
+    "3": 4,
+    "4": 4
 }
 b = {
-"3":3,
-"4":4,
-"1":1,
-"2":2
+    "3": 3,
+    "4": 4,
+    "1": 1,
+    "2": 2
 }
 a == b
 True<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -702,7 +707,7 @@ True<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.9k</span> -->
+<!--                         class="white-color">14.8k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->
