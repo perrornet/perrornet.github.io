@@ -1,11 +1,11 @@
 ---
-title: python深拷贝浅拷贝
+title: Python deep copy and shallow copy
 date: 2023-02-18 17:46:25
 top: true
 tags:
     - python
 ---
-关于Python中的对象拷贝问题，我们需要了解is和==的区别:
+When it comes to object copying in Python, we need to understand the difference between is and ==:
 
 ```
 >>> a = [1,2,3,4]
@@ -17,11 +17,11 @@ False
 
 ```
 
-从上面的例子中可以看出，a和b中的值是相等的，但是is的结果却不一样。这是因为Python比较的是a和b的值是否相等，而is比较的是对象的标识是否相等。因此，在Python中我们通常使用==来比较对象的值是否相等，使用is来判断对象绑定的值是否为None。需要注意的是，有一些初学者经常犯的错误是使用None来比较一个字符串、列表或字典是否为空，这是不正确的，因为这些变量无论从对象标识还是数值上都与None不相等。
+From the example above, we can see that the values in a and b are equal, but the result of is is different. This is because Python compares whether the values of a and b are equal, while is compares whether the object identities are equal. Therefore, in Python, we usually use == to compare the values of objects and use is to determine whether the values bound to objects are None. It should be noted that some beginners often make the mistake of using None to compare whether a string, list, or dictionary is empty, which is incorrect because these variables are not equal to None in terms of object identity or value.
 
-在Python中，我们通常使用浅拷贝来复制对象。copy模块为我们提供了copy（浅拷贝）和deepcopy（深拷贝）函数。
+In Python, we usually use shallow copy to copy objects. The copy module provides us with the copy (shallow copy) and deepcopy (deep copy) functions.
 
-浅拷贝指的是将拷贝的对象引用拷贝一份，拷贝对象指向的是被拷贝对象的值。换句话说，在原有值的基础上再添加了一份引用。
+Shallow copy refers to copying a reference to the copied object, and the copied object points to the value of the object being copied. In other words, a reference is added to the original value.
 
 ```
 >>> a = 1
@@ -33,7 +33,7 @@ False
 
 ```
 
-深拷贝指的是将拷贝对象的值复制一份，并新建一个对象，这个新的对象的值和对象标识都与被拷贝对象相等。
+Deep copy refers to copying the value of the copied object and creating a new object whose value and object identity are equal to the copied object.
 
 ```
 >>> import copy
@@ -64,7 +64,7 @@ True
 
 ```
 
-基于这种现象，我们应该特别注意函数在使用可变参数作为默认参数时，如果不注意就会出现下面这种情况:
+Based on this phenomenon, we should pay special attention to the use of mutable parameters as default parameters in functions. If we are not careful, we may encounter the following situation:
 
 ```
 >>> def a(x = []):
@@ -79,7 +79,7 @@ True
 
 ```
 
-为了避免这种情况，我们应该避免使用可变对象作为函数默认参数:
+To avoid this situation, we should avoid using mutable objects as default function parameters:
 
 ```
 >>> def a(x = None):
@@ -96,7 +96,7 @@ True
 
 ```
 
-同时，在创建类初始化传参时也使用了浅拷贝来传递参数，这会导致下面这种情况：
+At the same time, when creating a class and passing parameters during initialization, shallow copy is also used to pass parameters, which can lead to the following situation:
 
 ```
 >>> class A:
@@ -115,4 +115,4 @@ True
 
 ```
 
-当传入的参数发生改变时，类里面的变量的值也会随之改变，这种情况很难发现。深拷贝和浅拷贝的最大区别在于：深拷贝会拷贝父级对象及其子对象，而浅拷贝只拷贝父级对象。
+When the passed-in parameter changes, the value of the variable in the class will also change, which is difficult to detect. The biggest difference between deep copy and shallow copy is that deep copy will copy the parent object and its sub-objects, while shallow copy only copies the parent object.

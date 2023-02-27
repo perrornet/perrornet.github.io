@@ -1,41 +1,41 @@
 ---
-title: python的高级用法 -- namedtuple
+title: Advanced Usage of Python -- namedtuple
 date: 2017-06-07 23:47:00
 tags:
 ---
-`namedtuple` 函数可以用来创建一个有名字的元组或者类，这种方法可以更有效的调试代码。下面是一个例子：
+The `namedtuple` function can be used to create a named tuple or class, which can be more effective for debugging code. Here's an example:
 
 ```
 from collections import namedtuple
 
-# 创建一个类
+# Create a class
 a = namedtuple('c', ('name', 'age'))
 x = a('perror', 21)
 
-# 该返回值可以用访问对象的方法来访问
+# Access via object method
 print(x.name)
 print(x.age)
 
-# 也可以用标的方式去访问
+# Access via indexing
 print(x[0])
 
 ```
 
-除了继承普通元组的方法外，命名元组还有额外的三个方法：`_fields` 类属性，`make()` 类方法，`_asdict()` 类实例方法。
+In addition to inheriting methods from normal tuples, named tuples have three additional methods: the `_fields` class attribute, `make()` class method, and `_asdict()` class instance method.
 
-下面是这些方法的具体用法：
+Here's how to use these methods:
 
 ```
-# 查看该命名元组中的所有字段
+# View all fields in the named tuple
 print(x._fields)
 
-# `_make` 通过一个可迭代对象来生成一个类实例
+# `_make` generates a class instance using an iterable object
 s = ('perror', '21')
 new_s = x._make(s)
 
-# 通过类实例方法更友好的打印出元组的字段
+# Print the tuple's fields in a more friendly format using the class instance method
 print(new_s._asdict())
 
 ```
 
-注意，命名元组创建后，可以用其属性名或标的方式来访问其中的元素。
+Note that after the named tuple is created, its elements can be accessed either by attribute name or by indexing.

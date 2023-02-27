@@ -1,56 +1,55 @@
 ---
-title: go的channel详解
+title: Explanation of Go channels
 date: 2023-02-18 17:51:42
 top: true
 tags:
     - golang
 ---
-此篇文章基于[golang 1.12.1](https://studygolang.com/dl/golang/go1.12.1.src.tar.gz) 版本源码解析而成，chan源码位于go/src/runtime/chan.go文件中。
+This article is based on the analysis of the source code of version golang 1.12.1, where the chan source code is located in the file go/src/runtime/chan.go.
 
-## Channel是个什么？
-
-在源码中，channel实际是一个结构体，其结构如下：
+## What is a Channel?
+In the source code, a channel is actually a structure, with the following structure:
 
 ```
 type hchan struct {
-   qcount   uint           // 队列数据中的数据数量
-   dataqsiz uint           // 循环队列的大小
-   buf      unsafe.Pointer // 储存数据的元素数组
-   elemsize uint16
-   closed   uint32
-   elemtype *_type // 元素类型
-   sendx    uint   // 发送次数
-   recvx    uint   // 接受次数
-   recvq    waitq  // 当阻塞时，存放接受者的结构体
-   sendq    waitq  // 当阻塞时，存放发送者者的结构体
+    qcount uint // the number of data in the queue
+    dataqsiz uint // the size of the circular queue
+    buf unsafe.Pointer // the element array that stores the data
+    elemsize uint16
+    closed uint32
+    elemtype *_type // the type of the element
+    sendx uint // the number of sends
+    recvx uint // the number of receives
+    recvq waitq // the structure to put the receiver when blocking
+    sendq waitq // the structure to put the sender when blocking
 
-   // 用于保证数据的并发安全
-   lock mutex
+    // Used to ensure concurrent safety of data
+    lock mutex
 }
 
 ```
 
-其中，`sendx`以及`recvx`是每次读取或者写入都需要将其加一。而`recvq`、`sendq`的作用是，当缓冲区已满的情况下，会将读取或是发送channel结构体放入其中。
+`sendx` and `recvx` need to be incremented each time data is read or written. The roles of `recvq` and `sendq` are to store the channel structures of the receiver or sender when the buffer is full.
 
-## Channel的创建
+## Creating a Channel
 
-创建一个chan我们会使用`make`函数来创建，实际`make`函数调用了`makechan`函数创建，该函数签名如下：
+To create a channel, we use the `make` function, which actually calls the `makechan` function to create the channel. The function signature is as follows:
 
 ```
 func makechan(t *chantype, size int) *hchan
 
 ```
 
-其中，`t`是chan接收或者发送的数据类型，`size`则是`make`函数的第二个参数，指明了chan的缓冲大小，默认为0即无缓冲chan，返回`hchan`结构体的指针。创建channel时首先会检测`t`的大小，如果`t`的大小超过了65536个字节，将会触发错误。当chan传递的数据类型大小符合要求后，将会根据`t`类型的特征去创建一定容量大小的内存空间，并将此片内存空间复制给`buf`。值得一提的是，`chan`包中提供了一个名称为`debugChan`的变量，该变量默认为`false`，当它为`true`时，对chan操作时将会打印一些debug信息，这将会帮助我们快速的发现由于chan发生的BUG。
+`T` is the type of data to be sent or received by the channel, and `size` is the second parameter of the `make` function, which specifies the buffer size of the channel. By default, it is 0, indicating an unbuffered channel. The function returns a pointer to the `hchan` structure. When creating a channel, the size of `t` is first checked. If it exceeds 65536 bytes, an error will be triggered. If the size of the data type passed through the channel meets the requirements, a memory space of a certain capacity will be created according to the characteristics of the `t` type, and this memory space will be copied to `buf`. It is worth mentioning that there is a variable called `debugChan` in the `chan` package, which is set to `false` by default. When it is set to `true`, some debug information will be printed when operating on the channel. This will help us quickly discover bugs caused by the channel.
 
-## 向channel中发送数据
+## Sending Data to a Channel
 
-向chan中发送数据由[chan.go:142](https://github.com/golang/go/blob/master/src/runtime/chan.go#71) `chansend`函数实现。该函数首先会检查当前channel等于nil并且是一个有缓冲通道则直接返回，如果是一个无缓存通道则调用`proc.gp:284` `gopark`将当前的goroutine设置为waiting状态。随后检测channel时候已经准备好发送数据了，如果已经可以发送数据，则调用chan.go:264 `send`函数发送数据。`send`的作用主要是将要发送的数据`copy`到`buf`中，如果当前channel是无缓冲的，则调用`lock`加锁，阻塞当前goroutine。当前数据被接受后，调用`goready`通知runtime当前goroutine已经准备好再次运行了。如果channel是有缓冲的，则直接返回。
+Sending data to a channel is implemented by the `chansend` function at [chan.go:142](https://github.com/golang/go/blob/master/src/runtime/chan.go#71). The function first checks whether the current channel is nil and whether it is a buffered channel. If it is, it returns directly. If it is an unbuffered channel, it calls the `gopark` function at `proc.gp:284` to set the current goroutine to a waiting state. It then checks whether the channel is ready to receive data. If it is, it calls the `send` function at `chan.go:264` to send the data. The main function of `send` is to `copy` the data to be sent to `buf`. If the current channel is unbuffered, it locks the current goroutine by calling `lock`. After the current data is received, it calls `goready` to notify the runtime that the current goroutine is ready to run again. If the channel is buffered, it returns directly.
 
-## 从channel中接受数据
+## Receiving Data from a Channel
 
-接受数据实际跟发送数据流程是一样的，唯一不同的是，当channel是有缓冲的时候，并且channel中没有数据被发送时，则直接将接受chan数据的变量地址存入到`sendq`结构体中。当有发送数据时发现`recvq`中有数据时，直接将数据存入到这个结构体中的地址中，而不再会使用`buf`去`copy`数据。
+Receiving data is actually the same as sending data, except that when the channel is buffered and no data has been sent to the channel, it directly stores the address of the variable that receives the chan data into the `sendq` structure. When there is data to be sent, if it finds data in `recvq`, it directly stores the data into the address in this structure instead of using `buf` to `copy` the data.
 
-## 总结
+## Conclusion
 
-channel使用`copy buf`的方式来通信，最后实现以通信的方式来共享内存。当一个goroutine阻塞的时候，系统线程会把它放入到`hchan.sendq`或者`hchan.recvq` list中，该list中的`sudog`类型的结构题就是当前goroutine，而这个`sudog`结构体中保存着一个变量，该变量保存着channel相关的指针。之前使用chan仅仅只是会使用，而不知其原理，看了其源码，之前不理解的地方也恍然大悟。写这篇文章时是对着源码写的，可能有一些顺序上的矛盾。
+The channel uses the `copy buf` method to communicate and ultimately implements sharing memory through communication. When a goroutine is blocked, the system thread puts it into the `hchan.sendq` or `hchan.recvq` list. The `sudog` type structure in this list is the current goroutine, and this `sudog` structure contains a variable that holds a pointer to the channel. Previously, I only used chan without knowing its principle. After reading the source code, I understood the parts that I did not understand before. When writing this article, I followed the source code, so there may be some contradictions in the order.

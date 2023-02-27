@@ -1,12 +1,14 @@
 ---
-title: 流畅的python--字典中的散列表
+title: Hash tables in Python dictionaries
 date: 2017-06-15 22:27:44
 tags:
     - python
 ---
-字典中的散列表其实就是稀疏数组，也就是说有些元素是空的。在构建字典时，会有两个表元，一个用来标记键，一个用来标记值。因为两个表元的长度相等，所以可以通过表元的偏移量来查找字典。
+# 
 
-在Python中，最有效率的内置数据类型是字典和集合，这两种数据类型都是通过散列表实现的。为了测试Python中不同数据类型的速度，我进行了以下实验：
+Dictionaries in Python use hash tables, which are actually sparse arrays, meaning that some elements are empty. When constructing a dictionary, two table elements are used, one to mark the keys and the other to mark the values. Because the lengths of the two table elements are equal, the dictionary can be searched by the offset of the table elements.
+
+In Python, the most efficient built-in data types are dictionaries and sets, both of which are implemented through hash tables. To test the speed of different data types in Python, I conducted the following experiment:
 
 ```
 import time
@@ -22,7 +24,7 @@ def testTime(x,name):
     for i in test:
         if i in x:
             pass
-    print name,':','%f' % (time.clock() - start)
+    print(name,':','%f' % (time.clock() - start))
 
 testTime(list_a, 'list')
 testTime(set_a, 'set')
@@ -30,7 +32,7 @@ testTime(dict_a, 'dict')
 
 ```
 
-结果如下：
+The results are as follows:
 
 ```
 list : 0.012472
@@ -39,6 +41,6 @@ dict : 0.000071
 
 ```
 
-从上面可以看出，集合与字典相比其他类型要快得多，这是因为列表中没有散列表支持in运算符。
+From the above, it can be seen that sets and dictionaries are much faster than other types. This is because lists do not support the `in` operator with hash tables.
 
-散列的算法是这样的：比如Python要获取`dict[key]`背后的值，Python会先使用`hash(key)`来计算key的散列值，然后取散列值的最低位的几位数字作为表元的偏移量。如果表元为空，就会抛出一个`KeyError`异常；如果找到，就会获得一个`key:value`值，Python再最后会比较两个key的散列值是否一致。如果为真返回value，如果不相等则称为散列冲突。这种情况的发生是因为散列表把随机的元素映射到几位数字上去，而散列表需要依赖这个数字做检索。为了解决这个问题，散列表会再从新取几位数字，去表元中寻找。如果表元为空，就会抛出一个`KeyError`异常；如果没有找到，就会重复上面的步骤直到找到。
+The hash algorithm works as follows: for example, if Python wants to obtain the value behind `dict[key]`, it first uses `hash(key)` to calculate the hash value of the key, and then takes the lowest few digits of the hash value as the offset of the table element. If the table element is empty, a `KeyError` exception will be thrown; if found, a `key:value` value will be obtained, and Python will compare the hash values of the two keys. If they are identical, the value is returned, and if they are not equal, it is called a hash collision. This occurs because the hash table maps random elements to a few digits, and the hash table needs to rely on this number for retrieval. To solve this problem, the hash table will take a few more digits and search the table elements. If the table element is empty, a `KeyError` exception will be thrown; if not found, the above steps will be repeated until found.

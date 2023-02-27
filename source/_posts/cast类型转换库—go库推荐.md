@@ -1,16 +1,16 @@
 ---
-title: cast类型转换库—go库推荐
+title: cast Type Conversion Library - Recommended Go Library
 date: 2023-02-18 17:53:10
 tags:
     - golang
 ---
-在 Go 语言中，类型转换是一项经常需要进行的操作，但转换不同类型之间的值却需要引入不同的库，过程相对繁琐。不过，`cast` 库解决了这个问题，提供了很多种类型转换函数，而且通常只需要引入这一个库即可。
+In Go language, type conversion is a frequently used operation, but converting values between different types requires importing different libraries, which can be relatively cumbersome. However, the `cast` library solves this problem and provides many type conversion functions, usually only requiring the import of this one library.
 
-`cast` 库不仅提供了常见类型之间的转换，例如 int 转换为 string，还提供了更加复杂的类型转换，例如将时间字符串转换为 `time.Time` 类型。此外，它还提供了两种转换函数，一种仅返回该类型的零值，不会返回错误，另一种则会返回错误，以便开发人员可以根据实际需求选择使用。
+The `cast` library not only provides conversions between common types, such as int to string, but also provides more complex type conversions, such as converting a time string to the `time.Time` type. In addition, it provides two conversion functions, one only returns the zero value of that type without returning an error, and the other returns an error, so developers can choose to use it according to their actual needs.
 
-以下是一些常用的 API：
+Here are some commonly used APIs:
 
-- `cast.StringToDate`: 将常见的时间字符串转换为 `time.Time` 类型
+- `cast.StringToDate`: Converts common time strings to the `time.Time` type.
 
 ```
 fmt.Println(cast.StringToDate("2006-01-02 15:04:05"))
@@ -18,7 +18,7 @@ fmt.Println(cast.StringToDate("2006-01-02 15:04:05"))
 
 ```
 
-- `cast.ToBoolSlice`: 将任意类型的数组转换为 `[]bool` 类型
+- `cast.ToBoolSlice`: Converts an array of any type to the `[]bool` type.
 
 ```
 fmt.Println(cast.ToBoolSlice([]interface{}{1,2,0,true, false}))
@@ -26,7 +26,7 @@ fmt.Println(cast.ToBoolSlice([]interface{}{1,2,0,true, false}))
 
 ```
 
-- `cast.ToBool`: 将任意类型转换为 `bool` 类型
+- `cast.ToBool`: Converts any type to the `bool` type.
 
 ```
 fmt.Println(cast.ToBool(1)) // output:true
@@ -39,7 +39,7 @@ fmt.Println(cast.ToBool("false")) // output: false
 
 ```
 
-- `cast.ToString`: 将任意类型转换成字符串类型
+- `cast.ToString`: Converts any type to a string type.
 
 ```
 cast.ToString("mayonegg")         // "mayonegg"
@@ -52,7 +52,7 @@ cast.ToString(foo)                // "one more time"
 
 ```
 
-- `cast.ToStringMap`: 将任意类型的 map 转换成 `map[string]interface{}`
+- `cast.ToStringMap`: Converts a map of any type to `map[string]interface{}`.
 
 ```
 fmt.Println(cast.ToStringMap(map[interface{}]interface{}{
@@ -64,4 +64,4 @@ fmt.Println(cast.ToStringMap(map[interface{}]interface{}{
 
 ```
 
-更多的 API 可以在其文档中查看：[https://github.com/spf13/cast](https://github.com/spf13/cast)
+More APIs can be found in its documentation: [https://github.com/spf13/cast](https://github.com/spf13/cast)

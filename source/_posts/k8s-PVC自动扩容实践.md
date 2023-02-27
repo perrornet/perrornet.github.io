@@ -1,35 +1,34 @@
 ---
-title: k8s PVC自动扩容实践
+title: k8s PVC Auto Scaling Practice
 date: 2023-02-18 17:54:22
 top: true
 tags:
     - devops
     - k8s
 ---
-## 依赖
+## Dependencies
+This practice depends on:
 
-此实践依赖于：
+1. k8s version >= 1.24
+2. [pvc-autoresizer](https://github.com/topolvm/pvc-autoresizer) version >= 0.5.0
 
-1. k8s版本 >= 1.24
-2. [pvc-autoresizer](https://github.com/topolvm/pvc-autoresizer) 版本 >= 0.5.0
+## Install pvc-autoresizer
 
-## 安装 pvc-autoresizer
-
-1. 克隆[pvc-autoresizer](https://github.com/topolvm/pvc-autoresizer)仓库并检出版本 0.5.0，然后构建并推送Docker镜像：
+1. Clone the [pvc-autoresizer](https://github.com/topolvm/pvc-autoresizer) repository and checkout version 0.5.0, then build and push the Docker image:
 
 ```
 git clone <https://github.com/topolvm/pvc-autoresizer> && git checkout v0.5.0 && cd pvc-autoresizer && docker build -t pvc-autoresizer:0.5.0 . && docker push pvc-autoresizer:0.5.0
 
 ```
 
-1. 添加pvc-autoresizer的Helm repo:
+1. Add the pvc-autoresizer Helm repo:
 
 ```
 helm repo add pvc-autoresizer <https://topolvm.github.io/pvc-autoresizer/>
 
 ```
 
-1. 准备`values.yaml`文件，内容如下：
+1. Prepare the `values.yaml` file with the following content:
 
 ```
 # config from <https://github.com/topolvm/pvc-autoresizer/blob/main/charts/pvc-autoresizer/values.yaml>
@@ -52,23 +51,23 @@ controller:
 
 ```
 
-1. 安装pvc-autoresizer:
+1. Install pvc-autoresizer:
 
 ```
 helm install --create-namespace --namespace pvc-autoresizer pvc-autoresizer pvc-autoresizer/pvc-autoresizer --values ./values.yaml
 
 ```
 
-1. 检查是否安装成功:
+1. Check if the installation was successful:
 
 ```
 kubectl get pod -n pvc-autoresizer | grep pvc-autoresizer
 
 ```
 
-## 创建StatefulSet以及存储类
+## Create StatefulSet and Storage Class
 
-1. 编写`stateful-set.yaml`文件，内容如下:
+1. Write the `stateful-set.yaml` file with the following content:
 
 ```
 apiVersion: storage.k8s.io/v1
@@ -77,7 +76,7 @@ metadata:
   name: test-pvc-autoresizer
   namespace: staging
   annotations:
-    resize.topolvm.io/enabled: "true" # 必须存在, 才能自动扩容
+    resize.topolvm.io/enabled: "true" # Must be present to auto-scale
 parameters:
   type: pd-ssd
 provisioner: pd.csi.storage.gke.io
@@ -129,8 +128,8 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: test-pvc-data
-        annotations:  # 必须存在, 使得自动创建的 PVC携带以下设置想才能自动扩容
-            resize.topolvm.io/storage_limit: 8Gi # 最大扩容大小
+        annotations:  # Must be present to auto-scale
+            resize.topolvm.io/storage_limit: 8Gi # Maximum scaling size
             resize.topolvm.io/threshold: 20%
       spec:
         accessModes: [ "ReadWriteOnce" ]
@@ -141,34 +140,33 @@ spec:
 
 ```
 
-1. 部署StatefulSet和存储类:
+1. Deploy StatefulSet and Storage Class:
 
 ```
 kubectl apply -f ./stateful-set.yaml
 
 ```
 
-## 测试
+## Test
 
-1. 进入pod并查看挂载目录大小，可以看到`/data`目录只使用了1%的空间
+1. Enter the pod and check the mounted directory size. You can see that the `/data` directory is only using 1% of its space:
 
 ```
 df -h
 
 ```
 
-2. 测试自动扩容，写入文件:
+2. Test automatic scaling by writing a file:
 
 ```
 dd if=/dev/zero of=1G.file bs=50M count=20
 
 ```
 
-3. 检查pvc-autoresizer pod 日志:
+3. Check the pvc-autoresizer pod log:
 
    ![/medias/1666863168702.jpg](/medias/1666863168702.jpg)
 
-4. 再次检查pod挂载目录大小, 可以看见挂载目录已经使用了100%:`/dev/sdf 975.9M 959.9M 0 100% /data`
-5. 等待一段时间后，再次查看挂载目录大小，可以看见已经扩容成功:`/dev/sdf 1.9G 960.4M 1007.4M 49% /data`😋😋😋😋😋😋
-
+4. Check the mounted directory size again. You can see that the mounted directory has already reached 100% usage: `/dev/sdf 975.9M 959.9M 0 100% /data`
+5. After waiting for some time, check the mounted directory size again. You can see that it has successfully scaled: `/dev/sdf 1.9G 960.4M 1007.4M 49% /data`😋😋😋😋😋😋
 ![/medias/1666863439959.jpg](/medias/1666863439959.jpg)

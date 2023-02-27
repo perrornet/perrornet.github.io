@@ -5,18 +5,13 @@ tags:
    - devops
    - k8s 
 ---
-以下是在Kubernetes上使用Flux CD进行GitOps的步骤：
+Here are the steps to use Flux CD for GitOps on Kubernetes:
 
-1.安装Flux CLI：使用`brew install fluxcd/tap/flux`命令进行安装。
+1. Install Flux CLI: Use the command `brew install fluxcd/tap/flux` to install.
+2. Display Flux CLI version: Use the command `flux version` to display Flux CLI version information.
+3. Create a Git repository on GitHub.
+4. Set the GITHUB_TOKEN environment variable.
+5. Use the command `flux bootstrap github` to install Flux CD into the Kubernetes cluster. In the command, specify the GitHub username and repository name, read/write key, branch, and the components to use (including image-reflector-controller and image-automation-controller).
+6. Wait for the Flux CD Pod to start and complete initialization.
 
-2.显示Flux CLI版本：使用`flux version`命令显示Flux CLI版本信息。
-
-3.在GitHub上创建Git仓库。
-
-4.设置GITHUB_TOKEN环境变量。
-
-5.使用`flux bootstrap github`命令将Flux CD安装到Kubernetes集群中。在命令中，需要指定GitHub用户名和仓库名、读写密钥、分支以及使用的组件（包括image-reflector-controller和image-automation-controller）。
-
-6.等待Flux CD Pod启动并完成初始化。
-
-请注意，只有在使用`--components-extra=image-reflector-controller,image-automation-controller`参数时，才能创建与镜像相关的Pod。
+Note that only with the `--components-extra=image-reflector-controller,image-automation-controller` parameter can you create pods related to images.

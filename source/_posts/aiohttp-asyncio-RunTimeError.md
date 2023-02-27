@@ -4,9 +4,9 @@ date: 2017-07-13 11:04:10
 tags:
     - bug
 ---
-首先，你可能遇到了AssertionError: There is no current event loop in thread ‘Thread-1’。这是因为asyncio程序中的每个线程都有自己的事件循环，但只有在主线程中才会自动创建一个事件循环。因此，如果你在子线程中调用asyncio.get_event_loop()，你将会遇到此错误。
+Firstly, you may have encountered the AssertionError: There is no current event loop in thread 'Thread-1'. This is because each thread in an asyncio program has its own event loop, but only the main thread will automatically create an event loop. Therefore, if you call asyncio.get_event_loop() in a sub-thread, you will encounter this error.
 
-为了解决这个问题，你需要在启动线程时显式地创建和设置事件循环，示例代码如下：
+To solve this problem, you need to explicitly create and set an event loop when starting the thread. Sample code is as follows:
 
 ```
 loop = asyncio.new_event_loop()
@@ -14,4 +14,4 @@ asyncio.set_event_loop(loop)
 
 ```
 
-一旦这样做，你应该就能够使用get_event_loop()在特定的线程中正常工作了。
+Once you do this, you should be able to use get_event_loop() to work properly in a specific thread.
