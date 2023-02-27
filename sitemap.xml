@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://perror.dev/tags/index.html</loc>
-    
-    <lastmod>2023-02-27</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://perror.dev/post/io-duo-lu-fu-yong-shi-jian.html</loc>
     
     <lastmod>2023-02-27</lastmod>
@@ -201,6 +192,15 @@
   
   <url>
     <loc>https://perror.dev/categories/index.html</loc>
+    
+    <lastmod>2023-02-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://perror.dev/tags/index.html</loc>
     
     <lastmod>2023-02-27</lastmod>
     
