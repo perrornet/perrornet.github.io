@@ -4,10 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="go的channel详解, golang,python,devops,k8s,kube">
-    <meta name="description" content="此篇文章基于golang 1.12.1 版本源码解析而成，chan源码位于go/src/runtime/chan.go文件中。
-Channel是个什么？在源码中，channel实际是一个结构体，其结构如下：
-type hchan struc">
+    <meta name="keywords" content="Explanation of Go channels, golang,python,devops,k8s,kube">
+    <meta name="description" content="This article is based on the analysis of the source code of version golang 1.12.1, where the chan source code is located">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -30,7 +28,7 @@ type hchan struc">
 </script>
 
 
-    <title>go的channel详解 | Perror</title>
+    <title>Explanation of Go channels | Perror</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -219,12 +217,12 @@ type hchan struc">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">go的channel详解</h1>
+                    <h1 class="description center-align post-title">Explanation of Go channels</h1>
                 </div>
             </div>
         </div>
@@ -273,14 +271,14 @@ type hchan struc">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    909
+                    695
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    3 Min
+                    4 Min
                 </div>
                 
 
@@ -298,34 +296,34 @@ type hchan struc">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>此篇文章基于<a target="_blank" rel="noopener" href="https://studygolang.com/dl/golang/go1.12.1.src.tar.gz">golang 1.12.1</a> 版本源码解析而成，chan源码位于go/src/runtime/chan.go文件中。</p>
-<h2 id="Channel是个什么？"><a href="#Channel是个什么？" class="headerlink" title="Channel是个什么？"></a>Channel是个什么？</h2><p>在源码中，channel实际是一个结构体，其结构如下：</p>
+                <p>This article is based on the analysis of the source code of version golang 1.12.1, where the chan source code is located in the file go/src/runtime/chan.go.</p>
+<h2 id="What-is-a-Channel"><a href="#What-is-a-Channel" class="headerlink" title="What is a Channel?"></a>What is a Channel?</h2><p>In the source code, a channel is actually a structure, with the following structure:</p>
 <pre class="line-numbers language-none"><code class="language-none">type hchan struct {
-   qcount   uint           // 队列数据中的数据数量
-   dataqsiz uint           // 循环队列的大小
-   buf      unsafe.Pointer // 储存数据的元素数组
-   elemsize uint16
-   closed   uint32
-   elemtype *_type // 元素类型
-   sendx    uint   // 发送次数
-   recvx    uint   // 接受次数
-   recvq    waitq  // 当阻塞时，存放接受者的结构体
-   sendq    waitq  // 当阻塞时，存放发送者者的结构体
+    qcount uint // the number of data in the queue
+    dataqsiz uint // the size of the circular queue
+    buf unsafe.Pointer // the element array that stores the data
+    elemsize uint16
+    closed uint32
+    elemtype *_type // the type of the element
+    sendx uint // the number of sends
+    recvx uint // the number of receives
+    recvq waitq // the structure to put the receiver when blocking
+    sendq waitq // the structure to put the sender when blocking
 
-   // 用于保证数据的并发安全
-   lock mutex
+    // Used to ensure concurrent safety of data
+    lock mutex
 }
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>其中，<code>sendx</code>以及<code>recvx</code>是每次读取或者写入都需要将其加一。而<code>recvq</code>、<code>sendq</code>的作用是，当缓冲区已满的情况下，会将读取或是发送channel结构体放入其中。</p>
-<h2 id="Channel的创建"><a href="#Channel的创建" class="headerlink" title="Channel的创建"></a>Channel的创建</h2><p>创建一个chan我们会使用<code>make</code>函数来创建，实际<code>make</code>函数调用了<code>makechan</code>函数创建，该函数签名如下：</p>
+<p><code>sendx</code> and <code>recvx</code> need to be incremented each time data is read or written. The roles of <code>recvq</code> and <code>sendq</code> are to store the channel structures of the receiver or sender when the buffer is full.</p>
+<h2 id="Creating-a-Channel"><a href="#Creating-a-Channel" class="headerlink" title="Creating a Channel"></a>Creating a Channel</h2><p>To create a channel, we use the <code>make</code> function, which actually calls the <code>makechan</code> function to create the channel. The function signature is as follows:</p>
 <pre class="line-numbers language-none"><code class="language-none">func makechan(t *chantype, size int) *hchan
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>其中，<code>t</code>是chan接收或者发送的数据类型，<code>size</code>则是<code>make</code>函数的第二个参数，指明了chan的缓冲大小，默认为0即无缓冲chan，返回<code>hchan</code>结构体的指针。创建channel时首先会检测<code>t</code>的大小，如果<code>t</code>的大小超过了65536个字节，将会触发错误。当chan传递的数据类型大小符合要求后，将会根据<code>t</code>类型的特征去创建一定容量大小的内存空间，并将此片内存空间复制给<code>buf</code>。值得一提的是，<code>chan</code>包中提供了一个名称为<code>debugChan</code>的变量，该变量默认为<code>false</code>，当它为<code>true</code>时，对chan操作时将会打印一些debug信息，这将会帮助我们快速的发现由于chan发生的BUG。</p>
-<h2 id="向channel中发送数据"><a href="#向channel中发送数据" class="headerlink" title="向channel中发送数据"></a>向channel中发送数据</h2><p>向chan中发送数据由<a target="_blank" rel="noopener" href="https://github.com/golang/go/blob/master/src/runtime/chan.go#71">chan.go:142</a> <code>chansend</code>函数实现。该函数首先会检查当前channel等于nil并且是一个有缓冲通道则直接返回，如果是一个无缓存通道则调用<code>proc.gp:284</code> <code>gopark</code>将当前的goroutine设置为waiting状态。随后检测channel时候已经准备好发送数据了，如果已经可以发送数据，则调用chan.go:264 <code>send</code>函数发送数据。<code>send</code>的作用主要是将要发送的数据<code>copy</code>到<code>buf</code>中，如果当前channel是无缓冲的，则调用<code>lock</code>加锁，阻塞当前goroutine。当前数据被接受后，调用<code>goready</code>通知runtime当前goroutine已经准备好再次运行了。如果channel是有缓冲的，则直接返回。</p>
-<h2 id="从channel中接受数据"><a href="#从channel中接受数据" class="headerlink" title="从channel中接受数据"></a>从channel中接受数据</h2><p>接受数据实际跟发送数据流程是一样的，唯一不同的是，当channel是有缓冲的时候，并且channel中没有数据被发送时，则直接将接受chan数据的变量地址存入到<code>sendq</code>结构体中。当有发送数据时发现<code>recvq</code>中有数据时，直接将数据存入到这个结构体中的地址中，而不再会使用<code>buf</code>去<code>copy</code>数据。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>channel使用<code>copy buf</code>的方式来通信，最后实现以通信的方式来共享内存。当一个goroutine阻塞的时候，系统线程会把它放入到<code>hchan.sendq</code>或者<code>hchan.recvq</code> list中，该list中的<code>sudog</code>类型的结构题就是当前goroutine，而这个<code>sudog</code>结构体中保存着一个变量，该变量保存着channel相关的指针。之前使用chan仅仅只是会使用，而不知其原理，看了其源码，之前不理解的地方也恍然大悟。写这篇文章时是对着源码写的，可能有一些顺序上的矛盾。</p>
+<p><code>T</code> is the type of data to be sent or received by the channel, and <code>size</code> is the second parameter of the <code>make</code> function, which specifies the buffer size of the channel. By default, it is 0, indicating an unbuffered channel. The function returns a pointer to the <code>hchan</code> structure. When creating a channel, the size of <code>t</code> is first checked. If it exceeds 65536 bytes, an error will be triggered. If the size of the data type passed through the channel meets the requirements, a memory space of a certain capacity will be created according to the characteristics of the <code>t</code> type, and this memory space will be copied to <code>buf</code>. It is worth mentioning that there is a variable called <code>debugChan</code> in the <code>chan</code> package, which is set to <code>false</code> by default. When it is set to <code>true</code>, some debug information will be printed when operating on the channel. This will help us quickly discover bugs caused by the channel.</p>
+<h2 id="Sending-Data-to-a-Channel"><a href="#Sending-Data-to-a-Channel" class="headerlink" title="Sending Data to a Channel"></a>Sending Data to a Channel</h2><p>Sending data to a channel is implemented by the <code>chansend</code> function at <a target="_blank" rel="noopener" href="https://github.com/golang/go/blob/master/src/runtime/chan.go#71">chan.go:142</a>. The function first checks whether the current channel is nil and whether it is a buffered channel. If it is, it returns directly. If it is an unbuffered channel, it calls the <code>gopark</code> function at <code>proc.gp:284</code> to set the current goroutine to a waiting state. It then checks whether the channel is ready to receive data. If it is, it calls the <code>send</code> function at <code>chan.go:264</code> to send the data. The main function of <code>send</code> is to <code>copy</code> the data to be sent to <code>buf</code>. If the current channel is unbuffered, it locks the current goroutine by calling <code>lock</code>. After the current data is received, it calls <code>goready</code> to notify the runtime that the current goroutine is ready to run again. If the channel is buffered, it returns directly.</p>
+<h2 id="Receiving-Data-from-a-Channel"><a href="#Receiving-Data-from-a-Channel" class="headerlink" title="Receiving Data from a Channel"></a>Receiving Data from a Channel</h2><p>Receiving data is actually the same as sending data, except that when the channel is buffered and no data has been sent to the channel, it directly stores the address of the variable that receives the chan data into the <code>sendq</code> structure. When there is data to be sent, if it finds data in <code>recvq</code>, it directly stores the data into the address in this structure instead of using <code>buf</code> to <code>copy</code> the data.</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>The channel uses the <code>copy buf</code> method to communicate and ultimately implements sharing memory through communication. When a goroutine is blocked, the system thread puts it into the <code>hchan.sendq</code> or <code>hchan.recvq</code> list. The <code>sudog</code> type structure in this list is the current goroutine, and this <code>sudog</code> structure contains a variable that holds a pointer to the channel. Previously, I only used chan without knowing its principle. After reading the source code, I understood the parts that I did not understand before. When writing this article, I followed the source code, so there may be some contradictions in the order.</p>
 
                 
             </div>
@@ -445,9 +443,9 @@ type hchan struc">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="redis sds详解">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Understanding Redis SDS">
                         
-                        <span class="card-title">redis sds详解</span>
+                        <span class="card-title">Understanding Redis SDS</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -490,9 +488,9 @@ type hchan struc">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="python IO多路复用实践">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Python IO Multiplexing Practice">
                         
-                        <span class="card-title">python IO多路复用实践</span>
+                        <span class="card-title">Python IO Multiplexing Practice</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -715,7 +713,7 @@ type hchan struc">
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.8k</span> -->
+<!--                         class="white-color">13k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->

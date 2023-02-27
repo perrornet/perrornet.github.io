@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="aiohttp,asyncio,RunTimeError, golang,python,devops,k8s,kube">
-    <meta name="description" content="首先，你可能遇到了AssertionError: There is no current event loop in thread ‘Thread-1’。这是因为asyncio程序中的每个线程都有自己的事件循环，但只有在主线程中才会自动创建">
+    <meta name="description" content="Firstly, you may have encountered the AssertionError: There is no current event loop in thread ‘Thread-1’. This is becau">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -271,7 +271,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    150
+                    104
                 </div>
                 
 
@@ -296,13 +296,13 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>首先，你可能遇到了AssertionError: There is no current event loop in thread ‘Thread-1’。这是因为asyncio程序中的每个线程都有自己的事件循环，但只有在主线程中才会自动创建一个事件循环。因此，如果你在子线程中调用asyncio.get_event_loop()，你将会遇到此错误。</p>
-<p>为了解决这个问题，你需要在启动线程时显式地创建和设置事件循环，示例代码如下：</p>
+                <p>Firstly, you may have encountered the AssertionError: There is no current event loop in thread ‘Thread-1’. This is because each thread in an asyncio program has its own event loop, but only the main thread will automatically create an event loop. Therefore, if you call asyncio.get_event_loop() in a sub-thread, you will encounter this error.</p>
+<p>To solve this problem, you need to explicitly create and set an event loop when starting the thread. Sample code is as follows:</p>
 <pre class="line-numbers language-none"><code class="language-none">loop = asyncio.new_event_loop()
 asyncio.set_event_loop(loop)
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>一旦这样做，你应该就能够使用get_event_loop()在特定的线程中正常工作了。</p>
+<p>Once you do this, you should be able to use get_event_loop() to work properly in a specific thread.</p>
 
                 
             </div>
@@ -696,7 +696,7 @@ asyncio.set_event_loop(loop)
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.8k</span> -->
+<!--                         class="white-color">13k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->

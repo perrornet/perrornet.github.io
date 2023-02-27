@@ -4,12 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="python的高级用法 -- namedtuple, golang,python,devops,k8s,kube">
-    <meta name="description" content="namedtuple 函数可以用来创建一个有名字的元组或者类，这种方法可以更有效的调试代码。下面是一个例子：
-from collections import namedtuple
-
-# 创建一个类
-a = namedtuple(&#39;c&#39;, (">
+    <meta name="keywords" content="Advanced Usage of Python -- namedtuple, golang,python,devops,k8s,kube">
+    <meta name="description" content="The namedtuple function can be used to create a named tuple or class, which can be more effective for debugging code. He">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -32,7 +28,7 @@ a = namedtuple(&#39;c&#39;, (">
 </script>
 
 
-    <title>python的高级用法 -- namedtuple | Perror</title>
+    <title>Advanced Usage of Python -- namedtuple | Perror</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -221,12 +217,12 @@ a = namedtuple(&#39;c&#39;, (">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">python的高级用法 -- namedtuple</h1>
+                    <h1 class="description center-align post-title">Advanced Usage of Python -- namedtuple</h1>
                 </div>
             </div>
         </div>
@@ -271,7 +267,7 @@ a = namedtuple(&#39;c&#39;, (">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    239
+                    154
                 </div>
                 
 
@@ -296,35 +292,35 @@ a = namedtuple(&#39;c&#39;, (">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><code>namedtuple</code> 函数可以用来创建一个有名字的元组或者类，这种方法可以更有效的调试代码。下面是一个例子：</p>
+                <p>The <code>namedtuple</code> function can be used to create a named tuple or class, which can be more effective for debugging code. Here’s an example:</p>
 <pre class="line-numbers language-none"><code class="language-none">from collections import namedtuple
 
-# 创建一个类
+# Create a class
 a = namedtuple('c', ('name', 'age'))
 x = a('perror', 21)
 
-# 该返回值可以用访问对象的方法来访问
+# Access via object method
 print(x.name)
 print(x.age)
 
-# 也可以用标的方式去访问
+# Access via indexing
 print(x[0])
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>除了继承普通元组的方法外，命名元组还有额外的三个方法：<code>_fields</code> 类属性，<code>make()</code> 类方法，<code>_asdict()</code> 类实例方法。</p>
-<p>下面是这些方法的具体用法：</p>
-<pre class="line-numbers language-none"><code class="language-none"># 查看该命名元组中的所有字段
+<p>In addition to inheriting methods from normal tuples, named tuples have three additional methods: the <code>_fields</code> class attribute, <code>make()</code> class method, and <code>_asdict()</code> class instance method.</p>
+<p>Here’s how to use these methods:</p>
+<pre class="line-numbers language-none"><code class="language-none"># View all fields in the named tuple
 print(x._fields)
 
-# `_make` 通过一个可迭代对象来生成一个类实例
+# `_make` generates a class instance using an iterable object
 s = ('perror', '21')
 new_s = x._make(s)
 
-# 通过类实例方法更友好的打印出元组的字段
+# Print the tuple's fields in a more friendly format using the class instance method
 print(new_s._asdict())
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>注意，命名元组创建后，可以用其属性名或标的方式来访问其中的元素。</p>
+<p>Note that after the named tuple is created, its elements can be accessed either by attribute name or by indexing.</p>
 
                 
             </div>
@@ -485,9 +481,9 @@ print(new_s._asdict())
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="python的高级用法 -- namedtuple">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="Advanced Usage of Python -- namedtuple">
                         
-                        <span class="card-title">python的高级用法 -- namedtuple</span>
+                        <span class="card-title">Advanced Usage of Python -- namedtuple</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -703,7 +699,7 @@ print(new_s._asdict())
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.8k</span> -->
+<!--                         class="white-color">13k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->

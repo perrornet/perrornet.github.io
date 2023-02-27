@@ -4,13 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="python深拷贝浅拷贝, golang,python,devops,k8s,kube">
-    <meta name="description" content="关于Python中的对象拷贝问题，我们需要了解is和==的区别:
-&amp;gt;&amp;gt;&amp;gt; a = [1,2,3,4]
-&amp;gt;&amp;gt;&amp;gt; b = [1,2,3,4]
-&amp;gt;&amp;gt;&amp;gt; a == b
-True
-&amp;gt;&amp;gt;">
+    <meta name="keywords" content="Python deep copy and shallow copy, golang,python,devops,k8s,kube">
+    <meta name="description" content="When it comes to object copying in Python, we need to understand the difference between is and ==:
+&amp;gt;&amp;gt;&amp;gt; a = [1,2">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -33,7 +29,7 @@ True
 </script>
 
 
-    <title>python深拷贝浅拷贝 | Perror</title>
+    <title>Python deep copy and shallow copy | Perror</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -222,12 +218,12 @@ True
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">python深拷贝浅拷贝</h1>
+                    <h1 class="description center-align post-title">Python deep copy and shallow copy</h1>
                 </div>
             </div>
         </div>
@@ -276,7 +272,7 @@ True
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    768
+                    606
                 </div>
                 
 
@@ -301,7 +297,7 @@ True
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>关于Python中的对象拷贝问题，我们需要了解is和==的区别:</p>
+                <p>When it comes to object copying in Python, we need to understand the difference between is and ==:</p>
 <pre class="line-numbers language-none"><code class="language-none">&gt;&gt;&gt; a = [1,2,3,4]
 &gt;&gt;&gt; b = [1,2,3,4]
 &gt;&gt;&gt; a == b
@@ -310,9 +306,9 @@ True
 False
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>从上面的例子中可以看出，a和b中的值是相等的，但是is的结果却不一样。这是因为Python比较的是a和b的值是否相等，而is比较的是对象的标识是否相等。因此，在Python中我们通常使用==来比较对象的值是否相等，使用is来判断对象绑定的值是否为None。需要注意的是，有一些初学者经常犯的错误是使用None来比较一个字符串、列表或字典是否为空，这是不正确的，因为这些变量无论从对象标识还是数值上都与None不相等。</p>
-<p>在Python中，我们通常使用浅拷贝来复制对象。copy模块为我们提供了copy（浅拷贝）和deepcopy（深拷贝）函数。</p>
-<p>浅拷贝指的是将拷贝的对象引用拷贝一份，拷贝对象指向的是被拷贝对象的值。换句话说，在原有值的基础上再添加了一份引用。</p>
+<p>From the example above, we can see that the values in a and b are equal, but the result of is is different. This is because Python compares whether the values of a and b are equal, while is compares whether the object identities are equal. Therefore, in Python, we usually use == to compare the values of objects and use is to determine whether the values bound to objects are None. It should be noted that some beginners often make the mistake of using None to compare whether a string, list, or dictionary is empty, which is incorrect because these variables are not equal to None in terms of object identity or value.</p>
+<p>In Python, we usually use shallow copy to copy objects. The copy module provides us with the copy (shallow copy) and deepcopy (deep copy) functions.</p>
+<p>Shallow copy refers to copying a reference to the copied object, and the copied object points to the value of the object being copied. In other words, a reference is added to the original value.</p>
 <pre class="line-numbers language-none"><code class="language-none">&gt;&gt;&gt; a = 1
 &gt;&gt;&gt; b = a
 &gt;&gt;&gt; id(a)
@@ -321,7 +317,7 @@ False
 4297636352
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>深拷贝指的是将拷贝对象的值复制一份，并新建一个对象，这个新的对象的值和对象标识都与被拷贝对象相等。</p>
+<p>Deep copy refers to copying the value of the copied object and creating a new object whose value and object identity are equal to the copied object.</p>
 <pre class="line-numbers language-none"><code class="language-none">&gt;&gt;&gt; import copy
 &gt;&gt;&gt; a = [1,2,3]
 &gt;&gt;&gt; b = copy.deepcopy(a)
@@ -349,7 +345,7 @@ True
 [1, 2, 3, 0]
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>基于这种现象，我们应该特别注意函数在使用可变参数作为默认参数时，如果不注意就会出现下面这种情况:</p>
+<p>Based on this phenomenon, we should pay special attention to the use of mutable parameters as default parameters in functions. If we are not careful, we may encounter the following situation:</p>
 <pre class="line-numbers language-none"><code class="language-none">&gt;&gt;&gt; def a(x = []):
 ...     x.append(0)
 ...     print(x)
@@ -361,7 +357,7 @@ True
 [0, 0, 0]
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>为了避免这种情况，我们应该避免使用可变对象作为函数默认参数:</p>
+<p>To avoid this situation, we should avoid using mutable objects as default function parameters:</p>
 <pre class="line-numbers language-none"><code class="language-none">&gt;&gt;&gt; def a(x = None):
 ...     if x is None:
 ...         x = []
@@ -375,7 +371,7 @@ True
 []
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>同时，在创建类初始化传参时也使用了浅拷贝来传递参数，这会导致下面这种情况：</p>
+<p>At the same time, when creating a class and passing parameters during initialization, shallow copy is also used to pass parameters, which can lead to the following situation:</p>
 <pre class="line-numbers language-none"><code class="language-none">&gt;&gt;&gt; class A:
 ...     def __init__(self, name):
 ...         self.name = name
@@ -391,7 +387,7 @@ True
 [1, 2, 3, 4, 5]
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>当传入的参数发生改变时，类里面的变量的值也会随之改变，这种情况很难发现。深拷贝和浅拷贝的最大区别在于：深拷贝会拷贝父级对象及其子对象，而浅拷贝只拷贝父级对象。</p>
+<p>When the passed-in parameter changes, the value of the variable in the class will also change, which is difficult to detect. The biggest difference between deep copy and shallow copy is that deep copy will copy the parent object and its sub-objects, while shallow copy only copies the parent object.</p>
 
                 
             </div>
@@ -781,7 +777,7 @@ True
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.8k</span> -->
+<!--                         class="white-color">13k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->

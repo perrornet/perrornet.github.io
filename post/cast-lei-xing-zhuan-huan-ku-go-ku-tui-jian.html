@@ -4,9 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="cast类型转换库—go库推荐, golang,python,devops,k8s,kube">
-    <meta name="description" content="在 Go 语言中，类型转换是一项经常需要进行的操作，但转换不同类型之间的值却需要引入不同的库，过程相对繁琐。不过，cast 库解决了这个问题，提供了很多种类型转换函数，而且通常只需要引入这一个库即可。
-cast 库不仅提供了常见类型之间的转">
+    <meta name="keywords" content="cast Type Conversion Library - Recommended Go Library, golang,python,devops,k8s,kube">
+    <meta name="description" content="In Go language, type conversion is a frequently used operation, but converting values between different types requires i">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -29,7 +28,7 @@ cast 库不仅提供了常见类型之间的转">
 </script>
 
 
-    <title>cast类型转换库—go库推荐 | Perror</title>
+    <title>cast Type Conversion Library - Recommended Go Library | Perror</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -218,12 +217,12 @@ cast 库不仅提供了常见类型之间的转">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">cast类型转换库—go库推荐</h1>
+                    <h1 class="description center-align post-title">cast Type Conversion Library - Recommended Go Library</h1>
                 </div>
             </div>
         </div>
@@ -272,14 +271,14 @@ cast 库不仅提供了常见类型之间的转">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    441
+                    334
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    1 Min
+                    2 Min
                 </div>
                 
 
@@ -297,25 +296,25 @@ cast 库不仅提供了常见类型之间的转">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>在 Go 语言中，类型转换是一项经常需要进行的操作，但转换不同类型之间的值却需要引入不同的库，过程相对繁琐。不过，<code>cast</code> 库解决了这个问题，提供了很多种类型转换函数，而且通常只需要引入这一个库即可。</p>
-<p><code>cast</code> 库不仅提供了常见类型之间的转换，例如 int 转换为 string，还提供了更加复杂的类型转换，例如将时间字符串转换为 <code>time.Time</code> 类型。此外，它还提供了两种转换函数，一种仅返回该类型的零值，不会返回错误，另一种则会返回错误，以便开发人员可以根据实际需求选择使用。</p>
-<p>以下是一些常用的 API：</p>
+                <p>In Go language, type conversion is a frequently used operation, but converting values between different types requires importing different libraries, which can be relatively cumbersome. However, the <code>cast</code> library solves this problem and provides many type conversion functions, usually only requiring the import of this one library.</p>
+<p>The <code>cast</code> library not only provides conversions between common types, such as int to string, but also provides more complex type conversions, such as converting a time string to the <code>time.Time</code> type. In addition, it provides two conversion functions, one only returns the zero value of that type without returning an error, and the other returns an error, so developers can choose to use it according to their actual needs.</p>
+<p>Here are some commonly used APIs:</p>
 <ul>
-<li><code>cast.StringToDate</code>: 将常见的时间字符串转换为 <code>time.Time</code> 类型</li>
+<li><code>cast.StringToDate</code>: Converts common time strings to the <code>time.Time</code> type.</li>
 </ul>
 <pre class="line-numbers language-none"><code class="language-none">fmt.Println(cast.StringToDate("2006-01-02 15:04:05"))
 // output: 2006-01-02 15:04:05 +0000 UTC &lt;nil&gt;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <ul>
-<li><code>cast.ToBoolSlice</code>: 将任意类型的数组转换为 <code>[]bool</code> 类型</li>
+<li><code>cast.ToBoolSlice</code>: Converts an array of any type to the <code>[]bool</code> type.</li>
 </ul>
 <pre class="line-numbers language-none"><code class="language-none">fmt.Println(cast.ToBoolSlice([]interface{}{1,2,0,true, false}))
 // output: [true true false true false]
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <ul>
-<li><code>cast.ToBool</code>: 将任意类型转换为 <code>bool</code> 类型</li>
+<li><code>cast.ToBool</code>: Converts any type to the <code>bool</code> type.</li>
 </ul>
 <pre class="line-numbers language-none"><code class="language-none">fmt.Println(cast.ToBool(1)) // output:true
 fmt.Println(cast.ToBool(0)) // output: false
@@ -327,7 +326,7 @@ fmt.Println(cast.ToBool("false")) // output: false
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
-<li><code>cast.ToString</code>: 将任意类型转换成字符串类型</li>
+<li><code>cast.ToString</code>: Converts any type to a string type.</li>
 </ul>
 <pre class="line-numbers language-none"><code class="language-none">cast.ToString("mayonegg")         // "mayonegg"
 cast.ToString(8)                  // "8"
@@ -339,7 +338,7 @@ cast.ToString(foo)                // "one more time"
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
-<li><code>cast.ToStringMap</code>: 将任意类型的 map 转换成 <code>map[string]interface{}</code></li>
+<li><code>cast.ToStringMap</code>: Converts a map of any type to <code>map[string]interface{}</code>.</li>
 </ul>
 <pre class="line-numbers language-none"><code class="language-none">fmt.Println(cast.ToStringMap(map[interface{}]interface{}{
     1:2,
@@ -349,7 +348,7 @@ cast.ToString(foo)                // "one more time"
  // output: map[1:2 2:3 true:1]
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>更多的 API 可以在其文档中查看：<a target="_blank" rel="noopener" href="https://github.com/spf13/cast">https://github.com/spf13/cast</a></p>
+<p>More APIs can be found in its documentation: <a target="_blank" rel="noopener" href="https://github.com/spf13/cast">https://github.com/spf13/cast</a></p>
 
                 
             </div>
@@ -514,9 +513,9 @@ cast.ToString(foo)                // "one more time"
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="redis sds详解">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Understanding Redis SDS">
                         
-                        <span class="card-title">redis sds详解</span>
+                        <span class="card-title">Understanding Redis SDS</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -739,7 +738,7 @@ cast.ToString(foo)                // "one more time"
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.8k</span> -->
+<!--                         class="white-color">13k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->

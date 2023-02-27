@@ -5,9 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="install fluxcd in k8s 1.25.5, golang,python,devops,k8s,kube">
-    <meta name="description" content="以下是在Kubernetes上使用Flux CD进行GitOps的步骤：
-1.安装Flux CLI：使用brew install fluxcd/tap/flux命令进行安装。
-2.显示Flux CLI版本：使用flux version命令显">
+    <meta name="description" content="Here are the steps to use Flux CD for GitOps on Kubernetes:
+
+Install Flux CLI: Use the command brew install fluxcd/tap/f">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -277,7 +277,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    165
+                    124
                 </div>
                 
 
@@ -302,14 +302,16 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>以下是在Kubernetes上使用Flux CD进行GitOps的步骤：</p>
-<p>1.安装Flux CLI：使用<code>brew install fluxcd/tap/flux</code>命令进行安装。</p>
-<p>2.显示Flux CLI版本：使用<code>flux version</code>命令显示Flux CLI版本信息。</p>
-<p>3.在GitHub上创建Git仓库。</p>
-<p>4.设置GITHUB_TOKEN环境变量。</p>
-<p>5.使用<code>flux bootstrap github</code>命令将Flux CD安装到Kubernetes集群中。在命令中，需要指定GitHub用户名和仓库名、读写密钥、分支以及使用的组件（包括image-reflector-controller和image-automation-controller）。</p>
-<p>6.等待Flux CD Pod启动并完成初始化。</p>
-<p>请注意，只有在使用<code>--components-extra=image-reflector-controller,image-automation-controller</code>参数时，才能创建与镜像相关的Pod。</p>
+                <p>Here are the steps to use Flux CD for GitOps on Kubernetes:</p>
+<ol>
+<li>Install Flux CLI: Use the command <code>brew install fluxcd/tap/flux</code> to install.</li>
+<li>Display Flux CLI version: Use the command <code>flux version</code> to display Flux CLI version information.</li>
+<li>Create a Git repository on GitHub.</li>
+<li>Set the GITHUB_TOKEN environment variable.</li>
+<li>Use the command <code>flux bootstrap github</code> to install Flux CD into the Kubernetes cluster. In the command, specify the GitHub username and repository name, read/write key, branch, and the components to use (including image-reflector-controller and image-automation-controller).</li>
+<li>Wait for the Flux CD Pod to start and complete initialization.</li>
+</ol>
+<p>Note that only with the <code>--components-extra=image-reflector-controller,image-automation-controller</code> parameter can you create pods related to images.</p>
 
                 
             </div>
@@ -709,7 +711,7 @@
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.8k</span> -->
+<!--                         class="white-color">13k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->

@@ -4,14 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="k8s PVC自动扩容实践, golang,python,devops,k8s,kube">
-    <meta name="description" content="依赖此实践依赖于：
+    <meta name="keywords" content="k8s PVC Auto Scaling Practice, golang,python,devops,k8s,kube">
+    <meta name="description" content="DependenciesThis practice depends on:
 
-k8s版本 &amp;gt;= 1.24
-pvc-autoresizer 版本 &amp;gt;= 0.5.0
+k8s version &amp;gt;= 1.24
+pvc-autoresizer version &amp;gt;= 0.5.0
 
-安装 pvc-autoresizer
-克隆pvc-autoresizer仓库并检出版本 0.5.0，然后构建并推送Doc">
+Install pvc-autoresiz">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -34,7 +33,7 @@ pvc-autoresizer 版本 &amp;gt;= 0.5.0
 </script>
 
 
-    <title>k8s PVC自动扩容实践 | Perror</title>
+    <title>k8s PVC Auto Scaling Practice | Perror</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -228,7 +227,7 @@ pvc-autoresizer 版本 &amp;gt;= 0.5.0
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">k8s PVC自动扩容实践</h1>
+                    <h1 class="description center-align post-title">k8s PVC Auto Scaling Practice</h1>
                 </div>
             </div>
         </div>
@@ -281,7 +280,7 @@ pvc-autoresizer 版本 &amp;gt;= 0.5.0
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    584
+                    512
                 </div>
                 
 
@@ -306,25 +305,25 @@ pvc-autoresizer 版本 &amp;gt;= 0.5.0
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><p>此实践依赖于：</p>
+                <h2 id="Dependencies"><a href="#Dependencies" class="headerlink" title="Dependencies"></a>Dependencies</h2><p>This practice depends on:</p>
 <ol>
-<li>k8s版本 &gt;= 1.24</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/topolvm/pvc-autoresizer">pvc-autoresizer</a> 版本 &gt;= 0.5.0</li>
+<li>k8s version &gt;= 1.24</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/topolvm/pvc-autoresizer">pvc-autoresizer</a> version &gt;= 0.5.0</li>
 </ol>
-<h2 id="安装-pvc-autoresizer"><a href="#安装-pvc-autoresizer" class="headerlink" title="安装 pvc-autoresizer"></a>安装 pvc-autoresizer</h2><ol>
-<li>克隆<a target="_blank" rel="noopener" href="https://github.com/topolvm/pvc-autoresizer">pvc-autoresizer</a>仓库并检出版本 0.5.0，然后构建并推送Docker镜像：</li>
+<h2 id="Install-pvc-autoresizer"><a href="#Install-pvc-autoresizer" class="headerlink" title="Install pvc-autoresizer"></a>Install pvc-autoresizer</h2><ol>
+<li>Clone the <a target="_blank" rel="noopener" href="https://github.com/topolvm/pvc-autoresizer">pvc-autoresizer</a> repository and checkout version 0.5.0, then build and push the Docker image:</li>
 </ol>
 <pre class="line-numbers language-none"><code class="language-none">git clone &lt;https://github.com/topolvm/pvc-autoresizer&gt; &amp;&amp; git checkout v0.5.0 &amp;&amp; cd pvc-autoresizer &amp;&amp; docker build -t pvc-autoresizer:0.5.0 . &amp;&amp; docker push pvc-autoresizer:0.5.0
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ol>
-<li>添加pvc-autoresizer的Helm repo:</li>
+<li>Add the pvc-autoresizer Helm repo:</li>
 </ol>
 <pre class="line-numbers language-none"><code class="language-none">helm repo add pvc-autoresizer &lt;https://topolvm.github.io/pvc-autoresizer/&gt;
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ol>
-<li>准备<code>values.yaml</code>文件，内容如下：</li>
+<li>Prepare the <code>values.yaml</code> file with the following content:</li>
 </ol>
 <pre class="line-numbers language-none"><code class="language-none"># config from &lt;https://github.com/topolvm/pvc-autoresizer/blob/main/charts/pvc-autoresizer/values.yaml&gt;
 image:
@@ -346,19 +345,19 @@ controller:
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ol>
-<li>安装pvc-autoresizer:</li>
+<li>Install pvc-autoresizer:</li>
 </ol>
 <pre class="line-numbers language-none"><code class="language-none">helm install --create-namespace --namespace pvc-autoresizer pvc-autoresizer pvc-autoresizer/pvc-autoresizer --values ./values.yaml
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ol>
-<li>检查是否安装成功:</li>
+<li>Check if the installation was successful:</li>
 </ol>
 <pre class="line-numbers language-none"><code class="language-none">kubectl get pod -n pvc-autoresizer | grep pvc-autoresizer
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h2 id="创建StatefulSet以及存储类"><a href="#创建StatefulSet以及存储类" class="headerlink" title="创建StatefulSet以及存储类"></a>创建StatefulSet以及存储类</h2><ol>
-<li>编写<code>stateful-set.yaml</code>文件，内容如下:</li>
+<h2 id="Create-StatefulSet-and-Storage-Class"><a href="#Create-StatefulSet-and-Storage-Class" class="headerlink" title="Create StatefulSet and Storage Class"></a>Create StatefulSet and Storage Class</h2><ol>
+<li>Write the <code>stateful-set.yaml</code> file with the following content:</li>
 </ol>
 <pre class="line-numbers language-none"><code class="language-none">apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -366,7 +365,7 @@ metadata:
   name: test-pvc-autoresizer
   namespace: staging
   annotations:
-    resize.topolvm.io/enabled: "true" # 必须存在, 才能自动扩容
+    resize.topolvm.io/enabled: "true" # Must be present to auto-scale
 parameters:
   type: pd-ssd
 provisioner: pd.csi.storage.gke.io
@@ -418,8 +417,8 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: test-pvc-data
-        annotations:  # 必须存在, 使得自动创建的 PVC携带以下设置想才能自动扩容
-            resize.topolvm.io/storage_limit: 8Gi # 最大扩容大小
+        annotations:  # Must be present to auto-scale
+            resize.topolvm.io/storage_limit: 8Gi # Maximum scaling size
             resize.topolvm.io/threshold: 20%
       spec:
         accessModes: [ "ReadWriteOnce" ]
@@ -430,33 +429,32 @@ spec:
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ol>
-<li>部署StatefulSet和存储类:</li>
+<li>Deploy StatefulSet and Storage Class:</li>
 </ol>
 <pre class="line-numbers language-none"><code class="language-none">kubectl apply -f ./stateful-set.yaml
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ol>
-<li>进入pod并查看挂载目录大小，可以看到<code>/data</code>目录只使用了1%的空间</li>
+<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><ol>
+<li>Enter the pod and check the mounted directory size. You can see that the <code>/data</code> directory is only using 1% of its space:</li>
 </ol>
 <pre class="line-numbers language-none"><code class="language-none">df -h
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ol start="2">
-<li>测试自动扩容，写入文件:</li>
+<li>Test automatic scaling by writing a file:</li>
 </ol>
 <pre class="line-numbers language-none"><code class="language-none">dd if=/dev/zero of=1G.file bs=50M count=20
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ol start="3">
-<li><p>检查pvc-autoresizer pod 日志:</p>
+<li><p>Check the pvc-autoresizer pod log:</p>
 <p><img src="/medias/1666863168702.jpg" alt="/medias/1666863168702.jpg"></p>
 </li>
-<li><p>再次检查pod挂载目录大小, 可以看见挂载目录已经使用了100%:<code>/dev/sdf 975.9M 959.9M 0 100% /data</code></p>
+<li><p>Check the mounted directory size again. You can see that the mounted directory has already reached 100% usage: <code>/dev/sdf 975.9M 959.9M 0 100% /data</code></p>
 </li>
-<li><p>等待一段时间后，再次查看挂载目录大小，可以看见已经扩容成功:<code>/dev/sdf 1.9G 960.4M 1007.4M 49% /data</code>😋😋😋😋😋😋</p>
+<li><p>After waiting for some time, check the mounted directory size again. You can see that it has successfully scaled: <code>/dev/sdf 1.9G 960.4M 1007.4M 49% /data</code>😋😋😋😋😋😋<br><img src="/medias/1666863439959.jpg" alt="/medias/1666863439959.jpg"></p>
 </li>
 </ol>
-<p><img src="/medias/1666863439959.jpg" alt="/medias/1666863439959.jpg"></p>
 
                 
             </div>
@@ -576,13 +574,13 @@ spec:
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/post/helm-bao-cuo-another-operation-install-upgrade-rollback-is-in-progress-chu-li-fang-fa.html">
+                <a href="/post/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="helm 报错：another operation (install/upgrade/rollback) is in progress处理方法">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="如何清理 Kubernetes namespace 中的 finalizers 并成功删除 argocd namespace">
                         
-                        <span class="card-title">helm 报错：another operation (install/upgrade/rollback) is in progress处理方法</span>
+                        <span class="card-title">如何清理 Kubernetes namespace 中的 finalizers 并成功删除 argocd namespace</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -854,7 +852,7 @@ spec:
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.8k</span> -->
+<!--                         class="white-color">13k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->

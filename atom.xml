@@ -6,7 +6,7 @@
   <link href="https://perror.dev/atom.xml" rel="self"/>
   
   <link href="https://perror.dev/"/>
-  <updated>2023-02-26T03:56:53.006Z</updated>
+  <updated>2023-02-27T09:32:39.366Z</updated>
   <id>https://perror.dev/</id>
   
   <author>
@@ -21,16 +21,16 @@
     <link href="https://perror.dev/post/install-fluxcd-in-k8s-1-25-5.html"/>
     <id>https://perror.dev/post/install-fluxcd-in-k8s-1-25-5.html</id>
     <published>2023-02-18T18:04:41.000Z</published>
-    <updated>2023-02-26T03:56:53.006Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;以下是在Kubernetes上使用Flux CD进行GitOps的步骤：&lt;/p&gt;
-&lt;p&gt;1.安装Flux CLI：使用&lt;code&gt;brew install fluxcd/tap/flux&lt;/code&gt;命令进行安装。&lt;/p&gt;
-&lt;p&gt;2.显示Flux</summary>
+    <summary type="html">&lt;p&gt;Here are the steps to use Flux CD for GitOps on Kubernetes:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Install Flux CLI: Use the command &lt;code&gt;brew install</summary>
         
       
     
@@ -48,7 +48,7 @@
     <link href="https://perror.dev/post/mysql-error-rec-cc-391-thread.html"/>
     <id>https://perror.dev/post/mysql-error-rec-cc-391-thread.html</id>
     <published>2023-02-18T18:04:12.000Z</published>
-    <updated>2023-02-26T03:56:53.006Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
@@ -71,7 +71,7 @@
     <link href="https://perror.dev/post/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace.html"/>
     <id>https://perror.dev/post/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace.html</id>
     <published>2023-02-18T18:03:14.000Z</published>
-    <updated>2023-02-26T03:56:53.010Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
@@ -96,47 +96,18 @@
   </entry>
   
   <entry>
-    <title>helm 报错：another operation (install/upgrade/rollback) is in progress处理方法</title>
-    <link href="https://perror.dev/post/helm-bao-cuo-another-operation-install-upgrade-rollback-is-in-progress-chu-li-fang-fa.html"/>
-    <id>https://perror.dev/post/helm-bao-cuo-another-operation-install-upgrade-rollback-is-in-progress-chu-li-fang-fa.html</id>
-    <published>2023-02-18T18:01:54.000Z</published>
-    <updated>2023-02-26T03:56:53.006Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h3&gt;&lt;p&gt;本文介绍使用Flux CD管理Helm Releases的方法。&lt;/p&gt;
-&lt;h3 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="devops" scheme="https://perror.dev/tags/devops/"/>
-    
-    <category term="k8s" scheme="https://perror.dev/tags/k8s/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>k8s PVC自动扩容实践</title>
+    <title>k8s PVC Auto Scaling Practice</title>
     <link href="https://perror.dev/post/k8s-pvc-zi-dong-kuo-rong-shi-jian.html"/>
     <id>https://perror.dev/post/k8s-pvc-zi-dong-kuo-rong-shi-jian.html</id>
     <published>2023-02-18T17:54:22.000Z</published>
-    <updated>2023-02-26T03:56:53.006Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;依赖&quot;&gt;&lt;a href=&quot;#依赖&quot; class=&quot;headerlink&quot; title=&quot;依赖&quot;&gt;&lt;/a&gt;依赖&lt;/h2&gt;&lt;p&gt;此实践依赖于：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;k8s版本 &amp;gt;= 1.24&lt;/li&gt;
-&lt;li&gt;&lt;a</summary>
+    <summary type="html">&lt;h2 id=&quot;Dependencies&quot;&gt;&lt;a href=&quot;#Dependencies&quot; class=&quot;headerlink&quot; title=&quot;Dependencies&quot;&gt;&lt;/a&gt;Dependencies&lt;/h2&gt;&lt;p&gt;This practice depends</summary>
         
       
     
@@ -154,7 +125,7 @@
     <link href="https://perror.dev/post/redis-de-yi-xie-xiao-zhi-shi.html"/>
     <id>https://perror.dev/post/redis-de-yi-xie-xiao-zhi-shi.html</id>
     <published>2023-02-18T17:53:52.000Z</published>
-    <updated>2023-02-26T03:56:53.006Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
@@ -173,18 +144,18 @@
   </entry>
   
   <entry>
-    <title>cast类型转换库—go库推荐</title>
+    <title>cast Type Conversion Library - Recommended Go Library</title>
     <link href="https://perror.dev/post/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian.html"/>
     <id>https://perror.dev/post/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian.html</id>
     <published>2023-02-18T17:53:10.000Z</published>
-    <updated>2023-02-26T03:56:53.006Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;在 Go 语言中，类型转换是一项经常需要进行的操作，但转换不同类型之间的值却需要引入不同的库，过程相对繁琐。不过，&lt;code&gt;cast&lt;/code&gt;</summary>
+    <summary type="html">&lt;p&gt;In Go language, type conversion is a frequently used operation, but converting values between different types requires importing</summary>
         
       
     
@@ -196,18 +167,19 @@
   </entry>
   
   <entry>
-    <title>redis sds详解</title>
+    <title>Understanding Redis SDS</title>
     <link href="https://perror.dev/post/sds-xiang-jie.html"/>
     <id>https://perror.dev/post/sds-xiang-jie.html</id>
     <published>2023-02-18T17:52:22.000Z</published>
-    <updated>2023-02-26T03:56:53.006Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h3 id=&quot;什么是SDS？&quot;&gt;&lt;a href=&quot;#什么是SDS？&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;p&gt;What is SDS?&lt;/p&gt;
+&lt;p&gt;SDS is an abstract type built by Redis, mainly used to store Redis’ default string representation, the AOF buffer in</summary>
         
       
     
@@ -219,18 +191,18 @@
   </entry>
   
   <entry>
-    <title>go的channel详解</title>
+    <title>Explanation of Go channels</title>
     <link href="https://perror.dev/post/go-de-channel-xiang-jie.html"/>
     <id>https://perror.dev/post/go-de-channel-xiang-jie.html</id>
     <published>2023-02-18T17:51:42.000Z</published>
-    <updated>2023-02-26T03:56:53.006Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;此篇文章基于&lt;a href=&quot;https://studygolang.com/dl/golang/go1.12.1.src.tar.gz&quot;&gt;golang 1.12.1&lt;/a&gt;</summary>
+    <summary type="html">&lt;p&gt;This article is based on the analysis of the source code of version golang 1.12.1, where the chan source code is located in the file</summary>
         
       
     
@@ -242,18 +214,18 @@
   </entry>
   
   <entry>
-    <title>python IO多路复用实践</title>
+    <title>Python IO Multiplexing Practice</title>
     <link href="https://perror.dev/post/io-duo-lu-fu-yong-shi-jian.html"/>
     <id>https://perror.dev/post/io-duo-lu-fu-yong-shi-jian.html</id>
     <published>2023-02-18T17:51:02.000Z</published>
-    <updated>2023-02-26T03:56:53.006Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;最近几天一直在看tornado源码，发现tornado虽然标榜使用异步模型实现，</summary>
+    <summary type="html">&lt;p&gt;In the past few days, I have been studying the Tornado source code and found that although Tornado claims to use an asynchronous model,</summary>
         
       
     
@@ -269,15 +241,14 @@
     <link href="https://perror.dev/post/dict.html"/>
     <id>https://perror.dev/post/dict.html</id>
     <published>2023-02-18T17:47:55.000Z</published>
-    <updated>2023-02-26T03:56:53.006Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;Python的&lt;code&gt;dict&lt;/code&gt;是一种映射类型，底层使用哈希表的方式来储存数据，因此&lt;code&gt;dict&lt;/code&gt;的查询速度时间复杂度为O(1)，这是一种典型的空间换时间的数据结构。&lt;/p&gt;
-&lt;p&gt;当我们创建一个&lt;code&gt;key-value&lt;/code</summary>
+    <summary type="html">&lt;p&gt;Python’s &lt;code&gt;dict&lt;/code&gt; is a mapping type that uses a hash table to store data, making the query speed time complexity O(1), which is</summary>
         
       
     
@@ -289,19 +260,19 @@
   </entry>
   
   <entry>
-    <title>python深拷贝浅拷贝</title>
+    <title>Python deep copy and shallow copy</title>
     <link href="https://perror.dev/post/python-shen-kao-bei-qian-kao-bei.html"/>
     <id>https://perror.dev/post/python-shen-kao-bei-qian-kao-bei.html</id>
     <published>2023-02-18T17:46:25.000Z</published>
-    <updated>2023-02-26T03:56:53.006Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;关于Python中的对象拷贝问题，我们需要了解is和==的区别:&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;&amp;gt;&amp;gt;&amp;gt; a =</summary>
+    <summary type="html">&lt;p&gt;When it comes to object copying in Python, we need to understand the difference between is and ==:&lt;/p&gt;
+&lt;pre class=&quot;line-numbers</summary>
         
       
     
@@ -317,7 +288,7 @@
     <link href="https://perror.dev/post/hou-duan-chuan-gei-qian-duan-int-lei-xing-shu-ju-zi-zeng-huo-zi-jian.html"/>
     <id>https://perror.dev/post/hou-duan-chuan-gei-qian-duan-int-lei-xing-shu-ju-zi-zeng-huo-zi-jian.html</id>
     <published>2018-03-16T19:53:35.000Z</published>
-    <updated>2023-02-26T03:56:53.006Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
@@ -340,7 +311,7 @@
     <link href="https://perror.dev/post/python-nei-zhi-han-shu.html"/>
     <id>https://perror.dev/post/python-nei-zhi-han-shu.html</id>
     <published>2017-12-15T17:21:05.000Z</published>
-    <updated>2023-02-26T03:56:53.006Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
@@ -366,14 +337,14 @@
     <link href="https://perror.dev/post/aiohttp-asyncio-runtimeerror.html"/>
     <id>https://perror.dev/post/aiohttp-asyncio-runtimeerror.html</id>
     <published>2017-07-13T11:04:10.000Z</published>
-    <updated>2023-02-26T03:56:53.006Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;首先，你可能遇到了AssertionError: There is no current event loop in thread</summary>
+    <summary type="html">&lt;p&gt;Firstly, you may have encountered the AssertionError: There is no current event loop in thread ‘Thread-1’. This is because each thread</summary>
         
       
     
@@ -389,7 +360,7 @@
     <link href="https://perror.dev/post/liu-chang-de-python-dict-de-you-dian-yi-ji-que-dian.html"/>
     <id>https://perror.dev/post/liu-chang-de-python-dict-de-you-dian-yi-ji-que-dian.html</id>
     <published>2017-06-17T13:38:13.000Z</published>
-    <updated>2023-02-26T03:56:53.010Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
@@ -410,19 +381,18 @@
   </entry>
   
   <entry>
-    <title>流畅的python--字典中的散列表</title>
+    <title>Hash tables in Python dictionaries</title>
     <link href="https://perror.dev/post/liu-chang-de-python-zi-dian-zhong-de-san-lie-biao.html"/>
     <id>https://perror.dev/post/liu-chang-de-python-zi-dian-zhong-de-san-lie-biao.html</id>
     <published>2017-06-15T22:27:44.000Z</published>
-    <updated>2023-02-26T03:56:53.010Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;字典中的散列表其实就是稀疏数组，也就是说有些元素是空的。在构建字典时，会有两个表元，一个用来标记键，一个用来标记值。因为两个表元的长度相等，所以可以通过表元的偏移量来查找字典。&lt;/p&gt;
-&lt;p&gt;在Python中，最有效率的内置数据类型是字典和集合，这两种数据类型都是通过散列表</summary>
+    <summary type="html">&lt;h1 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;Dictionaries in Python use hash tables, which are actually sparse arrays,</summary>
         
       
     
@@ -438,7 +408,7 @@
     <link href="https://perror.dev/post/liu-chang-de-python-te-shu-fang-fa.html"/>
     <id>https://perror.dev/post/liu-chang-de-python-te-shu-fang-fa.html</id>
     <published>2017-06-15T21:23:39.000Z</published>
-    <updated>2023-02-26T03:56:53.010Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
@@ -461,7 +431,7 @@
     <link href="https://perror.dev/post/python-gen-ju-exif-xin-xi-xuan-zhuan-tu-pian.html"/>
     <id>https://perror.dev/post/python-gen-ju-exif-xin-xi-xuan-zhuan-tu-pian.html</id>
     <published>2017-06-08T00:10:49.000Z</published>
-    <updated>2023-02-26T03:56:53.006Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
@@ -480,19 +450,18 @@
   </entry>
   
   <entry>
-    <title>python的高级用法 -- namedtuple</title>
+    <title>Advanced Usage of Python -- namedtuple</title>
     <link href="https://perror.dev/post/python-de-gao-ji-yong-fa-namedtuple.html"/>
     <id>https://perror.dev/post/python-de-gao-ji-yong-fa-namedtuple.html</id>
     <published>2017-06-07T23:47:00.000Z</published>
-    <updated>2023-02-26T03:56:53.006Z</updated>
+    <updated>2023-02-27T09:32:39.366Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;&lt;code&gt;namedtuple&lt;/code&gt; 函数可以用来创建一个有名字的元组或者类，这种方法可以更有效的调试代码。下面是一个例子：&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code</summary>
+    <summary type="html">&lt;p&gt;The &lt;code&gt;namedtuple&lt;/code&gt; function can be used to create a named tuple or class, which can be more effective for debugging code.</summary>
         
       
     
