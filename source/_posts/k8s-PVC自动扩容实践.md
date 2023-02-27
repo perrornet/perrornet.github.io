@@ -165,8 +165,8 @@ dd if=/dev/zero of=1G.file bs=50M count=20
 
 3. Check the pvc-autoresizer pod log:
 
-   ![/medias/1666863168702.jpg](/medias/1666863168702.jpg)
+[![ppCS1Zn.jpg](https://s1.ax1x.com/2023/02/27/ppCS1Zn.jpg)](https://imgse.com/i/ppCS1Zn)
 
 4. Check the mounted directory size again. You can see that the mounted directory has already reached 100% usage: `/dev/sdf 975.9M 959.9M 0 100% /data`
 5. After waiting for some time, check the mounted directory size again. You can see that it has successfully scaled: `/dev/sdf 1.9G 960.4M 1007.4M 49% /data`😋😋😋😋😋😋
-![/medias/1666863439959.jpg](/medias/1666863439959.jpg)
+[![ppCSQqs.jpg](https://s1.ax1x.com/2023/02/27/ppCSQqs.jpg)](https://imgse.com/i/ppCSQqs)

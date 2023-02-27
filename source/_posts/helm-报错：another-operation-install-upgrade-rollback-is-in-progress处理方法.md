@@ -15,7 +15,7 @@ When using Helm Release, sometimes an error message appears: "another operation 
 ### Solution
 
 1. Run the command `helm history <name> --namespace <ns>` to view the history of the Release.
-![/medias/1675238086770.jpeg](/medias/1675238086770.jpeg)
+[![ppCSMrj.jpg](https://s1.ax1x.com/2023/02/27/ppCSMrj.jpg)](https://imgse.com/i/ppCSMrj)
 2. Run the command `flux suspend hr <name> -n <ns>` to pause the automatic upgrade of the Release.
 3. Select the version with `status=pending-upgrade`, and run the command `helm uninstall <name> --namespace <ns> <REVISION>` to uninstall that version.
 4. Run the command `flux resume helmrelease <name> -n <ns>` to restart the Release.
