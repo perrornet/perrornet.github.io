@@ -4,9 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Understanding Redis SDS, golang,python,devops,k8s,kube">
-    <meta name="description" content="What is SDS?
-SDS is an abstract type built by Redis, mainly used to store Redis’ default string representation, the AOF ">
+    <meta name="keywords" content="How to fix the &#34;no matches for kind &#34;PodSecurityPolicy&#34; in version &#34;policy/v1beta1&#34; error in Grafana, golang,python,devops,k8s,kube">
+    <meta name="description" content="After upgrading the cluster to Kubernetes 1.25, if Grafana was deployed previously with rbac.spsEnabled=true enabled, th">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -29,7 +28,7 @@ SDS is an abstract type built by Redis, mainly used to store Redis’ default st
 </script>
 
 
-    <title>Understanding Redis SDS | Perror</title>
+    <title>How to fix the &#34;no matches for kind &#34;PodSecurityPolicy&#34; in version &#34;policy/v1beta1&#34; error in Grafana | Perror</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -218,12 +217,12 @@ SDS is an abstract type built by Redis, mainly used to store Redis’ default st
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Understanding Redis SDS</h1>
+                    <h1 class="description center-align post-title">How to fix the &#34;no matches for kind &#34;PodSecurityPolicy&#34; in version &#34;policy/v1beta1&#34; error in Grafana</h1>
                 </div>
             </div>
         </div>
@@ -247,8 +246,12 @@ SDS is an abstract type built by Redis, mainly used to store Redis’ default st
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/redis/">
-                                <span class="chip bg-color">redis</span>
+                            <a href="/tags/devops/">
+                                <span class="chip bg-color">devops</span>
+                            </a>
+                        
+                            <a href="/tags/k8s/">
+                                <span class="chip bg-color">k8s</span>
                             </a>
                         
                     </div>
@@ -263,7 +266,7 @@ SDS is an abstract type built by Redis, mainly used to store Redis’ default st
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2023-02-18
+                    2023-02-28
                 </div>
                 
 
@@ -272,14 +275,14 @@ SDS is an abstract type built by Redis, mainly used to store Redis’ default st
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    714
+                    270
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    4 Min
+                    1 Min
                 </div>
                 
 
@@ -297,49 +300,41 @@ SDS is an abstract type built by Redis, mainly used to store Redis’ default st
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>What is SDS?</p>
-<p>SDS is an abstract type built by Redis, mainly used to store Redis’ default string representation, the AOF buffer in the AOF module, and the client state input buffer.</p>
-<p>Advantages of SDS</p>
-<p>Why doesn’t Redis use C strings? First, we need to understand the shortcomings of C strings:</p>
+                <p>After upgrading the cluster to Kubernetes 1.25, if Grafana was deployed previously with <code>rbac.spsEnabled=true</code> enabled, the error “grafana no matches for kind ‘PodSecurityPolicy’ in version ‘policy/v1beta1’” will occur. This is because the previously deployed Grafana created a PodSecurityPolicy version of policy/v1beta1, which is no longer supported in Kubernetes 1.25, resulting in an error.</p>
+<p>To resolve this issue, follow these steps:</p>
 <ol>
-<li>C strings do not record their own length information. Obtaining the length of a string requires traversing the entire string, with a time complexity of O(n).</li>
-<li>C strings do not record their own length, and a slight mistake can cause a buffer overflow.</li>
-<li>For cache-type databases like Redis, the value of the cache often changes frequently. However, each growth or reduction of a C string requires a memory reallocation operation.</li>
-<li>The content cached in the Redis database is not specific, and it may be binary data such as images or audio files. However, the characters in C strings must comply with a certain encoding, and the strings cannot contain spaces. These restrictions also mean that Redis cannot use C strings as its own string implementation.</li>
+<li>Obtain Grafana’s Secrets</li>
 </ol>
-<p>SDS eliminates all these shortcomings one by one:</p>
-<ol>
-<li>SDS records its own length information, making the time complexity of obtaining the string length O(1).</li>
-<li>SDS uses pre-allocated space and lazy space release algorithms to solve the problem of frequent memory allocation operations.</li>
-<li>Since SDS saves its own length, SDS will not determine the end of the string like C does according to ‘\0’.</li>
-</ol>
-<p>Implementation of SDS</p>
-<p>Redis uses the sdshdr structure to represent SDS values:</p>
-<pre class="line-numbers language-none"><code class="language-none">struct sdshdr{
-   int len; // Records the number of bytes used in the buf array
-   int free; // Records the number of unused bytes in buf
-   char buf[]; // Save the array of strings
-}
+<pre class="line-numbers language-none"><code class="language-none">&gt; kubectl get secret -n prometheus | grep grafana
+grafana                                                      Opaque               3      106d
+sh.helm.release.v1.grafana.v3                                       helm.sh/release.v1   1      105d
+sh.helm.release.v1.grafana.v4                                       helm.sh/release.v1   1      105d
+sh.helm.release.v1.grafana.v5                                       helm.sh/release.v1   1      97d
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>SDS follows the convention of C strings ending with a null character so that functions in C strings can be reused. This null character at the end of the string does not increase the value of the len field. For example, if you need to use SDS to save the string “golang,” the SDS corresponding to the structure is:</p>
-<p><img src="https://s1.ax1x.com/2022/03/25/qNgzqI.png" alt="https://s1.ax1x.com/2022/03/25/qNgzqI.png"></p>
-<p>Since SDS records its own length, getting the length of the string in Redis only needs to return the len field, and its time complexity is O(1). The space allocation strategy of SDS completely eliminates the possibility of buffer overflow, which frequently occurs in C strings. When Redis needs to modify an SDS string, it first checks whether the space of the SDS satisfies the space required for the modification. If it does not meet the requirements, the space of the SDS will be expanded to meet the capacity required for the modification. The SDS space expansion algorithm is as follows:</p>
-<ol>
-<li>If the length of the SDS after modification is less than 1MB, the program will allocate unused space of the same size as the len field value. For the example above, the total capacity of the SDS is 6 (len) + 6 (free) + 1 (‘\0’) = 13 bytes.</li>
-<li>If the length of the SDS after modification is greater than 1MB, the SDS will allocate 1MB of unused space. If the capacity of an SDS after the len value is modified is 2MB, Redis will allocate 1MB of unused space for the SDS. At this time, the total capacity of the SDS is 2MB (len) + 1MB (len) + 1byte (‘\0’) = 3073 byte capacity.</li>
+<ol start="2">
+<li>Backup sh.helm.release.v1.grafana.v3 | sh.helm.release.v1.grafana.v4 | sh.helm.release.v1.grafana.v5</li>
 </ol>
-<p>This expansion algorithm reduces the frequency of requesting memory from the system. The SDS space release is not real-time but lazy: Redis believes that if the capacity of an SDS reaches N, it is likely to reach N after it is reduced. And lazy release also reduces the possibility of the next memory allocation. If there is a “golang” string stored in Redis now, and we need to modify “golang” to “go,” then the SDS structure of Redis will be like this:</p>
-<p><img src="https://s1.ax1x.com/2022/03/25/qN2RTP.png" alt="https://s1.ax1x.com/2022/03/25/qN2RTP.png"></p>
-<p><img src="https://s1.ax1x.com/2022/03/25/qN24fS.png" alt="https://s1.ax1x.com/2022/03/25/qN24fS.png"></p>
-<p>SDS provides an API to clean up memory. We can call this API when needed to release memory.</p>
-<p>Summary</p>
-<ol>
-<li>Redis only uses C strings as literals, and SDS is used to represent most strings.</li>
-<li>The length of the string can be obtained with constant time complexity.</li>
-<li>Eliminates buffer overflow.</li>
-<li>Reduces the number of times memory needs to be reallocated for strings. And for binary data security, it is compatible with some C string functions.</li>
+<pre class="line-numbers language-none"><code class="language-none">kubectl get secret sh.helm.release.v1.grafana.v3 -n prometheus -o yaml &gt; release.v3.yaml
+kubectl get secret sh.helm.release.v1.grafana.v4 -n prometheus -o yaml &gt; release.v4.yaml
+kubectl get secret sh.helm.release.v1.grafana.v5 -n prometheus -o yaml &gt; release.v5.yaml
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ol start="3">
+<li>Delete sh.helm.release.v1.grafana.v3 | sh.helm.release.v1.grafana.v4 | sh.helm.release.v1.grafana.v5</li>
 </ol>
+<pre class="line-numbers language-none"><code class="language-none">kubectl delete secret sh.helm.release.v1.grafana.v3 -n prometheus
+kubectl delete secret sh.helm.release.v1.grafana.v4 -n prometheus
+kubectl delete secret sh.helm.release.v1.grafana.v5 -n prometheus
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ol start="4">
+<li>Use fluxctl reconcile grafana helmrelease</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">flux reconcile helmrelease grafana -n prometheus
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>Check Grafana helmrelease’s status. If it becomes READY and no errors occur, the problem has been successfully resolved.</p>
 
                 
             </div>
@@ -366,7 +361,7 @@ SDS is an abstract type built by Redis, mainly used to store Redis’ default st
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://perror.dev/post/sds-xiang-jie.html">https://perror.dev/post/sds-xiang-jie.html</a>
+                    <a href="https://perror.dev/post/grafana-no-matches-for-kind-podsecuritypolicy-error.html">https://perror.dev/post/grafana-no-matches-for-kind-podsecuritypolicy-error.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -404,8 +399,12 @@ SDS is an abstract type built by Redis, mainly used to store Redis’ default st
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/redis/">
-                                    <span class="chip bg-color">redis</span>
+                                <a href="/tags/devops/">
+                                    <span class="chip bg-color">devops</span>
+                                </a>
+                            
+                                <a href="/tags/k8s/">
+                                    <span class="chip bg-color">k8s</span>
                                 </a>
                             
                         </div>
@@ -451,17 +450,18 @@ SDS is an abstract type built by Redis, mainly used to store Redis’ default st
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
-                <a href="/post/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian.html">
+                <a href="/post/grafana-no-matches-for-kind-podsecuritypolicy-error.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="cast Type Conversion Library - Recommended Go Library">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="How to fix the &#34;no matches for kind &#34;PodSecurityPolicy&#34; in version &#34;policy/v1beta1&#34; error in Grafana">
                         
-                        <span class="card-title">cast Type Conversion Library - Recommended Go Library</span>
+                        <span class="card-title">How to fix the &#34;no matches for kind &#34;PodSecurityPolicy&#34; in version &#34;policy/v1beta1&#34; error in Grafana</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -471,9 +471,9 @@ SDS is an abstract type built by Redis, mainly used to store Redis’ default st
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-28
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -482,11 +482,16 @@ SDS is an abstract type built by Redis, mainly used to store Redis’ default st
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/golang/">
-                        <span class="chip bg-color">golang</span>
+                    <a href="/tags/devops/">
+                        <span class="chip bg-color">devops</span>
+                    </a>
+                    
+                    <a href="/tags/k8s/">
+                        <span class="chip bg-color">k8s</span>
                     </a>
                     
                 </div>
@@ -500,13 +505,13 @@ SDS is an abstract type built by Redis, mainly used to store Redis’ default st
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/post/go-de-channel-xiang-jie.html">
+                <a href="/post/install-fluxcd-in-k8s-1-25-5.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Explanation of Go channels">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="install fluxcd in k8s 1.25.5">
                         
-                        <span class="card-title">Explanation of Go channels</span>
+                        <span class="card-title">install fluxcd in k8s 1.25.5</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -530,8 +535,12 @@ SDS is an abstract type built by Redis, mainly used to store Redis’ default st
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/golang/">
-                        <span class="chip bg-color">golang</span>
+                    <a href="/tags/devops/">
+                        <span class="chip bg-color">devops</span>
+                    </a>
+                    
+                    <a href="/tags/k8s/">
+                        <span class="chip bg-color">k8s</span>
                     </a>
                     
                 </div>

@@ -6,7 +6,7 @@
   <link href="https://perror.dev/atom.xml" rel="self"/>
   
   <link href="https://perror.dev/"/>
-  <updated>2023-02-27T09:37:16.187Z</updated>
+  <updated>2023-02-28T02:13:55.193Z</updated>
   <id>https://perror.dev/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>How to fix the &quot;no matches for kind &quot;PodSecurityPolicy&quot; in version &quot;policy/v1beta1&quot; error in Grafana</title>
+    <link href="https://perror.dev/post/grafana-no-matches-for-kind-podsecuritypolicy-error.html"/>
+    <id>https://perror.dev/post/grafana-no-matches-for-kind-podsecuritypolicy-error.html</id>
+    <published>2023-02-28T09:53:09.000Z</published>
+    <updated>2023-02-28T02:13:55.193Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;After upgrading the cluster to Kubernetes 1.25, if Grafana was deployed previously with &lt;code&gt;rbac.spsEnabled=true&lt;/code&gt; enabled, the</summary>
+        
+      
+    
+    
+    
+    
+    <category term="devops" scheme="https://perror.dev/tags/devops/"/>
+    
+    <category term="k8s" scheme="https://perror.dev/tags/k8s/"/>
+    
+  </entry>
+  
+  <entry>
     <title>install fluxcd in k8s 1.25.5</title>
     <link href="https://perror.dev/post/install-fluxcd-in-k8s-1-25-5.html"/>
     <id>https://perror.dev/post/install-fluxcd-in-k8s-1-25-5.html</id>
     <published>2023-02-18T18:04:41.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
@@ -48,7 +73,7 @@
     <link href="https://perror.dev/post/mysql-error-rec-cc-391-thread.html"/>
     <id>https://perror.dev/post/mysql-error-rec-cc-391-thread.html</id>
     <published>2023-02-18T18:04:12.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
@@ -71,7 +96,7 @@
     <link href="https://perror.dev/post/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace.html"/>
     <id>https://perror.dev/post/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace.html</id>
     <published>2023-02-18T18:03:14.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
@@ -100,7 +125,7 @@
     <link href="https://perror.dev/post/k8s-pvc-zi-dong-kuo-rong-shi-jian.html"/>
     <id>https://perror.dev/post/k8s-pvc-zi-dong-kuo-rong-shi-jian.html</id>
     <published>2023-02-18T17:54:22.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
@@ -125,7 +150,7 @@
     <link href="https://perror.dev/post/redis-de-yi-xie-xiao-zhi-shi.html"/>
     <id>https://perror.dev/post/redis-de-yi-xie-xiao-zhi-shi.html</id>
     <published>2023-02-18T17:53:52.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
@@ -148,7 +173,7 @@
     <link href="https://perror.dev/post/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian.html"/>
     <id>https://perror.dev/post/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian.html</id>
     <published>2023-02-18T17:53:10.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
@@ -171,7 +196,7 @@
     <link href="https://perror.dev/post/sds-xiang-jie.html"/>
     <id>https://perror.dev/post/sds-xiang-jie.html</id>
     <published>2023-02-18T17:52:22.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
@@ -195,7 +220,7 @@
     <link href="https://perror.dev/post/go-de-channel-xiang-jie.html"/>
     <id>https://perror.dev/post/go-de-channel-xiang-jie.html</id>
     <published>2023-02-18T17:51:42.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
@@ -218,7 +243,7 @@
     <link href="https://perror.dev/post/io-duo-lu-fu-yong-shi-jian.html"/>
     <id>https://perror.dev/post/io-duo-lu-fu-yong-shi-jian.html</id>
     <published>2023-02-18T17:51:02.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
@@ -241,7 +266,7 @@
     <link href="https://perror.dev/post/dict.html"/>
     <id>https://perror.dev/post/dict.html</id>
     <published>2023-02-18T17:47:55.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
@@ -264,7 +289,7 @@
     <link href="https://perror.dev/post/python-shen-kao-bei-qian-kao-bei.html"/>
     <id>https://perror.dev/post/python-shen-kao-bei-qian-kao-bei.html</id>
     <published>2023-02-18T17:46:25.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
@@ -288,7 +313,7 @@
     <link href="https://perror.dev/post/hou-duan-chuan-gei-qian-duan-int-lei-xing-shu-ju-zi-zeng-huo-zi-jian.html"/>
     <id>https://perror.dev/post/hou-duan-chuan-gei-qian-duan-int-lei-xing-shu-ju-zi-zeng-huo-zi-jian.html</id>
     <published>2018-03-16T19:53:35.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
@@ -311,7 +336,7 @@
     <link href="https://perror.dev/post/python-nei-zhi-han-shu.html"/>
     <id>https://perror.dev/post/python-nei-zhi-han-shu.html</id>
     <published>2017-12-15T17:21:05.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
@@ -337,7 +362,7 @@
     <link href="https://perror.dev/post/aiohttp-asyncio-runtimeerror.html"/>
     <id>https://perror.dev/post/aiohttp-asyncio-runtimeerror.html</id>
     <published>2017-07-13T11:04:10.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
@@ -360,7 +385,7 @@
     <link href="https://perror.dev/post/liu-chang-de-python-dict-de-you-dian-yi-ji-que-dian.html"/>
     <id>https://perror.dev/post/liu-chang-de-python-dict-de-you-dian-yi-ji-que-dian.html</id>
     <published>2017-06-17T13:38:13.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
@@ -385,7 +410,7 @@
     <link href="https://perror.dev/post/liu-chang-de-python-zi-dian-zhong-de-san-lie-biao.html"/>
     <id>https://perror.dev/post/liu-chang-de-python-zi-dian-zhong-de-san-lie-biao.html</id>
     <published>2017-06-15T22:27:44.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
@@ -408,7 +433,7 @@
     <link href="https://perror.dev/post/liu-chang-de-python-te-shu-fang-fa.html"/>
     <id>https://perror.dev/post/liu-chang-de-python-te-shu-fang-fa.html</id>
     <published>2017-06-15T21:23:39.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
@@ -431,7 +456,7 @@
     <link href="https://perror.dev/post/python-gen-ju-exif-xin-xi-xuan-zhuan-tu-pian.html"/>
     <id>https://perror.dev/post/python-gen-ju-exif-xin-xi-xuan-zhuan-tu-pian.html</id>
     <published>2017-06-08T00:10:49.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
@@ -454,7 +479,7 @@
     <link href="https://perror.dev/post/python-de-gao-ji-yong-fa-namedtuple.html"/>
     <id>https://perror.dev/post/python-de-gao-ji-yong-fa-namedtuple.html</id>
     <published>2017-06-07T23:47:00.000Z</published>
-    <updated>2023-02-27T09:37:16.187Z</updated>
+    <updated>2023-02-28T02:13:55.193Z</updated>
     
     
       
