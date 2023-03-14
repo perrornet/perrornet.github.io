@@ -4,7 +4,7 @@
   <url>
     <loc>https://perror.dev/post/io-duo-lu-fu-yong-shi-jian.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -13,7 +13,7 @@
   <url>
     <loc>https://perror.dev/post/aiohttp-asyncio-runtimeerror.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -22,7 +22,7 @@
   <url>
     <loc>https://perror.dev/post/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -31,7 +31,7 @@
   <url>
     <loc>https://perror.dev/post/dict.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -40,7 +40,7 @@
   <url>
     <loc>https://perror.dev/post/go-de-channel-xiang-jie.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -49,7 +49,7 @@
   <url>
     <loc>https://perror.dev/post/grafana-no-matches-for-kind-podsecuritypolicy-error.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -58,7 +58,7 @@
   <url>
     <loc>https://perror.dev/post/install-fluxcd-in-k8s-1-25-5.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -67,7 +67,7 @@
   <url>
     <loc>https://perror.dev/post/k8s-pvc-zi-dong-kuo-rong-shi-jian.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -76,7 +76,7 @@
   <url>
     <loc>https://perror.dev/post/mysql-error-rec-cc-391-thread.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -85,7 +85,7 @@
   <url>
     <loc>https://perror.dev/post/python-nei-zhi-han-shu.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -94,7 +94,7 @@
   <url>
     <loc>https://perror.dev/post/python-gen-ju-exif-xin-xi-xuan-zhuan-tu-pian.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -103,7 +103,7 @@
   <url>
     <loc>https://perror.dev/post/python-shen-kao-bei-qian-kao-bei.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -112,7 +112,7 @@
   <url>
     <loc>https://perror.dev/post/python-de-gao-ji-yong-fa-namedtuple.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -121,7 +121,7 @@
   <url>
     <loc>https://perror.dev/post/redis-de-yi-xie-xiao-zhi-shi.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -130,7 +130,16 @@
   <url>
     <loc>https://perror.dev/post/sds-xiang-jie.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://perror.dev/post/shi-yong-velero-bei-fen-gke-ji-qun.html</loc>
+    
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -139,7 +148,7 @@
   <url>
     <loc>https://perror.dev/post/hou-duan-chuan-gei-qian-duan-int-lei-xing-shu-ju-zi-zeng-huo-zi-jian.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -148,7 +157,7 @@
   <url>
     <loc>https://perror.dev/post/ru-he-qing-li-kubernetes-namespace-zhong-de-finalizers-bing-cheng-gong-shan-chu-argocd-namespace.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -157,7 +166,7 @@
   <url>
     <loc>https://perror.dev/post/liu-chang-de-python-dict-de-you-dian-yi-ji-que-dian.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -166,7 +175,7 @@
   <url>
     <loc>https://perror.dev/post/liu-chang-de-python-zi-dian-zhong-de-san-lie-biao.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -175,7 +184,7 @@
   <url>
     <loc>https://perror.dev/post/liu-chang-de-python-te-shu-fang-fa.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -184,7 +193,7 @@
   <url>
     <loc>https://perror.dev/404/index.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -193,7 +202,7 @@
   <url>
     <loc>https://perror.dev/about/index.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -202,7 +211,7 @@
   <url>
     <loc>https://perror.dev/categories/index.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -211,7 +220,7 @@
   <url>
     <loc>https://perror.dev/tags/index.html</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -220,7 +229,7 @@
 
   <url>
     <loc>https://perror.dev/</loc>
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -228,49 +237,49 @@
   
   <url>
     <loc>https://perror.dev/tags/python/</loc>
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://perror.dev/tags/bug/</loc>
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://perror.dev/tags/golang/</loc>
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://perror.dev/tags/devops/</loc>
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://perror.dev/tags/k8s/</loc>
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://perror.dev/tags/%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://perror.dev/tags/redis/</loc>
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
