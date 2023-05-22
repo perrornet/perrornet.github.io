@@ -18,3 +18,5 @@ tags:
 5. 该代码在[chunk-vendors.2e7c88f1.js](https://github.com/flipped-aurora/gin-vue-admin/blob/main/server/resource/page/js/chunk-vendors.2e7c88f1.js)中，但是由于作者没有写上任何关于该文件的来源（没有版本号、commit hash），但是可以了解到这是可以正常运行的。
 6. 那么为什么`1..valueOf`会被改成`1 .valueOf`这样了？只有一种可能那就是又被压缩了，于是发现了[chunk-vendors.2e7c88f1.js](https://github.com/flipped-aurora/gin-vue-admin/blob/main/server/resource/page/js/chunk-vendors.2e7c88f1.js)根本没有直接输出，而最后`1 .valueOf`代码是由vite生成的于是上面的debug步骤作废。
 7. 于是发现了https://cn.vitejs.dev/config/build-options.html#build-minify 文档中显示默认使用了esbuild来压缩文件，于是尝试着使用terser来压缩文件，问题解决。
+
+最后吐槽一下js的语法都是什么神操作，`1 .valueOf`这样的东西都能够正常运行，前端难做啊😯
