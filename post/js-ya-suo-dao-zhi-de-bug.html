@@ -271,14 +271,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    531
+                    567
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    1 Min
+                    2 Min
                 </div>
                 
 
@@ -306,6 +306,7 @@
 <li>那么为什么<code>1..valueOf</code>会被改成<code>1 .valueOf</code>这样了？只有一种可能那就是又被压缩了，于是发现了<a target="_blank" rel="noopener" href="https://github.com/flipped-aurora/gin-vue-admin/blob/main/server/resource/page/js/chunk-vendors.2e7c88f1.js">chunk-vendors.2e7c88f1.js</a>根本没有直接输出，而最后<code>1 .valueOf</code>代码是由vite生成的于是上面的debug步骤作废。</li>
 <li>于是发现了<a target="_blank" rel="noopener" href="https://cn.vitejs.dev/config/build-options.html#build-minify">https://cn.vitejs.dev/config/build-options.html#build-minify</a> 文档中显示默认使用了esbuild来压缩文件，于是尝试着使用terser来压缩文件，问题解决。</li>
 </ol>
+<p>最后吐槽一下js的语法都是什么神操作，<code>1 .valueOf</code>这样的东西都能够正常运行，前端难做啊😯</p>
 
                 
             </div>
