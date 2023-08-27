@@ -11,7 +11,7 @@
 删除所有 configmap。
 删除所有 namespace。
 
-&amp;amp;nbsp;&amp;amp;nbsp;然而，我发现在删除 namespace 时">
+&amp;nbsp;&amp;nbsp;然而，我发现在删除 namespace 时出现了问题。尝试">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -281,7 +281,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    361
+                    357
                 </div>
                 
 
@@ -312,7 +312,7 @@
 <li>删除所有 <code>configmap</code>。</li>
 <li>删除所有 <code>namespace</code>。</li>
 </ol>
-<p>&amp;nbsp;&amp;nbsp;然而，我发现在删除 <code>namespace</code> 时出现了问题。尝试了官方提供的命令<br><code>kubectl delete -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml</code><br>但是 <code>namespace</code> 删除仍然被卡住了。我注意到该 <code>namespace</code> 下存在多个 <code>argoproj.io/v1alpha1/applications</code> 资源，并且所有资源都包含一个 <code>finalizers</code> 字段。通过搜索引擎，我了解到只有删除所有资源 YAML 文件中的 <code>finalizers</code> 字段才能解决 <code>namespace</code> 删除被卡住的问题。因此，我直接删除了 <code>finalizers</code> 字段并更新了所有资源，直到所有资源都被修改好为止。最终，<code>namespace</code> 能够被成功删除。<br>&amp;nbsp;&amp;nbsp;在 Kubernetes 中，删除某些资源时，这些资源可能具有关联的其他资源，这些关联资源需要被清理，以便能够顺利删除要删除的资源。当某个 <code>namespace</code> 中存在关联资源时，删除该 <code>namespace</code> 可能会失败。在这种情况下，Kubernetes 会在 <code>namespace</code> 对应的 <code>finalizers</code> 列表中添加一些条目，以确保所有关联资源被清理，然后再删除 <code>namespace</code>。在删除 <code>namespace</code> 时，Kubernetes 会检查 <code>finalizers</code> 列表中的所有条目，确保这些条目对应的所有资源已被清理，然后才会继续删除 <code>namespace</code>。</p>
+<p>&nbsp;&nbsp;然而，我发现在删除 <code>namespace</code> 时出现了问题。尝试了官方提供的命令<br><code>kubectl delete -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml</code><br>但是 <code>namespace</code> 删除仍然被卡住了。我注意到该 <code>namespace</code> 下存在多个 <code>argoproj.io/v1alpha1/applications</code> 资源，并且所有资源都包含一个 <code>finalizers</code> 字段。通过搜索引擎，我了解到只有删除所有资源 YAML 文件中的 <code>finalizers</code> 字段才能解决 <code>namespace</code> 删除被卡住的问题。因此，我直接删除了 <code>finalizers</code> 字段并更新了所有资源，直到所有资源都被修改好为止。最终，<code>namespace</code> 能够被成功删除。<br>&nbsp;&nbsp;在 Kubernetes 中，删除某些资源时，这些资源可能具有关联的其他资源，这些关联资源需要被清理，以便能够顺利删除要删除的资源。当某个 <code>namespace</code> 中存在关联资源时，删除该 <code>namespace</code> 可能会失败。在这种情况下，Kubernetes 会在 <code>namespace</code> 对应的 <code>finalizers</code> 列表中添加一些条目，以确保所有关联资源被清理，然后再删除 <code>namespace</code>。在删除 <code>namespace</code> 时，Kubernetes 会检查 <code>finalizers</code> 列表中的所有条目，确保这些条目对应的所有资源已被清理，然后才会继续删除 <code>namespace</code>。</p>
 
                 
             </div>
@@ -710,7 +710,7 @@
 <!--             <br> -->
 <!--              -->
 <!--                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;Total Words:&nbsp;<span -->
-<!--                         class="white-color">14.4k</span> -->
+<!--                         class="white-color">15.5k</span> -->
 <!--              -->
 <!--              -->
 <!--              -->

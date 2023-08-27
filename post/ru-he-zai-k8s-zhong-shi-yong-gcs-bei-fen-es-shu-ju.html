@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="cast Type Conversion Library - Recommended Go Library, golang,python,devops,k8s,kube">
-    <meta name="description" content="In Go language, type conversion is a frequently used operation, but converting values between different types requires i">
+    <meta name="keywords" content="如何在k8s中使用GCS备份ES数据, golang,python,devops,k8s,kube">
+    <meta name="description" content="Elasticsearch 是一个超级炫酷的开源搜索引擎，可以在各种不同的环境中使用。为了妥善保管数据，就必须得备份 ES 集群数据。鉴于公司的 k8s 集群部署在 GCP 上，自然而然想到了使用 GCS 作为备份数据存储，为了做到这一步需">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -28,7 +28,7 @@
 </script>
 
 
-    <title>cast Type Conversion Library - Recommended Go Library | Perror</title>
+    <title>如何在k8s中使用GCS备份ES数据 | Perror</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -217,12 +217,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">cast Type Conversion Library - Recommended Go Library</h1>
+                    <h1 class="description center-align post-title">如何在k8s中使用GCS备份ES数据</h1>
                 </div>
             </div>
         </div>
@@ -246,8 +246,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/golang/">
-                                <span class="chip bg-color">golang</span>
+                            <a href="/tags/devops/">
+                                <span class="chip bg-color">devops</span>
+                            </a>
+                        
+                            <a href="/tags/k8s/">
+                                <span class="chip bg-color">k8s</span>
                             </a>
                         
                     </div>
@@ -262,7 +266,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2023-02-18
+                    2023-08-27
                 </div>
                 
 
@@ -271,14 +275,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    334
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    2 Min
+                    5 Min
                 </div>
                 
 
@@ -296,59 +300,222 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>In Go language, type conversion is a frequently used operation, but converting values between different types requires importing different libraries, which can be relatively cumbersome. However, the <code>cast</code> library solves this problem and provides many type conversion functions, usually only requiring the import of this one library.</p>
-<p>The <code>cast</code> library not only provides conversions between common types, such as int to string, but also provides more complex type conversions, such as converting a time string to the <code>time.Time</code> type. In addition, it provides two conversion functions, one only returns the zero value of that type without returning an error, and the other returns an error, so developers can choose to use it according to their actual needs.</p>
-<p>Here are some commonly used APIs:</p>
-<ul>
-<li><code>cast.StringToDate</code>: Converts common time strings to the <code>time.Time</code> type.</li>
-</ul>
-<pre class="line-numbers language-none"><code class="language-none">fmt.Println(cast.StringToDate("2006-01-02 15:04:05"))
-// output: 2006-01-02 15:04:05 +0000 UTC &lt;nil&gt;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+                <p>Elasticsearch 是一个超级炫酷的开源搜索引擎，可以在各种不同的环境中使用。为了妥善保管数据，就必须得备份 ES 集群数据。鉴于公司的 k8s 集群部署在 GCP 上，自然而然想到了使用 GCS 作为备份数据存储，为了做到这一步需要以下步骤：</p>
+<ol>
+<li>创建一个服务帐号供 repository-gcs 插件使用，一定要注意这个服务账号必须要有gcs的权限。</li>
+<li>创建一个脚本，该脚本需要创建备份repository、检查备份任务等等。</li>
+</ol>
+<h3 id="配置-GCS-存储桶"><a href="#配置-GCS-存储桶" class="headerlink" title="配置 GCS 存储桶"></a>配置 GCS 存储桶</h3><p>首先，需要创建一个 GCS 存储桶并配置访问权限。还需要创建一个用于备份的服务账号，并赋予它存储桶的写入权限。最后，在 k8s 中配置该服务账号的密钥，以便可以使用它来访问 GCS。(由于公司集群就在GCP上部署，所以我没有这样做，而是使用了<a target="_blank" rel="noopener" href="https://cloud.google.com/iam/docs/workload-identity-federation?hl=zh-cn">工作负载身份联合</a>)</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Secret
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> gcs<span class="token punctuation">-</span>credentials
+<span class="token key atrule">type</span><span class="token punctuation">:</span> Opaque
+<span class="token key atrule">stringData</span><span class="token punctuation">:</span>
+  <span class="token key atrule">credentials.json</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+    {
+      "type": "service_account",
+      "project_id": "my-project",
+      "private_key_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "private_key": "-----BEGIN PRIVATE KEY-----\\nMIIEvQIBADANBgkqhkiG9w0B...",
+      "client_email": "my-service-account@my-project.iam.gserviceaccount.com",
+      "client_id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+      "token_uri": "https://accounts.google.com/o/oauth2/token",
+      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+      "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/my-service-account%40my-project.iam.gserviceaccount.com"
+    }</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<ul>
-<li><code>cast.ToBoolSlice</code>: Converts an array of any type to the <code>[]bool</code> type.</li>
-</ul>
-<pre class="line-numbers language-none"><code class="language-none">fmt.Println(cast.ToBoolSlice([]interface{}{1,2,0,true, false}))
-// output: [true true false true false]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="配置-ES-集群"><a href="#配置-ES-集群" class="headerlink" title="配置 ES 集群"></a>配置 ES 集群</h2><p>然后需要在 ES 集群中配置 GCS 备份。可以使用<code>repository-gcs</code> 插件来实现。该插件可以将 ES 数据备份到 GCS 存储桶中，并从存储桶中恢复数据。需要在每个 ES 节点上安装该插件，并在集群配置文件中添加 GCS 存储桶的详细信息。</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> elasticsearch.k8s.elastic.co/v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> Elasticsearch
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> elastic
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">nodeSets</span><span class="token punctuation">:</span>
+			<span class="token punctuation">...</span>
+      <span class="token key atrule">podTemplate</span><span class="token punctuation">:</span>
+        <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+          <span class="token key atrule">serviceAccountName</span><span class="token punctuation">:</span> es <span class="token comment"># 使用了[工作负载身份联合](https://cloud.google.com/iam/docs/workload-identity-federation?hl=zh-cn)</span>
+					<span class="token punctuation">...</span>
+          <span class="token key atrule">initContainers</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> install<span class="token punctuation">-</span>plugins <span class="token comment"># 安装插件</span>
+              <span class="token key atrule">command</span><span class="token punctuation">:</span>
+                <span class="token punctuation">-</span> sh
+                <span class="token punctuation">-</span> <span class="token punctuation">-</span>c
+                <span class="token punctuation">-</span> <span class="token punctuation">|</span><span class="token scalar string">
+                  bin/elasticsearch-plugin install --batch repository-gcs</span>
+						<span class="token punctuation">...</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<ul>
-<li><code>cast.ToBool</code>: Converts any type to the <code>bool</code> type.</li>
-</ul>
-<pre class="line-numbers language-none"><code class="language-none">fmt.Println(cast.ToBool(1)) // output:true
-fmt.Println(cast.ToBool(0)) // output: false
-fmt.Println(cast.ToBool("")) // output: false
-fmt.Println(cast.ToBool("0")) // output: false
-fmt.Println(cast.ToBool("1")) // output: true
-fmt.Println(cast.ToBool("true")) // output: true
-fmt.Println(cast.ToBool("false")) // output: false
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="创建备份计划"><a href="#创建备份计划" class="headerlink" title="创建备份计划"></a>创建备份计划</h2><p>由于我们需要让es开启定期备份所以我们需要使用一个脚本，在ES启动后检查该任务是否存在，如果不存在则创建，为了能够将该脚本在ES中使用，我们需要为该脚本创建一个configmap。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token parameter variable">-z</span> <span class="token string">"<span class="token variable">$ES_URL</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token assign-left variable">ES_URL</span><span class="token operator">=</span><span class="token string">"http://localhost:9200"</span>
+<span class="token keyword">fi</span>
 
-<ul>
-<li><code>cast.ToString</code>: Converts any type to a string type.</li>
-</ul>
-<pre class="line-numbers language-none"><code class="language-none">cast.ToString("mayonegg")         // "mayonegg"
-cast.ToString(8)                  // "8"
-cast.ToString(8.31)               // "8.31"
-cast.ToString([]byte("one time")) // "one time"
-cast.ToString(nil)        // "nil"
-var foo interface{} = "one more time"
-cast.ToString(foo)                // "one more time"
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token parameter variable">-z</span> <span class="token string">"<span class="token variable">$ES_USERNAME</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token builtin class-name">echo</span> <span class="token string">"ES_USERNAME is not set"</span>
+  <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token keyword">fi</span>
 
-<ul>
-<li><code>cast.ToStringMap</code>: Converts a map of any type to <code>map[string]interface{}</code>.</li>
-</ul>
-<pre class="line-numbers language-none"><code class="language-none">fmt.Println(cast.ToStringMap(map[interface{}]interface{}{
-    1:2,
-    "2":3,
-    true:1,
-}))
- // output: map[1:2 2:3 true:1]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token parameter variable">-z</span> <span class="token string">"<span class="token variable">$ES_PASSWORD</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token builtin class-name">echo</span> <span class="token string">"ES_PASSWORD is not set"</span>
+  <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token keyword">fi</span>
 
-<p>More APIs can be found in its documentation: <a target="_blank" rel="noopener" href="https://github.com/spf13/cast">https://github.com/spf13/cast</a></p>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token parameter variable">-z</span> <span class="token string">"<span class="token variable">$BUCKET</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token assign-left variable">BUCKET</span><span class="token operator">=</span><span class="token string">"es-backup"</span>
+<span class="token keyword">fi</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token parameter variable">-z</span> <span class="token string">"<span class="token variable">$BASE_PATH</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token assign-left variable">BASE_PATH</span><span class="token operator">=</span><span class="token string">"backup"</span>
+<span class="token keyword">fi</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token parameter variable">-z</span> <span class="token string">"<span class="token variable">$SNAPSHOT_NAME</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token assign-left variable">SNAPSHOT_NAME</span><span class="token operator">=</span><span class="token string">"test"</span>
+<span class="token keyword">fi</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token parameter variable">-z</span> <span class="token string">"<span class="token variable">$SCHEDULE</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token assign-left variable">SCHEDULE</span><span class="token operator">=</span><span class="token string">"0 0 14 * * ?"</span> <span class="token comment"># 每天14点执行</span>
+<span class="token keyword">fi</span>
+
+<span class="token assign-left variable">AUTH</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> <span class="token parameter variable">-n</span> <span class="token string">"<span class="token variable">$ES_USERNAME</span>:<span class="token variable">$ES_PASSWORD</span>"</span> <span class="token operator">|</span> base64<span class="token variable">)</span></span>
+<span class="token keyword">while</span> <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> <span class="token parameter variable">-s</span> <span class="token parameter variable">-o</span> /dev/null <span class="token parameter variable">-w</span> <span class="token string">"%{http_code}"</span> <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Basic <span class="token variable">$AUTH</span>"</span> $ES_URL<span class="token variable">)</span></span>"</span> <span class="token operator">!=</span> <span class="token string">"200"</span> <span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">do</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">"Elasticsearch is not ready yet"</span>
+    <span class="token function">sleep</span> <span class="token number">1</span>
+<span class="token keyword">done</span>
+<span class="token builtin class-name">echo</span> <span class="token string">"Elasticsearch is up and running!"</span>
+
+<span class="token comment"># 检查_snapshot/$SNAPSHOT_NAME是否存在，如果不存在则创建</span>
+<span class="token assign-left variable">resp</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> <span class="token parameter variable">-s</span> <span class="token parameter variable">-o</span> /dev/null <span class="token parameter variable">-w</span> <span class="token string">"%{http_code}"</span> <span class="token parameter variable">-X</span> GET  <span class="token string">"<span class="token variable">$ES_URL</span>/_snapshot/<span class="token variable">$SNAPSHOT_NAME</span>"</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">-H</span> <span class="token string">"Accept: application/json"</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Basic <span class="token variable">$AUTH</span>"</span><span class="token variable">)</span></span>
+
+<span class="token keyword">if</span> <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token variable">$resp</span> <span class="token operator">==</span> <span class="token string">"200"</span> <span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$SNAPSHOT_NAME</span> snapshot already exists."</span>
+<span class="token keyword">else</span>
+    <span class="token function">curl</span> <span class="token parameter variable">-s</span> <span class="token parameter variable">-o</span> /dev/null <span class="token parameter variable">-w</span> <span class="token string">"%{http_code}"</span> <span class="token parameter variable">-X</span> PUT <span class="token string">"<span class="token variable">$ES_URL</span>/_snapshot/<span class="token variable">$SNAPSHOT_NAME</span>"</span> <span class="token punctuation">\</span>
+        <span class="token parameter variable">-H</span> <span class="token string">"Accept: application/json"</span> <span class="token punctuation">\</span>
+        <span class="token parameter variable">-H</span> <span class="token string">"content-type: application/json"</span> <span class="token punctuation">\</span>
+        <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Basic <span class="token variable">$AUTH</span>"</span> <span class="token punctuation">\</span>
+        <span class="token parameter variable">-d</span> <span class="token string">"{
+            <span class="token entity" title="\&quot;">\"</span>type<span class="token entity" title="\&quot;">\"</span>: <span class="token entity" title="\&quot;">\"</span>gcs<span class="token entity" title="\&quot;">\"</span>,
+            <span class="token entity" title="\&quot;">\"</span>settings<span class="token entity" title="\&quot;">\"</span>: {
+              <span class="token entity" title="\&quot;">\"</span>bucket<span class="token entity" title="\&quot;">\"</span>: <span class="token entity" title="\&quot;">\"</span><span class="token variable">$BUCKET</span><span class="token entity" title="\&quot;">\"</span>,
+              <span class="token entity" title="\&quot;">\"</span>base_path<span class="token entity" title="\&quot;">\"</span>: <span class="token entity" title="\&quot;">\"</span><span class="token variable">$BASE_PATH</span><span class="token entity" title="\&quot;">\"</span>
+            }
+          }"</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-q</span> <span class="token string">"200"</span> <span class="token operator">||</span> <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$SNAPSHOT_NAME</span> snapshot has been created."</span>
+<span class="token keyword">fi</span>
+
+<span class="token comment"># 检查snapshot policy是否存在，如果不存在则创建</span>
+<span class="token assign-left variable">resp</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> <span class="token parameter variable">-s</span> <span class="token parameter variable">-o</span> /dev/null <span class="token parameter variable">-w</span> <span class="token string">"%{http_code}"</span> <span class="token parameter variable">-X</span> GET  <span class="token string">"<span class="token variable">$ES_URL</span>/_slm/policy/<span class="token variable">$SNAPSHOT_NAME</span>-snapshots"</span> <span class="token punctuation">\</span>
+           <span class="token parameter variable">-H</span> <span class="token string">"Accept: application/json"</span> <span class="token punctuation">\</span>
+           <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Basic <span class="token variable">$AUTH</span>"</span><span class="token variable">)</span></span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token variable">$resp</span> <span class="token operator">==</span> <span class="token string">"200"</span> <span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$SNAPSHOT_NAME</span>-snapshots snapshot policy already exists."</span>
+<span class="token keyword">else</span>
+    <span class="token function">curl</span> <span class="token parameter variable">-s</span> <span class="token parameter variable">-o</span> /dev/null <span class="token parameter variable">-w</span> <span class="token string">"%{http_code}"</span> <span class="token parameter variable">-X</span> PUT  <span class="token string">"<span class="token variable">$ES_URL</span>/_slm/policy/<span class="token variable">$SNAPSHOT_NAME</span>-snapshots"</span> <span class="token punctuation">\</span>
+        <span class="token parameter variable">-H</span> <span class="token string">"Accept: application/json"</span> <span class="token punctuation">\</span>
+        <span class="token parameter variable">-H</span> <span class="token string">"content-type: application/json"</span> <span class="token punctuation">\</span>
+        <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Basic <span class="token variable">$AUTH</span>"</span> <span class="token punctuation">\</span>
+        <span class="token parameter variable">-d</span> <span class="token string">"{
+            <span class="token entity" title="\&quot;">\"</span>schedule<span class="token entity" title="\&quot;">\"</span>: <span class="token entity" title="\&quot;">\"</span><span class="token variable">$SCHEDULE</span><span class="token entity" title="\&quot;">\"</span>,
+            <span class="token entity" title="\&quot;">\"</span>name<span class="token entity" title="\&quot;">\"</span>: <span class="token entity" title="\&quot;">\"</span>&lt;<span class="token variable">$SNAPSHOT_NAME</span>-snapshots-{now/d/H}&gt;<span class="token entity" title="\&quot;">\"</span>,
+            <span class="token entity" title="\&quot;">\"</span>repository<span class="token entity" title="\&quot;">\"</span>: <span class="token entity" title="\&quot;">\"</span><span class="token variable">$SNAPSHOT_NAME</span><span class="token entity" title="\&quot;">\"</span>,
+            <span class="token entity" title="\&quot;">\"</span>config<span class="token entity" title="\&quot;">\"</span>: {
+                <span class="token entity" title="\&quot;">\"</span>expand_wildcards<span class="token entity" title="\&quot;">\"</span>: <span class="token entity" title="\&quot;">\"</span>all<span class="token entity" title="\&quot;">\"</span>,
+                <span class="token entity" title="\&quot;">\"</span>ignore_unavailable<span class="token entity" title="\&quot;">\"</span>: true,
+                <span class="token entity" title="\&quot;">\"</span>include_global_state<span class="token entity" title="\&quot;">\"</span>: false
+            },
+            <span class="token entity" title="\&quot;">\"</span>retention<span class="token entity" title="\&quot;">\"</span>: {
+              <span class="token entity" title="\&quot;">\"</span>expire_after<span class="token entity" title="\&quot;">\"</span>: <span class="token entity" title="\&quot;">\"</span>30d<span class="token entity" title="\&quot;">\"</span>,
+              <span class="token entity" title="\&quot;">\"</span>min_count<span class="token entity" title="\&quot;">\"</span>: 5,
+              <span class="token entity" title="\&quot;">\"</span>max_count<span class="token entity" title="\&quot;">\"</span>: 50
+            }
+          }"</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-q</span> <span class="token string">"200"</span> <span class="token operator">||</span> <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$SNAPSHOT_NAME</span>-snapshots snapshot policy has been created."</span>
+<span class="token keyword">fi</span>
+
+<span class="token builtin class-name">echo</span> <span class="token string">"sleep forever"</span>
+<span class="token function">sleep</span> infinity<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>最终的ES配置文件为：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: elastic
+spec:
+  nodeSets:
+    - name: default
+      count: <span class="token number">1</span>
+      config:
+        action.destructive_requires_name: <span class="token boolean">true</span>
+        cluster.max_shards_per_node: <span class="token number">4000</span>
+      volumeClaimTemplates:
+        - metadata:
+            name: elasticsearch-data
+          spec:
+            accessModes: <span class="token punctuation">[</span><span class="token string">"ReadWriteOnce"</span><span class="token punctuation">]</span>
+            storageClassName: premium-rwo
+            resources:
+              requests:
+                storage: 200Gi
+      podTemplate:
+        spec:
+          serviceAccountName: es-backup
+          volumes:
+            - name: create-elasticsearch-snapshot-entrypoint <span class="token comment"># 引入脚本configmap</span>
+              configMap:
+                name: create-elasticsearch-snapshot-script
+                defaultMode: 0744
+          initContainers:
+            - name: install-plugins
+              command:
+                - <span class="token function">sh</span>
+                - <span class="token parameter variable">-c</span>
+                - <span class="token operator">|</span>
+                  bin/elasticsearch-plugin <span class="token function">install</span> <span class="token parameter variable">--batch</span> repository-gcs
+          containers:
+            - name: elasticsearch
+              resources:
+                requests:
+                  memory: 6Gi
+                  cpu: 2000m
+                limits:
+                  memory: 8Gi
+                  cpu: 4000m
+            - name: create-elasticsearch-snapshot <span class="token comment"># 创建任务脚本配置</span>
+              image: curlimages/curl:8.2.1
+              command:
+                - <span class="token function">sh</span>
+                - <span class="token parameter variable">-c</span>
+                - <span class="token function">sh</span> /usr/local/bin/create_elasticsearch_snapshot.sh
+              env:
+                - name: ES_URL
+                  value: <span class="token string">"http://localhost:9200"</span>
+                - name: ES_USERNAME
+                  value: <span class="token string">"elastic"</span>
+                - name: ES_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: elastic-subscan-es-elastic-user
+                      key: elastic
+                - name: BUCKET
+                  value: <span class="token string">"es-backup"</span>
+                - name: BASE_PATH
+                  value: <span class="token string">"staging"</span>
+                - name: SNAPSHOT_NAME
+                  value: <span class="token string">"test"</span>
+                - name: SCHEDULE
+                  value: <span class="token string">"0 0 14 * * ?"</span> <span class="token comment"># 每天14点执行</span>
+              volumeMounts:
+                - name: create-elasticsearch-snapshot-entrypoint
+                  mountPath: /usr/local/bin/create_elasticsearch_snapshot.sh
+                  subPath: entrypoint.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在确保 ES 数据备份安全的同时，我们还可以将备份数据用于测试和开发环境。此外，我们可以在 GCS 存储桶中设置生命周期规则以自动删除旧备份，从而节省存储空间。</p>
 
                 
             </div>
@@ -375,7 +542,7 @@ cast.ToString(foo)                // "one more time"
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://perror.dev/post/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian.html">https://perror.dev/post/cast-lei-xing-zhuan-huan-ku-go-ku-tui-jian.html</a>
+                    <a href="https://perror.dev/post/ru-he-zai-k8s-zhong-shi-yong-gcs-bei-fen-es-shu-ju.html">https://perror.dev/post/ru-he-zai-k8s-zhong-shi-yong-gcs-bei-fen-es-shu-ju.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -413,8 +580,12 @@ cast.ToString(foo)                // "one more time"
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/golang/">
-                                    <span class="chip bg-color">golang</span>
+                                <a href="/tags/devops/">
+                                    <span class="chip bg-color">devops</span>
+                                </a>
+                            
+                                <a href="/tags/k8s/">
+                                    <span class="chip bg-color">k8s</span>
                                 </a>
                             
                         </div>
@@ -460,17 +631,18 @@ cast.ToString(foo)                // "one more time"
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
-                <a href="/post/redis-de-yi-xie-xiao-zhi-shi.html">
+                <a href="/post/ru-he-zai-k8s-zhong-shi-yong-gcs-bei-fen-es-shu-ju.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="redis的一些小知识">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="如何在k8s中使用GCS备份ES数据">
                         
-                        <span class="card-title">redis的一些小知识</span>
+                        <span class="card-title">如何在k8s中使用GCS备份ES数据</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -480,9 +652,9 @@ cast.ToString(foo)                // "one more time"
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-27
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -491,11 +663,16 @@ cast.ToString(foo)                // "one more time"
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/redis/">
-                        <span class="chip bg-color">redis</span>
+                    <a href="/tags/devops/">
+                        <span class="chip bg-color">devops</span>
+                    </a>
+                    
+                    <a href="/tags/k8s/">
+                        <span class="chip bg-color">k8s</span>
                     </a>
                     
                 </div>
@@ -509,13 +686,13 @@ cast.ToString(foo)                // "one more time"
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/post/sds-xiang-jie.html">
+                <a href="/post/js-ya-suo-dao-zhi-de-bug.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Understanding Redis SDS">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="js压缩导致的BUG">
                         
-                        <span class="card-title">Understanding Redis SDS</span>
+                        <span class="card-title">js压缩导致的BUG</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -526,7 +703,7 @@ cast.ToString(foo)                // "one more time"
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-02-18
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-22
                             </span>
                         <span class="publish-author">
                             
@@ -539,8 +716,8 @@ cast.ToString(foo)                // "one more time"
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/redis/">
-                        <span class="chip bg-color">redis</span>
+                    <a href="/tags/%E5%89%8D%E7%AB%AF/">
+                        <span class="chip bg-color">前端</span>
                     </a>
                     
                 </div>
